@@ -1,0 +1,121 @@
+﻿@using GezginTravel.Constants
+
+@{
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+
+    string MenuClass(string controller)
+    {
+        var baseClass = "flex items-center gap-3 px-4 py-3 rounded-lg transition-all scale-95 active:scale-90";
+
+        if (string.Equals(currentController, controller, StringComparison.OrdinalIgnoreCase))
+        {
+            return $"{baseClass} text-primary font-bold border-r-4 border-primary bg-primary-fixed-dim/20";
+        }
+
+        return $"{baseClass} text-on-surface-variant hover:bg-surface-variant";
+    }
+}
+
+<nav id="sidebar" class="bg-surface-container fixed left-0 top-0 bottom-0 h-full w-64 shadow-sm flex flex-col z-40 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out">
+
+    <div class="p-4 flex flex-col items-center border-b border-surface-variant">
+        <div class="w-20 h-20 rounded-full bg-surface-container-highest overflow-hidden mb-2">
+            <img class="w-full h-full object-cover" src="/images/logo.png" alt="Gezgin Travel Logo" />
+        </div>
+
+        <h1 class="font-montserrat text-2xl font-bold text-primary text-center">
+            Gezgin Travel
+        </h1>
+
+        <p class="text-sm text-on-surface-variant text-center">
+            Admin Dashboard
+        </p>
+    </div>
+
+    <div class="flex-1 overflow-y-auto py-4">
+        <ul class="flex flex-col gap-1 px-4">
+
+            <li>
+                <a asp-controller="AdminDashboard" asp-action="Index" class="@MenuClass("AdminDashboard")">
+                    <span class="material-symbols-outlined">dashboard</span>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+
+            <li>
+                <a asp-controller="AdminUser" asp-action="Index" class="@MenuClass("AdminUser")">
+                    <span class="material-symbols-outlined">group</span>
+                    <span>Kullanıcı Yönetimi</span>
+                </a>
+            </li>
+
+            <li>
+                <a asp-controller="AdminBlog" asp-action="Index" class="@MenuClass("AdminBlog")">
+                    <span class="material-symbols-outlined">article</span>
+                    <span>Blog Yönetimi</span>
+                </a>
+            </li>
+
+            <li>
+                <a asp-controller="AdminCategory" asp-action="Index" class="@MenuClass("AdminCategory")">
+                    <span class="material-symbols-outlined">category</span>
+                    <span>Kategori Yönetimi</span>
+                </a>
+            </li>
+
+            <li>
+                <a asp-controller="AdminTag" asp-action="Index" class="@MenuClass("AdminTag")">
+                    <span class="material-symbols-outlined">sell</span>
+                    <span>Etiket Yönetimi</span>
+                </a>
+            </li>
+
+            <li>
+                <a asp-controller="AdminLocation" asp-action="Index" class="@MenuClass("AdminLocation")">
+                    <span class="material-symbols-outlined">location_on</span>
+                    <span>Lokasyon Yönetimi</span>
+                </a>
+            </li>
+
+            <li>
+                <a asp-controller="AdminComment" asp-action="Index" class="@MenuClass("AdminComment")">
+                    <span class="material-symbols-outlined">comment</span>
+                    <span>Yorum Yönetimi</span>
+                </a>
+            </li>
+
+            <li>
+                <a asp-controller="" asp-action="Index" class="@MenuClass("AdminStatistics")">
+                    <span class="material-symbols-outlined">insert_chart</span>
+                    <span>İstatistikler</span>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+
+    <div class="p-4 border-t border-surface-variant">
+        <ul class="flex flex-col gap-1 px-4">
+
+            <li>
+                <a asp-controller="AdminSettings" asp-action="Index" class="@MenuClass("AdminSettings")">
+                    <span class="material-symbols-outlined">settings</span>
+                    <span>Ayarlar</span>
+                </a>
+            </li>
+
+            <li>
+                <form asp-controller="Account" asp-action="Logout" method="post">
+                    @Html.AntiForgeryToken()
+
+                    <button type="submit"
+                            class="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-error hover:bg-error-container transition-all scale-95 active:scale-90">
+                        <span class="material-symbols-outlined">logout</span>
+                        <span>Çıkış Yap</span>
+                    </button>
+                </form>
+            </li>
+
+        </ul>
+    </div>
+</nav>

@@ -1,0 +1,41 @@
+﻿@using GezginTravel.ViewModels.Dashboard.Author
+@model AuthorDashboardViewModel
+
+@{
+    ViewData["Title"] = "Yazar Dashboard";
+}
+
+<div class="container mt-4">
+    <h2>Yazar Dashboard</h2>
+    <p>Kendi blog istatistiklerin</p>
+
+    <div class="row g-3">
+        <div class="col-md-3">
+            <div class="card p-3">
+                <h5>Bloglarım</h5>
+                <h3>@Model.MyBlogCount</h3>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card p-3">
+                <h5>Görüntülenme</h5>
+                <h3>@Model.TotalViews</h3>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card p-3">
+                <h5>Beğeni</h5>
+                <h3>@Model.TotalLikes</h3>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card p-3">
+                <h5>Trend Ortalama</h5>
+                <h3>@Model.AverageTrendScore</h3>
+            </div>
+        </div>
+    </div>
+</div>

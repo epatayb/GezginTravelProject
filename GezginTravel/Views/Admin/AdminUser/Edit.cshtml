@@ -1,0 +1,16 @@
+﻿@model GezginTravel.Models.Identity.AppUser
+
+@{
+    ViewData["Title"] = "Kullanıcı Düzenle";
+    Layout = "~/Views/Admin/Shared/_AdminLayout.cshtml";
+}
+
+<h2 class="text-3xl font-bold mb-6">Kullanıcı Düzenle</h2>
+
+<div class="bg-surface rounded-xl border border-surface-variant p-6">
+    <p>@Model.FirstName @Model.LastName kullanıcısı düzenlenecek.</p>
+</div>
+
+<a asp-action="Index" asp-controller="AdminUser" class="inline-block mt-4 text-primary font-bold">
+    Kullanıcı listesine dön
+</a>

@@ -1,0 +1,99 @@
+﻿@{
+    ViewData["Title"] = "Hakkımızda";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<body class="bg-surface text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container">
+<main class="min-h-screen">
+<!-- Hero Banner -->
+<section class="relative w-full h-[614px] md:h-[716px] flex items-center justify-center overflow-hidden">
+<div class="absolute inset-0 bg-surface-container-highest">
+<div class="w-full h-full bg-cover bg-center absolute inset-0" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDLQ2tJ0AJQYACz5ssU_6Te6ejNYhPUlaKJKXvgCIyb3E2fQV-Pu-J_B7S_rKab_6vs2Ar9wry1UpgLFrBJrGXeGWtlSbktrHLJ-qBIrZpHSMU4JtTrk_Y6dX-FXkNJNX6kWhHMWabE8J94lt1ZKE2kQO0GOaBkOZ3vBIoz5uyqMO4Xe8gUuRRWqZUKXp1zvpSI5WffUoWs5FrlR6OsV3jyQOIqSRzTQSR0e4Zbli7fZsUXg93NzVjwsyYUUjLNVvOrNBnvMINupVhc')"></div>
+<div class="absolute inset-0 bg-black/40"></div> <!-- Dark overlay for text readability -->
+</div>
+<div class="relative z-10 text-center px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto flex flex-col items-center">
+<h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-primary mb-6 drop-shadow-md max-w-3xl">
+                    Dünyayı Keşfet, Hikayeni Paylaş
+                </h1>        
+<p class="font-body-lg text-body-lg text-surface-container-low max-w-2xl drop-shadow">
+                    Dünyanın her köşesinden tutkulu gezginleri bir araya getiren, keşfetmenin ve paylaşmanın gücüne inanan bir topluluğuz.
+                </p>
+</div>
+</section>
+<!-- Biz Kimiz? (Who We Are) -->
+<section class="py-16 md:py-24 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter items-center">
+<div class="relative rounded-xl overflow-hidden shadow-sm group">
+<img class="w-full h-auto object-cover aspect-[4/3] transform group-hover:scale-105 transition-transform duration-700 ease-in-out" data-alt="A candid, high-quality editorial photo of two friends looking over a sprawling map on the hood of a vintage off-road vehicle. They are parked on a scenic coastal cliff overlooking a deep blue sea. The mood is adventurous, joyful, and focused on exploration. Warm, natural sunlight." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWMmt3EfHIxM_JVc9phlNpn10nPWrEShogq1HNhlv7mKKlT6P0qex8XdLuGPJ1iSuhRvG-YoQp-zUF5Lo0xN90WvK43HYkiRnc7d2CDQVmO3w4Wk2cO8Fgp1MQUBsRnURYhDdEofl14z4dbo37KBtWQZGpJH5tGa9Kh0eV7GMPCNG24tgydh688_aHB0nJ45xo4QlZDCZu-47SWGsZCEgU4CrAjYM3sDr7_b-u4l5YJWg0B6KYDtUyaIcB8BFRQW03Xv5o5iNmCZyh"/>
+<div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-6 text-on-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<p class="font-label-caps text-label-caps">Keşfetmeye Hazır</p>
+</div>
+</div>
+<div class="flex flex-col justify-center">
+<h2 class="font-headline-md text-headline-md text-primary mb-6">Biz Kimiz?</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">
+                        <strong>Gezgin</strong>, sadece bir seyahat blogu değil, aynı zamanda dünyanın sunduğu güzellikleri deneyimlemek ve bu deneyimleri anlamlı bir şekilde aktarmak isteyenler için tasarlanmış dijital bir sığınaktır. İster karlı zirvelere tırmanın, ister gizli kalmış sahil kasabalarında kaybolun; her adımın anlatılmaya değer bir hikayesi olduğuna inanıyoruz.
+                    </p>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                        Amacımız, farklı kültürleri, sıra dışı rotaları ve ilham verici insan manzaralarını bir araya getirerek, bir sonraki maceranız için size cesaret vermektir. Burada, sınırların ötesine geçen bir topluluğun parçasısınız.
+                    </p>
+</div>
+</div>
+</section>
+<!-- Misyonumuz (Our Mission) -->
+<section class="py-16 md:py-24 bg-surface-container-low">
+<div class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="text-center mb-16">
+<h2 class="font-headline-md text-headline-md text-primary mb-4">Misyonumuz</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl mx-auto">Seyahatin sadece yer değiştirmek değil, dünyayı ve kendimizi anlama yolculuğu olduğuna inanıyoruz.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Card 1 -->
+<div class="bg-surface p-8 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 border-b-2 border-transparent hover:border-primary flex flex-col items-center text-center">
+<div class="w-16 h-16 bg-primary-container/20 rounded-full flex items-center justify-center mb-6 text-primary">
+<span class="material-symbols-outlined" style="font-size: 32px;">explore</span>
+</div>
+<h3 class="font-body-lg text-body-lg font-semibold text-on-surface mb-3">Gizli Cevherleri Keşfetmek</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Turistik rotaların dışına çıkarak, dünyanın saklı kalmış köşelerini, yerel kültürleri ve otantik deneyimleri gün yüzüne çıkarıyoruz.</p>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface p-8 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 border-b-2 border-transparent hover:border-primary flex flex-col items-center text-center">
+<div class="w-16 h-16 bg-secondary-container/20 rounded-full flex items-center justify-center mb-6 text-secondary">
+<span class="material-symbols-outlined" style="font-size: 32px;">nature_people</span>
+</div>
+<h3 class="font-body-lg text-body-lg font-semibold text-on-surface mb-3">Sürdürülebilir Seyahat</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Doğaya, yerel halka ve mirasa saygı duyan bir seyahat anlayışını benimsiyor, çevre dostu rotaları ve bilinçli tüketimi destekliyoruz.</p>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface p-8 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 border-b-2 border-transparent hover:border-primary flex flex-col items-center text-center">
+<div class="w-16 h-16 bg-tertiary-container/20 rounded-full flex items-center justify-center mb-6 text-tertiary">
+<span class="material-symbols-outlined" style="font-size: 32px;">forum</span>
+</div>
+<h3 class="font-body-lg text-body-lg font-semibold text-on-surface mb-3">Topluluk Odaklı Hikayecilik</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Herkesin benzersiz bir bakış açısı vardır. Deneyimlerinizi paylaşabileceğiniz ve diğer gezginlerden ilham alabileceğiniz açık bir platform sunuyoruz.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- İstatistikler (Statistics) -->
+<section class="py-16 bg-primary text-on-primary">
+<div class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-primary-fixed-dim/30">
+<div class="py-4">
+<div class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg mb-2">10K+</div>
+<div class="font-label-caps text-label-caps text-primary-fixed">Yayınlanan Hikaye</div>
+</div>
+<div class="py-4">
+<div class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg mb-2">500+</div>
+<div class="font-label-caps text-label-caps text-primary-fixed">Keşfedilen Rota</div>
+</div>
+<div class="py-4">
+<div class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg mb-2">50K+</div>
+<div class="font-label-caps text-label-caps text-primary-fixed">Aktif Gezgin</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+</body>
+

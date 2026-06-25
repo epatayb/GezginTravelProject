@@ -1,0 +1,376 @@
+﻿@model GezginTravel.ViewModels.Dashboard.Admin.AdminUserIndexViewModel
+
+@{
+    ViewData["Title"] = "Kullanıcı Yönetimi";
+    Layout = "~/Views/Admin/Shared/_AdminLayout.cshtml";
+}
+
+<div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+    <div>
+        <h2 class="font-montserrat text-3xl font-bold text-on-background">
+            Kullanıcı Yönetimi
+        </h2>
+        <p class="text-on-surface-variant mt-1">
+            Sistemdeki kullanıcıları, yazarları ve admin hesaplarını yönetin.
+        </p>
+    </div>
+
+    <div class="flex items-center gap-3">
+        <a asp-controller="AdminUser" asp-action="Create"
+           class="bg-primary text-on-primary px-6 py-2 rounded-full font-bold hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-sm flex items-center gap-2">
+            <span class="material-symbols-outlined text-[18px]">person_add</span>
+            Kullanıcı Ekle
+        </a>
+    </div>
+</div>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="mb-4 rounded-lg bg-green-100 text-green-800 px-4 py-3">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="mb-4 rounded-lg bg-red-100 text-red-800 px-4 py-3">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <div class="bg-surface p-5 rounded-xl shadow-sm border border-surface-variant">
+        <p class="text-xs text-on-surface-variant uppercase font-bold tracking-wider">
+            Toplam Kullanıcı
+        </p>
+        <h3 class="text-2xl font-bold text-on-background mt-1">
+            @Model.TotalUsers
+        </h3>
+    </div>
+
+    <div class="bg-surface p-5 rounded-xl shadow-sm border border-surface-variant">
+        <p class="text-xs text-on-surface-variant uppercase font-bold tracking-wider">
+            Aktif Kullanıcı
+        </p>
+        <h3 class="text-2xl font-bold text-on-background mt-1">
+            @Model.ActiveUsers
+        </h3>
+    </div>
+
+    <div class="bg-surface p-5 rounded-xl shadow-sm border border-surface-variant">
+        <p class="text-xs text-on-surface-variant uppercase font-bold tracking-wider">
+            Pasif Kullanıcı
+        </p>
+        <h3 class="text-2xl font-bold text-on-background mt-1">
+            @Model.SuspendedUsers
+        </h3>
+    </div>
+
+    <div class="bg-surface p-5 rounded-xl shadow-sm border border-surface-variant">
+        <p class="text-xs text-on-surface-variant uppercase font-bold tracking-wider">
+            Yazar
+        </p>
+        <h3 class="text-2xl font-bold text-on-background mt-1">
+            @Model.TotalAuthors
+        </h3>
+    </div>
+</div>
+
+<div class="bg-surface rounded-xl shadow-sm border border-surface-container-high overflow-hidden">
+
+    <div class="p-6 border-b border-surface-container-high bg-surface-container-low">
+        <form method="get" asp-controller="AdminUser" asp-action="Index" class="flex flex-col md:flex-row gap-4 md:items-center justify-between">
+
+            <div class="flex flex-col md:flex-row gap-3 w-full xl:max-w-2xl">
+                <div class="relative flex-1">
+                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">
+                        search
+                    </span>
+
+                    <input name="searchText"
+                           value="@Model.SearchText"
+                           class="pl-10 pr-4 py-2 bg-surface rounded-full border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary text-sm w-full shadow-sm transition-all"
+                           placeholder="Kullanıcı ara..." />
+                </div>
+
+                <a asp-controller="AdminUser" asp-action="Index"
+                   class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-surface border border-outline-variant text-on-surface-variant hover:bg-surface-variant transition-colors font-bold whitespace-nowrap">
+                    <span class="material-symbols-outlined text-[18px]">mop</span>
+                    Temizle
+                </a>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3 sm:items-center">
+                <select name="role"
+                        class="bg-surface rounded-full border border-outline-variant px-5 py-3 text-sm min-w-[190px] focus:border-primary focus:ring-primary shadow-sm">
+                    <option value="">Roller</option>
+
+                    @foreach (var role in Model.Roles)
+                    {
+                        if (Model.SelectedRole == role)
+                        {
+                            <option value="@role" selected>@role</option>
+                        }
+                        else
+                        {
+                            <option value="@role">@role</option>
+                        }
+                    }
+                </select>
+
+                <button type="submit"
+                        class="bg-primary text-on-primary rounded-full px-6 py-3 font-bold hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-sm">
+                    Filtrele
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+            <thead>
+                <tr class="bg-surface-container-low border-b border-surface-container-high">
+                    <th class="px-6 py-4 text-xs text-on-surface-variant uppercase tracking-wider">
+                        Kullanıcı
+                    </th>
+                    <th class="px-6 py-4 text-xs text-on-surface-variant uppercase tracking-wider">
+                        E-posta
+                    </th>
+                    <th class="px-6 py-4 text-xs text-on-surface-variant uppercase tracking-wider">
+                        Rol
+                    </th>
+                    <th class="px-6 py-4 text-xs text-on-surface-variant uppercase tracking-wider text-center">
+                        Toplam Blog
+                    </th>
+                    <th class="px-6 py-4 text-xs text-on-surface-variant uppercase tracking-wider text-center">
+                        Trend Score
+                    </th>
+                    <th class="px-6 py-4 text-xs text-on-surface-variant uppercase tracking-wider">
+                        Durum
+                    </th>
+                    <th class="px-6 py-4 text-xs text-on-surface-variant uppercase tracking-wider text-right">
+                        İşlemler
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody class="divide-y divide-surface-container-high">
+                @if (Model.Users.Any())
+                {
+                    foreach (var user in Model.Users)
+                    {
+                        var roleClass = user.PrimaryRole switch
+                        {
+                            "Admin" => "bg-primary/10 text-primary border-primary/20",
+                            "Author" => "bg-secondary-container/30 text-on-secondary-container border-secondary-container",
+                            "User" => "bg-surface-variant text-on-surface-variant border-outline-variant",
+                            _ => "bg-surface-variant text-on-surface-variant border-outline-variant"
+                        };
+
+                        <tr class="hover:bg-surface-container-lowest transition-colors group @(user.IsSuspended ? "opacity-70" : "")">
+                            <td class="px-6 py-4">
+                                <div class="flex items-center gap-4">
+                                    <div class="h-10 w-10 rounded-full overflow-hidden bg-surface-container border-2 border-white shadow-sm flex-shrink-0">
+                                        <img src="/uploads/users/@user.PhotoUrl"
+                                             alt="@user.FullName"
+                                             class="w-full h-full object-cover @(user.IsSuspended ? "grayscale" : "")" />
+                                    </div>
+
+                                    <div>
+                                        <div class="font-bold text-on-surface">
+                                            @user.FullName
+                                        </div>
+
+                                        <div class="text-sm text-on-surface-variant">
+                                            @@@user.UserName · @user.CreatedAt.ToString("dd.MM.yyyy")
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+
+                            <td class="px-6 py-4 text-on-surface-variant">
+                                @user.Email
+                            </td>
+
+                            <td class="px-6 py-4">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold border @roleClass">
+                                    @user.PrimaryRole
+                                </span>
+                            </td>
+
+                            <td class="px-6 py-4 text-center font-bold text-on-surface">
+                                @user.TotalBlogs
+                            </td>
+
+                            <td class="px-6 py-4 text-on-surface-variant">
+                                @user.PopularityScore
+                            </td>
+
+                            <td class="px-6 py-4">
+                                @if (user.IsSuspended)
+                                {
+                                    <span class="inline-flex items-center gap-1.5 text-sm text-error">
+                                        <span class="h-2 w-2 rounded-full bg-error"></span>
+                                        Pasif
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="inline-flex items-center gap-1.5 text-sm text-on-surface">
+                                        <span class="h-2 w-2 rounded-full bg-secondary"></span>
+                                        Aktif
+                                    </span>
+                                }
+                            </td>
+
+                            <td class="px-6 py-4 text-right">
+                                <div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <a asp-controller="AdminUser"
+                                       asp-action="Detail"
+                                       asp-route-id="@user.Id"
+                                       class="p-2 text-on-surface-variant hover:text-primary transition-colors rounded-full hover:bg-surface-container-low"
+                                       title="Profili Gör">
+                                        <span class="material-symbols-outlined text-[20px]">visibility</span>
+                                    </a>
+
+                                    <a asp-controller="AdminUser"
+                                       asp-action="Edit"
+                                       asp-route-id="@user.Id"
+                                       class="p-2 text-on-surface-variant hover:text-secondary transition-colors rounded-full hover:bg-surface-container-low"
+                                       title="Kullanıcıyı Düzenle">
+                                        <span class="material-symbols-outlined text-[20px]">edit</span>
+                                    </a>
+
+                                    @if (user.IsSuspended)
+                                    {
+                                        <form asp-controller="AdminUser" 
+                                              asp-action="Restore" 
+                                              asp-route-id="@user.Id" 
+                                              method="post">
+                                            @Html.AntiForgeryToken()
+
+                                            <button type="submit"
+                                                    class="p-2 text-on-surface-variant hover:text-secondary transition-colors rounded-full hover:bg-secondary-container"
+                                                    title="Kullanıcıyı Aktif Et">
+                                                <span class="material-symbols-outlined text-[20px]">settings_backup_restore</span>
+                                            </button>
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        <form asp-controller="AdminUser" 
+                                              asp-action="Disable" 
+                                              asp-route-id="@user.Id" 
+                                              method="post"
+                                              onsubmit="return confirm('Bu kullanıcıyı pasifleştirmek istiyor musunuz?');">
+                                            @Html.AntiForgeryToken()
+
+                                            <button type="submit"
+                                                    class="p-2 text-on-surface-variant hover:text-error transition-colors rounded-full hover:bg-error-container"
+                                                    title="Kullanıcıyı Pasifleştir">
+                                                <span class="material-symbols-outlined text-[20px]">block</span>
+                                            </button>
+                                        </form>
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6" class="px-6 py-8 text-center text-on-surface-variant">
+                            Kullanıcı bulunamadı.
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="border-t border-surface-container-high px-6 py-4 flex flex-col md:flex-row md:items-center justify-between gap-4 bg-surface-container-low">
+        <span class="text-sm text-on-surface-variant">
+            @if (Model.TotalItems > 0)
+            {
+                var startItem = ((Model.CurrentPage - 1) * Model.PageSize) + 1;
+                var endItem = Math.Min(Model.CurrentPage * Model.PageSize, Model.TotalItems);
+
+                <p>
+                    @startItem - @endItem arası gösteriliyor.
+                </p>
+                <p>
+                    Toplam @Model.TotalItems kullanıcı.
+                </p>
+            }
+            else
+            {
+                <span>Gösterilecek kullanıcı yok.</span>
+            }
+        </span>
+
+        @if (Model.TotalPages > 1)
+        {
+            <div class="flex item-center gap-2">
+
+                @if (Model.HasPreviousPage)
+                {
+                    <a asp-controller="AdminUser"
+                       asp-action="Index"
+                       asp-route-page="@(Model.CurrentPage - 1)"
+                       asp-route-searchText="@Model.SearchText"
+                       asp-route-role="@Model.SelectedRole"
+                       class="p-2 rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-variant transition-colors">
+                        <span class="material-symbols-outlined text-[20px]">chevron_left</span>
+                    </a>
+                }
+                else
+                {
+                    <button class="p-2 rounded-lg border border-outline-variant text-on-surface-variant opacity-50" disabled>
+                        <span class="material-symbols-outlined text-[20px]">chevron_left</span>
+                    </button>
+                }
+
+                @for (var i = 1; i <= Model.TotalPages; i++)
+                {
+                    if (i == Model.CurrentPage)
+                    {
+                        <span class="w-8 h-8 rounded-lg bg-primary text-on-primary font-bold text-sm flex items-center justify-center">
+                            @i
+                        </span>
+                    }
+                    else
+                    {
+                        <a asp-controller="AdminUser"
+                           asp-action="Index"
+                           asp-route-page="@i"
+                           asp-route-searchText="@Model.SearchText"
+                           asp-route-role="@Model.SelectedRole"
+                           class="w-8 h-8 rounded-lg hover:bg-surface-variant text-on-surface font-bold text-sm flex items-center justify-center transition-colors">
+                            @i
+                        </a>
+                    }
+                }
+
+                @if (Model.HasNextPage)
+                {
+                    <a asp-controller="AdminUser"
+                       asp-action="Index"
+                       asp-route-page="@(Model.CurrentPage + 1)"
+                       asp-route-searchText="@Model.SearchText"
+                       asp-route-role="@Model.SelectedRole"
+                       class="p-2 rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-variant transition-colors">
+                        <span class="material-symbols-outlined text-[20px]">chevron_right</span>
+                    </a>
+                }
+                else
+                {
+                    <button class="p-2 rounded-lg border border-outline-variant text-on-surface-variant opacity-50" disabled>
+                        <span class="material-symbols-outlined text-[20px]">chevron_right</span>
+                    </button>
+                }
+            </div>
+        }
+    </div>
+</div>

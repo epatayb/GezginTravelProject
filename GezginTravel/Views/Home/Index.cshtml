@@ -1,0 +1,256 @@
+﻿@{
+    ViewData["Title"] = "Ana Sayfa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<a asp-controller="AdminUser" asp-action="Index">admin</a>
+<main class="flex-grow flex flex-col w-full">
+    <!--Hero Section-->
+    <section class="relative w-full h-[716px] min-h-[500px] flex items-center justify-center overflow-hidden">
+        <!--Full Bleed Background Image -->
+        <div class="absolute inset-0 w-full h-full">
+            <img alt="Hero background" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8CCuggXavUOKw-OQwuTKr2z_L1IFt4IOJTg14tYrN2q-kCXZUczESePggSPBYjatxZqtAHB81IhNzzkTZnJ5UNca-lwYLLbKhQK7wh1EkYjlWQWNxdEtUvHqrZQ0GSYNwfiGjhfHbXI2BPkvUpWw-UPu7V9OihEjbc0yB_FNefZfA-kKxMuOnaLATgBV3wUzQ7CLWMNz7Dv5EPY9t0FBIfZgl98lqG-swkn5n0r8wjaNO_tYcVYDVGL1POzO9R6ZxpA3ZA5-BSk2Z" />
+            <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-surface-container-lowest/90"></div>
+        </div>
+        <!--Hero Content-->
+        <div class="relative z-10 text-center px-margin-mobile md:px-margin-desktop w-full max-w-3xl mt-12 md:mt-0">
+            <h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-white mb-6 drop-shadow-md">
+
+                Where will your next journey take you?
+
+            </h1>
+            <p class="font-body-lg text-body-lg text-white/90 mb-10 max-w-xl mx-auto drop-shadow">
+                Dünya'nın dört bir yanından gezginlerin ilham verici hikayelerini okuyarak gizli kalmış güzellikleri keşfedin, kendi maceranızı planlayın ve seyahat tutkunuzu paylaşın.
+            </p>
+            <!--Search / Filter Bar(Hero)-->
+            <div class="glass-panel rounded-full p-2 flex flex-col md:flex-row items-center gap-2 max-w-2xl mx-auto shadow-lg">
+                <div class="flex-grow w-full md:w-auto relative flex items-center bg-white rounded-full px-4 py-3 md:py-2">
+                    <span class="material-symbols-outlined text-secondary mr-3" data-icon="location_on"> location_on </span>
+                    <input class="w-full bg-transparent border-none focus:ring-0 text-on-surface placeholder-on-surface-variant font-body-md text-body-md p-0 h-8" placeholder="Ülke, şehir veya bölge arayın..." type="text" />
+                </div>
+                <button class="w-full md:w-auto bg-primary hover:bg-on-primary-container text-on-primary px-8 py-3 rounded-full font-headline-md text-body-md font-semibold transition-colors flex items-center justify-center gap-2 h-full">
+                    <span class="material-symbols-outlined" data-icon="travel_explore">
+                        travel_explore
+                    </span>
+                    Keşfet
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Stories Section -->
+    <section class="py-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto w-full bg-surface">
+        <div class="flex justify-between items-end mb-12">
+            <div>
+                <h2 class="font-headline-md text-headline-md text-on-surface mb-2">Featured Stories</h2>
+                <p class="font-body-md text-body-md text-on-surface-variant">Handpicked adventures from the community.</p>
+            </div>
+            <a class="hidden md:flex items-center gap-2 text-primary hover:text-primary-container font-body-md text-body-md font-medium transition-colors" href="#">
+                View all stories <span class="material-symbols-outlined text-[20px]" data-icon="arrow_forward">arrow_forward</span>
+            </a>
+        </div>
+        <!-- Bento Grid / Asymmetric Layout -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+            <!-- Large Featured Post (Spans 8 cols on desktop) -->
+            <article class="col-span-1 md:col-span-8 group rounded-xl overflow-hidden bg-white shadow-tonal-1 card-interaction flex flex-col cursor-pointer h-[500px] relative border border-surface-variant/50">
+                <div class="absolute inset-0 w-full h-full">
+                    <img alt="Boat on a clear lake" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A stunning, high-contrast photograph of a small wooden boat floating on a crystal-clear, deep blue alpine lake. Majestic, snow-capped mountains rise sharply in the background under a pristine sky. The lighting is bright and sunny, highlighting the vibrant 'Deep Sea Blue' of the water and the crisp white of the snow. The mood is serene and awe-inspiring, perfect for a modern travel editorial." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgHQCwODfNxyMTtDlf4zipEovXRUrE4RWzD53G2fLUc_pK8SlUpCWc4LGgEnbQwZggsLAfUmHkPXpZ4dyAQJnrueEB8kBo4dojgJoKt-PjSR6WTP5CJkUq4vfCBY5vGFixWNgIBKTRRWHsM14zmu1MaO4pz-yWM312KF8maL3wnsyRkxNnBimcCPvMw8J6Q06BwnHQvforU3e2RaGI9nQhrst4l465wvfhvB5JaEARHHkRWpOC7-e_h11Ydh3_PbQ7L_W6Ko6kA8E9">
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                <!-- Top Category Chip -->
+                <div class="absolute top-6 left-6 z-10">
+                    <span class="bg-secondary-container/90 backdrop-blur-sm text-on-secondary-container px-3 py-1 rounded-full font-label-caps text-label-caps uppercase tracking-wider">
+                        #Alpine Lakes
+                    </span>
+                </div>
+                <!-- Content (Bottom) -->
+                <div class="absolute bottom-0 left-0 w-full p-8 z-10 text-white flex flex-col justify-end">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="material-symbols-outlined text-primary bg-white/20 p-1.5 rounded-full backdrop-blur-md" data-icon="map">map</span>
+                        <span class="font-label-caps text-label-caps tracking-widest uppercase text-white/90">Dolomites, Italy • 4 Day Route</span>
+                    </div>
+                    <h3 class="font-display-lg-mobile text-display-lg-mobile leading-tight mb-4 group-hover:text-primary-fixed-dim transition-colors">
+                        Navigating the Crystal Waters of Lago di Braies
+                    </h3>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <img alt="Author" class="w-10 h-10 rounded-full border-2 border-white object-cover shadow-sm" data-alt="A headshot of a male traveler with a slight beard, wearing a casual jacket, smiling warmly outdoors. The background is slightly blurred nature. Clean, professional lighting, suitable for an author profile." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZJaRoKKvbTeuEx7SwQjXpVLcKLGURQX2Qs9TncOZSsi3iuY6dYs8CliXXAS_jy-KtD4JVSGCNJC4HRPOp6oNhTZ3WNHJtIBih-BZdQoTwZHFtliTATQstGMEFonNepzc6_JcrUsRVs_EJk5WEe7MGAayDJyUz6W45xt3lAzF4QLCegVxfaMugLt3T6iOmLRtLWthvTTEX2QPKhgq2CPngF9zMfIFv6I5A4uyeZO8Qkncq5ghqZOryfCDBy7Jr5K2FrYoPySqdAEqm">
+                            <div>
+                                <p class="font-body-md text-[14px] font-semibold text-white">Marco Rossi</p>
+                                <p class="font-body-md text-[12px] text-white/70">Published 2 days ago</p>
+                            </div>
+                        </div>
+                        <button class="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 text-white w-10 h-10 rounded-full flex items-center justify-center transition-colors">
+                            <span class="material-symbols-outlined" data-icon="bookmark_border">bookmark_border</span>
+                        </button>
+                    </div>
+                </div>
+            </article>
+            <!-- Smaller Posts Stack (Spans 4 cols) -->
+            <div class="col-span-1 md:col-span-4 flex flex-col gap-gutter">
+                <!-- Card 2 -->
+                <article class="group rounded-xl overflow-hidden bg-white shadow-tonal-1 card-interaction flex flex-col cursor-pointer h-[calc(250px-12px)] relative border border-surface-variant/50">
+                    <div class="h-full w-full absolute inset-0">
+                        <img alt="Venice canals" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A picturesque, narrow canal in Venice, Italy, lined with historic, colorful terracotta and ochre buildings. A classic black gondola is gently navigating the waterway. The lighting is soft, warm late-afternoon sun, creating beautiful reflections on the water. The mood is romantic and classic travel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBz0mT-7tn32HV9ncDoHWho9jTjZnvDxAmLBZoAeyNwaw7ar0-8qzBVR7KUPaqHGuOZqq0lngGzRnTFT5igEA8-NAjKYrNk73ybF80HYR9UL6ajiNEi9og7GnTtXiJYn8i2ltLn0ZqyGairxGKCSOYM8wBXLNDGNcoLu5sD4CZ48L17tDwmSOfjiqauP__Y2u1XnzEyqgQVrAEE9e-17T26823GQB-tnpq_670zXn9OiScKzZdKd1N5Gz3JULckX_wQwvA_83MHtsvi">
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+                    <div class="absolute top-4 left-4 z-10">
+                        <span class="bg-secondary-container/90 backdrop-blur-sm text-on-secondary-container px-2 py-0.5 rounded-full font-label-caps text-[10px] font-bold uppercase tracking-wider">
+                            #City Escape
+                        </span>
+                    </div>
+                    <div class="absolute bottom-0 left-0 w-full p-4 z-10 text-white">
+                        <h3 class="font-headline-md text-[20px] leading-tight mb-2 group-hover:text-primary-fixed-dim transition-colors line-clamp-2">
+                            Getting Lost in the Labyrinth of Venice
+                        </h3>
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary text-[16px]" data-icon="explore">explore</span>
+                            <span class="font-label-caps text-[10px] tracking-widest uppercase text-white/80">Veneto Region</span>
+                        </div>
+                    </div>
+                </article>
+                <!-- Card 3 -->
+                <article class="group rounded-xl overflow-hidden bg-white shadow-tonal-1 card-interaction flex flex-col cursor-pointer h-[calc(250px-12px)] relative border border-surface-variant/50">
+                    <div class="h-full w-full absolute inset-0">
+                        <img alt="Tropical beach" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A wide, sweeping shot of a pristine, white-sand tropical beach meeting vibrant turquoise ocean waters. Lush green palm trees frame the edges. The sky is bright blue with scattered fluffy white clouds. The overall aesthetic is vibrant, clean, and highly saturated, evoking a sense of perfect relaxation and exotic adventure." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYsiF3G73AszkygQPRlZBfVL0egRDI8-DqBdPbEPUzkzhi7wiPFAyLYFoejDB7Q2xPJyP0PwTcDGvz8D3-UoiWo7pF-uzpnN2h6Yls8eDGbFcfhUGsTPIB-EDuA3cE9Stb1ITt8-TUkcnFRsRS9-2AQUSPcwT4BH-axJR_taFgiG8HQwrQVEdT_8OLgDD6ErYBaSdRnuiy0cDtuHQPsR_Xwkq46-aDKbwZqAar-q-JFRUCT4Yrd2LeRpi82FMBt5bBW5b6T1fVyoRJ">
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+                    <div class="absolute top-4 left-4 z-10">
+                        <span class="bg-secondary-container/90 backdrop-blur-sm text-on-secondary-container px-2 py-0.5 rounded-full font-label-caps text-[10px] font-bold uppercase tracking-wider">
+                            #Coastal
+                        </span>
+                    </div>
+                    <div class="absolute bottom-0 left-0 w-full p-4 z-10 text-white">
+                        <h3 class="font-headline-md text-[20px] leading-tight mb-2 group-hover:text-primary-fixed-dim transition-colors line-clamp-2">
+                            Hidden Coves of the Amalfi Coast
+                        </h3>
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary text-[16px]" data-icon="route">route</span>
+                            <span class="font-label-caps text-[10px] tracking-widest uppercase text-white/80">Campania Coastline</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+        <div class="mt-8 md:hidden flex justify-center">
+            <button class="border-2 border-outline hover:border-primary text-primary font-body-md text-body-md font-medium px-6 py-2 rounded-full transition-colors flex items-center gap-2">
+                View all stories
+            </button>
+        </div>
+    </section>
+</main>
+<!-- Footer Shared Component -->
+<section class="py-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto w-full bg-surface border-t border-outline-variant/30">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+        <!-- Left Side: Top 10 Locations -->
+        <div class="col-span-1 md:col-span-4">
+            <h2 class="font-headline-md text-headline-md text-on-surface mb-6">En İyi 10 Mekan</h2>
+            <ul class="space-y-3">
+                <li class="flex items-center gap-3 text-on-surface-variant hover:text-primary transition-colors cursor-pointer">
+                    <span class="material-symbols-outlined text-[18px]" data-icon="location_on">location_on</span>
+                    <span class="font-body-md">Kapadokya</span>
+                </li>
+                <li class="flex items-center gap-3 text-on-surface-variant hover:text-primary transition-colors cursor-pointer">
+                    <span class="material-symbols-outlined text-[18px]" data-icon="location_on">location_on</span>
+                    <span class="font-body-md">Efes</span>
+                </li>
+                <li class="flex items-center gap-3 text-on-surface-variant hover:text-primary transition-colors cursor-pointer">
+                    <span class="material-symbols-outlined text-[18px]" data-icon="location_on">location_on</span>
+                    <span class="font-body-md">Ölüdeniz</span>
+                </li>
+                <li class="flex items-center gap-3 text-on-surface-variant hover:text-primary transition-colors cursor-pointer">
+                    <span class="material-symbols-outlined text-[18px]" data-icon="location_on">location_on</span>
+                    <span class="font-body-md">Kaş</span>
+                </li>
+                <li class="flex items-center gap-3 text-on-surface-variant hover:text-primary transition-colors cursor-pointer">
+                    <span class="material-symbols-outlined text-[18px]" data-icon="location_on">location_on</span>
+                    <span class="font-body-md">Mardin</span>
+                </li>
+                <li class="flex items-center gap-3 text-on-surface-variant hover:text-primary transition-colors cursor-pointer">
+                    <span class="material-symbols-outlined text-[18px]" data-icon="location_on">location_on</span>
+                    <span class="font-body-md">Safranbolu</span>
+                </li>
+                <li class="flex items-center gap-3 text-on-surface-variant hover:text-primary transition-colors cursor-pointer">
+                    <span class="material-symbols-outlined text-[18px]" data-icon="location_on">location_on</span>
+                    <span class="font-body-md">Ayder Yaylası</span>
+                </li>
+                <li class="flex items-center gap-3 text-on-surface-variant hover:text-primary transition-colors cursor-pointer">
+                    <span class="material-symbols-outlined text-[18px]" data-icon="location_on">location_on</span>
+                    <span class="font-body-md">Pamukkale</span>
+                </li>
+                <li class="flex items-center gap-3 text-on-surface-variant hover:text-primary transition-colors cursor-pointer">
+                    <span class="material-symbols-outlined text-[18px]" data-icon="location_on">location_on</span>
+                    <span class="font-body-md">Nemrut Dağı</span>
+                </li>
+                <li class="flex items-center gap-3 text-on-surface-variant hover:text-primary transition-colors cursor-pointer">
+                    <span class="material-symbols-outlined text-[18px]" data-icon="location_on">location_on</span>
+                    <span class="font-body-md">Göbeklitepe</span>
+                </li>
+            </ul>
+        </div>
+        <!-- Right Side: Recent Posts -->
+        <div class="col-span-1 md:col-span-8">
+            <h2 class="font-headline-md text-headline-md text-on-surface mb-6">Son Yazılar</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Card 1 -->
+                <article class="group rounded-xl overflow-hidden bg-white shadow-sm border border-surface-variant/50 card-interaction cursor-pointer">
+                    <div class="relative h-48 overflow-hidden">
+                        <img alt="Karadeniz Ormanları" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBY-5A_4N2jUiqFnHSy0Axg5a18sPZm216oP3tb_rYiDxQt_Q7P-GTOwZAQJXw9pUJq9l2-Hp8CIfK29zWEVYoBAWWjXEaC-wlvr-ahzZz8BflEkBRDFElEblrOKTEsw19BOKFwMoAq5mp2qnqxtB7_nOUztuY1yBx2xYyMGLmRMpUTx5qO9bhxKz8-EBcHQCpvgngMZ0N2sYWXC2wo1zs1rkHJmz7RHSperTPwu9fEgp7IyGmRJc670oQ8iLGWzktrG77qXOxNRejo">
+                        <span class="absolute top-3 left-3 bg-primary text-on-primary px-2 py-1 rounded-full font-label-caps text-[10px] uppercase tracking-wider">#DOĞA</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-headline-md text-[18px] leading-tight mb-3 group-hover:text-primary transition-colors">Karadeniz'in Puslu Ormanlarında Yolculuk</h3>
+                        <div class="flex items-center gap-2">
+                            <div class="w-6 h-6 rounded-full bg-surface-container-highest"></div>
+                            <span class="font-body-md text-[14px] text-on-surface-variant">Deniz Yılmaz</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!--Card 2-->
+                <article class="group rounded-xl overflow-hidden bg-white shadow-sm border border-surface-variant/50 card-interaction cursor-pointer">
+                    <div class="relative h-48 overflow-hidden">
+                        <img alt="Avrupa Sokakları" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqBzTk2ioL2ZnOvHtpWWKYjyXZsW6AN_W4RTJ9dpOh7g8mbwGTKag1ABn_L_EkPIbrAXePkbdP_AIjUyHlZWRSRIG_BUVS-h-N4SRFJgqqVifqfUWkQ01Ww0msQ25bCltbuXDPGb1jfIjBMf_EOEDNdHWq0Q6v7HAE1T2fyGH5n5N4r-iynnNDLG4scYYZCC3CkhTZPuZkLS4BxScX3WHC4JlgeNesuhwQxGS-reLyKR2Otxqv-fizJE5bHCnLITbHdgij5OIT72oq">
+                        <span class="absolute top-3 left-3 bg-primary text-on-primary px-2 py-1 rounded-full font-label-caps text-[10px] uppercase tracking-wider">#KÜLTÜR</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-headline-md text-[18px] leading-tight mb-3 group-hover:text-primary transition-colors"> Avrupa'nın Saklı Sokakları: Bir Hafta Sonu Kaçamağı</h3>
+                        <div class="flex items-center gap-2">
+                            <div class="w-6 h-6 rounded-full bg-surface-container-highest"></div>
+                            <span class="font-body-md text-[14px] text-on-surface-variant"> Selin Ak </span>
+                        </div>
+                    </div>
+                </article>
+
+                <!--Card 2-->
+                <article class="group rounded-xl overflow-hidden bg-white shadow-sm border border-surface-variant/50 card-interaction cursor-pointer">
+                    <div class="relative h-48 overflow-hidden">
+                        <img alt="Avrupa Sokakları" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqBzTk2ioL2ZnOvHtpWWKYjyXZsW6AN_W4RTJ9dpOh7g8mbwGTKag1ABn_L_EkPIbrAXePkbdP_AIjUyHlZWRSRIG_BUVS-h-N4SRFJgqqVifqfUWkQ01Ww0msQ25bCltbuXDPGb1jfIjBMf_EOEDNdHWq0Q6v7HAE1T2fyGH5n5N4r-iynnNDLG4scYYZCC3CkhTZPuZkLS4BxScX3WHC4JlgeNesuhwQxGS-reLyKR2Otxqv-fizJE5bHCnLITbHdgij5OIT72oq">
+                        <span class="absolute top-3 left-3 bg-primary text-on-primary px-2 py-1 rounded-full font-label-caps text-[10px] uppercase tracking-wider">#KÜLTÜR</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-headline-md text-[18px] leading-tight mb-3 group-hover:text-primary transition-colors"> Avrupa'nın Saklı Sokakları: Bir Hafta Sonu Kaçamağı</h3>
+                        <div class="flex items-center gap-2">
+                            <div class="w-6 h-6 rounded-full bg-surface-container-highest"></div>
+                            <span class="font-body-md text-[14px] text-on-surface-variant"> Selin Ak </span>
+                        </div>
+                    </div>
+                </article>
+                <!--Card 2-->
+                <article class="group rounded-xl overflow-hidden bg-white shadow-sm border border-surface-variant/50 card-interaction cursor-pointer">
+                    <div class="relative h-48 overflow-hidden">
+                        <img alt="Avrupa Sokakları" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqBzTk2ioL2ZnOvHtpWWKYjyXZsW6AN_W4RTJ9dpOh7g8mbwGTKag1ABn_L_EkPIbrAXePkbdP_AIjUyHlZWRSRIG_BUVS-h-N4SRFJgqqVifqfUWkQ01Ww0msQ25bCltbuXDPGb1jfIjBMf_EOEDNdHWq0Q6v7HAE1T2fyGH5n5N4r-iynnNDLG4scYYZCC3CkhTZPuZkLS4BxScX3WHC4JlgeNesuhwQxGS-reLyKR2Otxqv-fizJE5bHCnLITbHdgij5OIT72oq">
+                        <span class="absolute top-3 left-3 bg-primary text-on-primary px-2 py-1 rounded-full font-label-caps text-[10px] uppercase tracking-wider">#KÜLTÜR</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-headline-md text-[18px] leading-tight mb-3 group-hover:text-primary transition-colors"> Avrupa'nın Saklı Sokakları: Bir Hafta Sonu Kaçamağı</h3>
+                        <div class="flex items-center gap-2">
+                            <div class="w-6 h-6 rounded-full bg-surface-container-highest"></div>
+                            <span class="font-body-md text-[14px] text-on-surface-variant"> Selin Ak </span>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </div>
+</section>

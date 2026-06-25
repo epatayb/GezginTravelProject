@@ -1,0 +1,50 @@
+<!-- TopNavBar Shared Component -->
+<header class="bg-surface dark:bg-surface-dim shadow-sm sticky top-0 z-50 transition-all duration-200 ease-in-out w-full">
+<div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto h-16">
+<!-- Brand Logo -->
+<a class="text-headline-md font-headline-md text-primary dark:text-primary-fixed-dim" asp-controller="Home" asp-action="Index">
+                Gezgin
+            </a>
+<!-- Desktop Navigation -->
+<nav class="hidden md:flex space-x-6">
+<!-- Active Item: Explore -->
+<a class="text-primary dark:text-primary-fixed-dim border-b-2 border-primary dark:border-primary-fixed-dim pb-1 font-body-md text-body-md hover:bg-surface-container-low dark:hover:bg-surface-container-high transition-colors" asp-controller="Explore" asp-action="Index">
+                    Keşfet
+                </a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim font-body-md text-body-md hover:bg-surface-container-low dark:hover:bg-surface-container-high transition-colors" asp-controller="Routes" asp-action="Index">
+                    Rotalar
+                </a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim font-body-md text-body-md hover:bg-surface-container-low dark:hover:bg-surface-container-high transition-colors" asp-controller="Guides" asp-action="Index">
+                    Rehberler
+                </a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim font-body-md text-body-md hover:bg-surface-container-low dark:hover:bg-surface-container-high transition-colors" asp-controller="Home" asp-action="About">
+                    Hakkımızda
+                </a>
+</nav>
+<!-- Search, Action & Profile -->
+<div class="flex items-center space-x-4">
+<!-- Search Icon (Mobile) / Search Bar (Desktop) -->
+<button class="md:hidden text-on-surface-variant hover:text-primary transition-colors p-2 rounded-full hover:bg-surface-container-low">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+<div class="hidden md:flex relative text-on-surface-variant focus-within:text-primary transition-colors">
+<span class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 pointer-events-none text-[20px]" data-icon="search">search</span>
+<input class="bg-surface-container-low border-none rounded-full pl-10 pr-4 py-2 text-sm focus:ring-2 focus:ring-primary focus:bg-surface w-48 focus:w-64 transition-all duration-300" placeholder="Varış noktası ara..." type="text"/>
+</div>
+
+<!-- Guest State Actions -->
+<div class="flex items-center gap-4">
+<button class="hidden md:flex items-center gap-2 bg-primary hover:bg-on-primary-container text-on-primary font-body-md text-body-md px-6 py-2 rounded-full transition-colors whitespace-nowrap shadow-sm font-semibold"><span class="material-symbols-outlined text-[20px]" data-icon="edit_square">edit_square</span>Hikaye Yaz</button>
+<div class="relative group cursor-pointer">
+<div class="w-10 h-10 rounded-full border-2 border-primary overflow-hidden shadow-sm hover:ring-2 hover:ring-primary/30 transition-all">
+<img alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZJaRoKKvbTeuEx7SwQjXpVLcKLGURQX2Qs9TncOZSsi3iuY6dYs8CliXXAS_jy-KtD4JVSGCNJC4HRPOp6oNhTZ3WNHJtIBih-BZdQoTwZHFtliTATQstGMEFonNepzc6_JcrUsRVs_EJk5WEe7MGAayDJyUz6W45xt3lAzF4QLCegVxfaMugLt3T6iOmLRtLWthvTTEX2QPKhgq2CPngF9zMfIFv6I5A4uyeZO8Qkncq5ghqZOryfCDBy7Jr5K2FrYoPySqdAEqm">
+</div>
+<div class="absolute -bottom-1 -right-1 bg-white rounded-full border border-outline-variant p-0.5 flex items-center justify-center">
+<span class="material-symbols-outlined text-[12px] text-on-surface-variant" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</header>

@@ -1,0 +1,192 @@
+﻿@{
+    ViewData["Title"] = "Keşfet";
+    Layout = "_Layout";
+}
+
+<body class="bg-background text-on-background font-body-md text-body-md min-h-screen flex flex-col">
+    <!-- Main Content -->
+    <main class="flex-grow w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-8 md:py-12">
+        <div class="flex flex-col lg:flex-row gap-gutter">
+            <!-- Left Column: Popular Blogs -->
+            <section class="lg:w-2/3 flex flex-col gap-8">
+                <header>
+                    <h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface mb-2">Popüler Yazılar</h1>
+                    <p class="font-body-lg text-body-lg text-on-surface-variant">Topluluğumuzun en çok okunan gezi notları.</p>
+                </header>
+
+                <div class="flex flex-col gap-8">
+                    <!-- Blog Card 1 -->
+                    <article class="bg-surface-container-lowest rounded-xl shadow-sm border border-surface-container hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col group">
+                        <div class="relative w-full h-64 overflow-hidden">
+                            <img alt="Alp Dağları Manzarası" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A breathtaking panoramic view of a lush green valley in the Swiss Alps during summer. A small wooden cabin sits near a winding mountain stream. The sky is bright blue with fluffy white clouds, and the lighting is crisp and natural, highlighting the vibrant greens and blues." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrK_wthAchYqWuRgjWo39RwBoDAJpuFoQmRU0zYMQBKzsKf7VSqgXw9PUCF7Uc577NAeFbkIlNhUvPXIxrMzaFT5uet80hPlFY63M3WwXLKJbqC-F9EUcQ15LVsPwJqqxU1wyWpguLj568s9CZMvrjmy_TQifE6guJ3GJtkUb2htThlXDw_evQclgW8qhGpimuekNh9DhkcdAyQbVGD2r1WY0TSuL3pQZl80pldK2mu8UCtOOEoC3P8072clqV0wCpruPk8hAv9XXO">
+                            <div class="absolute top-4 left-4 flex gap-2">
+                                <span class="bg-surface-container-lowest/80 backdrop-blur-md text-secondary font-label-caps text-label-caps px-3 py-1 rounded-full border border-surface-container-highest">#Doğa</span>
+                                <span class="bg-surface-container-lowest/80 backdrop-blur-md text-secondary font-label-caps text-label-caps px-3 py-1 rounded-full border border-surface-container-highest">#Macera</span>
+                            </div>
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow gap-4">
+                            <div>
+                                <h2 class="font-headline-md text-headline-md text-on-surface mb-2 group-hover:text-primary transition-colors">Alpler'de Unutulmaz Bir Yaz Macerası</h2>
+                                <p class="font-body-md text-body-md text-on-surface-variant line-clamp-3">Yeşilin her tonunu barındıran vadilerde, sessizliğin ve huzurun kalbinde geçirdiğimiz beş gün... İsviçre Alpleri sadece kışın değil, yazın da büyüleyici bir güzelliğe sahip.</p>
+                            </div>
+                            <div class="mt-auto flex items-center justify-between pt-4 border-t border-surface-variant">
+                                <div class="flex items-center gap-3">
+                                    <img alt="Yazar" class="w-10 h-10 rounded-full border-2 border-surface object-cover" data-alt="A close-up portrait of a female travel writer in her 30s with curly brown hair, wearing a casual denim shirt. She has a warm, inviting smile. The background is a soft, out-of-focus cafe setting with warm lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1W1sxw8QVAtiT1HjQW9GAna7LJ4Ab_hN13t9GRi02J2T0fPHud_J2eLmKJnUgCv02BQCsWFd29JayvDsXBaUtgFhIlLyl0Xnrmo-z5ijrHoGa8YrbGnkPER_SGikWSXw2GHvxLayQzwh21rn4d0P-z-4rcUxF48TgMMbGrtWNJhKMpgLNXuePg1jVu0q7RHveQn1n2A-1QVr0UJTNtsfZpgrkPllc33yiu65k_KZTTPwKvyyVTBxddhQNtLO3ftDR6dPz_x7hJjkK">
+                                    <div>
+                                        <p class="font-label-caps text-label-caps text-on-surface">Ayşe Yılmaz</p>
+                                        <p class="text-[10px] text-on-surface-variant">2 Gün Önce</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <button class="flex items-center gap-1 text-on-surface-variant hover:text-primary transition-colors group/btn">
+                                        <span class="material-symbols-outlined text-xl group-hover/btn:text-primary transition-colors" style="font-variation-settings: 'FILL' 0;">favorite</span>
+                                        <span class="font-label-caps text-label-caps">124</span>
+                                    </button>
+                                    <button class="bg-primary-container text-on-primary-container hover:bg-surface-tint hover:text-on-primary px-4 py-2 rounded-lg font-label-caps text-label-caps transition-colors">
+                                        Okumaya Devam Et
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Blog Card 2 -->
+                    <article class="bg-surface-container-lowest rounded-xl shadow-sm border border-surface-container hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col group">
+                        <div class="relative w-full h-64 overflow-hidden">
+                            <img alt="Şehir Işıkları" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A vibrant street scene at night in a bustling Asian metropolis, likely Tokyo or Seoul. Neon signs glow intensely in pinks, blues, and reds, reflecting off wet pavement. People are walking with umbrellas. The mood is energetic, cinematic, and cyberpunk-inspired." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyDBy7X5XNcyG4f4zAXy4jOyipxn_Eh9RqM73XDJSFRJI36QlcGGO6iNMJF-767Ppbz1bXXyklqhgHts6HXK3OqzBok_BzWFL2N9dz-Szri7weuKTeJdmZVKcaIF29UGOMk2iDH7HLIPyC8eBz4ScRhAfNvAi8MmHmwrJ3DBBap2g4O2YWJeBdnFHJfSNT9nIAMlPsCGeF2xNRIaDChh08SXS_U3hpJt4cEPmoEjv7JnEWyDQiBfM9nj4nDoIeETNskj0FehXaqkWJ">
+                            <div class="absolute top-4 left-4 flex gap-2">
+                                <span class="bg-surface-container-lowest/80 backdrop-blur-md text-secondary font-label-caps text-label-caps px-3 py-1 rounded-full border border-surface-container-highest">#Şehir</span>
+                                <span class="bg-surface-container-lowest/80 backdrop-blur-md text-secondary font-label-caps text-label-caps px-3 py-1 rounded-full border border-surface-container-highest">#GeceHayatı</span>
+                            </div>
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow gap-4">
+                            <div>
+                                <h2 class="font-headline-md text-headline-md text-on-surface mb-2 group-hover:text-primary transition-colors">Neon Işıkları Altında Tokyo Sokakları</h2>
+                                <p class="font-body-md text-body-md text-on-surface-variant line-clamp-3">Geleneksel tapınakların hemen yanı başında yükselen devasa gökdelenler, kalabalık yaya geçitleri ve bitmek bilmeyen enerjisiyle Tokyo, gece olduğunda bambaşka bir ruha bürünüyor.</p>
+                            </div>
+                            <div class="mt-auto flex items-center justify-between pt-4 border-t border-surface-variant">
+                                <div class="flex items-center gap-3">
+                                    <img alt="Yazar" class="w-10 h-10 rounded-full border-2 border-surface object-cover" data-alt="A portrait of a male photographer in his late 20s wearing glasses and a dark beanie. He looks thoughtful. The background is a slightly blurred city scene at dusk with cool, blue tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2DlCOr120nHFpNRNEMPF6j03sMq5timvqRtcmTLOkXcS2dSvKjg8LmI1HB7x47HGsQL4DF2lyHBdEM2L68NGGgUQy1ifkoAq9FFdfjB4G4atjnRCfCQZvuRa6EOpXpEdC9cZzmqt527-wSpbWVnkdYLu_2qVotq1CSUdkdlGzt28nkHe7iwBD1l_q2syQeOVxVhUR62bqIDT9Cct5TmX0ovjDSUS2PeENSGlcr6Q7R59K5FcDIsN15OSloTS1qGtJmSgipWrWlRBK">
+                                    <div>
+                                        <p class="font-label-caps text-label-caps text-on-surface">Can Kaya</p>
+                                        <p class="text-[10px] text-on-surface-variant">1 Hafta Önce</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <button class="flex items-center gap-1 text-on-surface-variant hover:text-primary transition-colors group/btn">
+                                        <span class="material-symbols-outlined text-xl group-hover/btn:text-primary transition-colors" style="font-variation-settings: 'FILL' 0;">favorite</span>
+                                        <span class="font-label-caps text-label-caps">89</span>
+                                    </button>
+                                    <button class="bg-primary-container text-on-primary-container hover:bg-surface-tint hover:text-on-primary px-4 py-2 rounded-lg font-label-caps text-label-caps transition-colors">
+                                        Okumaya Devam Et
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Right Column: Sidebar (Trending Destinations) -->
+            <aside class="lg:w-1/3 flex flex-col gap-6 mt-8 lg:mt-0">
+                <div class="bg-surface-container-low rounded-xl p-6 border border-surface-variant sticky top-24">
+                    <h3 class="font-headline-md text-headline-md text-on-surface mb-6 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">trending_up</span>
+                        Trend Rotalar
+                    </h3>
+                    <div class="flex flex-col gap-4">
+                        <!-- Trend Item 1 -->
+                        <a class="flex gap-4 items-center group hover:bg-surface-container hover:shadow-sm p-2 rounded-lg transition-all" href="#">
+                            <div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
+                                <img alt="Kapadokya" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" data-alt="A beautiful, vibrant photo of hot air balloons flying over the fairy chimneys of Cappadocia, Turkey, at sunrise. The sky is painted with soft pastels of pink, orange, and purple. The landscape is unique and otherworldly." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsp4vnDFSOwbA9Lz1SrUV6y6qO5p8DHHKLtT7lAJQLtzfj0cs1k8SfFcejsj3IKNrVqqHPPjjlREW7rGzuQKOluzcEGXuu4CtqEpOMJhVSmxn7TEMrLgizX5-FUBVO03R1SnjR-3zZH18te8KQI-8rD2P5ABZCi9DG-9re5801QBL-SuyuILNfp2xXST-Wb2oL7pHk1mVEApcWe7uRZNcaofTFp7Paybks0Vp26QQtyjLCCgKZZ59rTaKtsX-I1kLE57Ev01UiNpfJ">
+                            </div>
+                            <div class="flex-grow">
+                                <h4 class="font-label-caps text-label-caps text-on-surface group-hover:text-primary transition-colors">Kapadokya, Türkiye</h4>
+                                <p class="text-[12px] text-on-surface-variant">Sıcak hava balonları ile büyüleyici bir sabah.</p>
+                            </div>
+                            <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">chevron_right</span>
+                        </a>
+
+                        <!-- Trend Item 2 -->
+                        <a class="flex gap-4 items-center group hover:bg-surface-container hover:shadow-sm p-2 rounded-lg transition-all" href="#">
+                            <div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
+                                <img alt="Amalfi Sahili" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" data-alt="A stunning aerial view of the Amalfi Coast in Italy. Steep cliffs covered in colorful pastel houses plunge into the deep, clear azure waters of the Mediterranean Sea. The sun is shining brightly, creating a vivid, summery Mediterranean aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJ_VEk8LqI9Bf5JegSwiwFJbVBYSob2FRky1jDWn6sN-EnK0HIyET94YXHxL4ZMUOFVK97G6AFRWt08JYW0Btk0bzP0QTOX1A6ZUyWjsPJUD2epeLY5lkBeL9o0zVHV3YYYvRrsLLwVhKd758Cx1i3gD4uhuUhhB-efHxIDIJ-x11seVmATaZGYZ2SMjcMcaWqsLcTXzg81jtFigPm1xKIWX1b2hrc8WvScmKcQf_K1-Vjy26fFb0KxrzmVmbXEWK_6z36iSElrMER">
+                            </div>
+                            <div class="flex-grow">
+                                <h4 class="font-label-caps text-label-caps text-on-surface group-hover:text-primary transition-colors">Amalfi Sahili, İtalya</h4>
+                                <p class="text-[12px] text-on-surface-variant">Akdeniz'in masmavi sularına açılan renkli evler.</p>
+                            </div>
+                            <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">chevron_right</span>
+                        </a>
+
+                        <!-- Trend Item 3 -->
+                        <a class="flex gap-4 items-center group hover:bg-surface-container hover:shadow-sm p-2 rounded-lg transition-all" href="#">
+                            <div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
+                                <img alt="Machu Picchu" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" data-alt="A mystical view of the ancient ruins of Machu Picchu nestled high in the Andes mountains. Low-hanging fog wraps around the stone structures and lush green peaks, creating an atmospheric, adventurous, and slightly mysterious mood." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNf41gEnOQNh1swwArwjv7_qplRMFzkWOpTw-kmbOLmuv9X0_vjzPNBrrtnqX_seZTUVKqk1w-m_V9YEBuJXfLplLJi2hLGh4Rkw39-OBxQNfX62bSB-3Uoq9T5xUztUhhTisZzA0WKB7XIlZ83EOzwcAvUjUxRnJKrc5Bp4af0s5iztxCPWYqZLLR6OmN_jIAK7L-0ERfUNOplW85MCPiGxPePx5x-jonkP3a7_SccPDZn5KxJXuKsJrobO5KT54rJeCgZQ45fcLU">
+                            </div>
+                            <div class="flex-grow">
+                                <h4 class="font-label-caps text-label-caps text-on-surface group-hover:text-primary transition-colors">Machu Picchu, Peru</h4>
+                                <p class="text-[12px] text-on-surface-variant">Bulutların arasındaki antik İnka şehri.</p>
+                            </div>
+                            <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">chevron_right</span>
+                        </a>
+                    </div>
+                    <button class="w-full mt-6 py-3 border border-outline text-primary font-label-caps text-label-caps rounded-lg hover:bg-surface-container transition-colors">
+                        Tüm Rotaları Gör
+                    </button>
+
+                    <!-- Popüler Kategoriler Section -->
+                    <div class="mt-8 pt-8 border-t border-surface-variant">
+                        <h3 class="font-headline-md text-headline-md text-on-surface mb-6 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">category</span>
+                            Popüler Kategoriler
+                        </h3>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="#" class="bg-surface-container-lowest text-secondary font-label-caps text-label-caps px-3 py-1 rounded-full border border-surface-container-highest hover:bg-primary hover:text-on-primary transition-colors">#Doğa</a>
+                            <a href="#" class="bg-surface-container-lowest text-secondary font-label-caps text-label-caps px-3 py-1 rounded-full border border-surface-container-highest hover:bg-primary hover:text-on-primary transition-colors">#Şehir</a>
+                            <a href="#" class="bg-surface-container-lowest text-secondary font-label-caps text-label-caps px-3 py-1 rounded-full border border-surface-container-highest hover:bg-primary hover:text-on-primary transition-colors">#Mutfak</a>
+                            <a href="#" class="bg-surface-container-lowest text-secondary font-label-caps text-label-caps px-3 py-1 rounded-full border border-surface-container-highest hover:bg-primary hover:text-on-primary transition-colors">#Macera</a>
+                            <a href="#" class="bg-surface-container-lowest text-secondary font-label-caps text-label-caps px-3 py-1 rounded-full border border-surface-container-highest hover:bg-primary hover:text-on-primary transition-colors">#Kültür</a>
+                        </div>
+                    </div>
+
+                    <!-- Öne Çıkan Yazarlar Section -->
+                    <div class="mt-8 pt-8 border-t border-surface-variant">
+                        <h3 class="font-headline-md text-headline-md text-on-surface mb-6 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">group</span>
+                            Öne Çıkan Yazarlar
+                        </h3>
+                        <div class="flex flex-col gap-4">
+                            <!-- Author 1 -->
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1W1sxw8QVAtiT1HjQW9GAna7LJ4Ab_hN13t9GRi02J2T0fPHud_J2eLmKJnUgCv02BQCsWFd29JayvDsXBaUtgFhIlLyl0Xnrmo-z5ijrHoGa8YrbGnkPER_SGikWSXw2GHvxLayQzwh21rn4d0P-z-4rcUxF48TgMMbGrtWNJhKMpgLNXuePg1jVu0q7RHveQn1n2A-1QVr0UJTNtsfZpgrkPllc33yiu65k_KZTTPwKvyyVTBxddhQNtLO3ftDR6dPz_x7hJjkK" alt="Ayşe Yılmaz" class="w-10 h-10 rounded-full border border-surface-variant object-cover">
+                                    <span class="font-label-caps text-label-caps text-on-surface">Ayşe Yılmaz</span>
+                                </div>
+                                <button class="text-primary font-label-caps text-label-caps hover:underline">Takip Et</button>
+                            </div>
+                            <!-- Author 2 -->
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2DlCOr120nHFpNRNEMPF6j03sMq5timvqRtcmTLOkXcS2dSvKjg8LmI1HB7x47HGsQL4DF2lyHBdEM2L68NGGgUQy1ifkoAq9FFdfjB4G4atjnRCfCQZvuRa6EOpXpEdC9cZzmqt527-wSpbWVnkdYLu_2qVotq1CSUdkdlGzt28nkHe7iwBD1l_q2syQeOVxVhUR62bqIDT9Cct5TmX0ovjDSUS2PeENSGlcr6Q7R59K5FcDIsN15OSloTS1qGtJmSgipWrWlRBK" alt="Can Kaya" class="w-10 h-10 rounded-full border border-surface-variant object-cover">
+                                    <span class="font-label-caps text-label-caps text-on-surface">Can Kaya</span>
+                                </div>
+                                <button class="text-primary font-label-caps text-label-caps hover:underline">Takip Et</button>
+                            </div>
+                            <!-- Author 3 -->
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full border border-surface-variant bg-surface-container-highest flex items-center justify-center">
+                                        <span class="material-symbols-outlined text-on-surface-variant">person</span>
+                                    </div>
+                                    <span class="font-label-caps text-label-caps text-on-surface">Deniz Yılmaz</span>
+                                </div>
+                                <button class="text-primary font-label-caps text-label-caps hover:underline">Takip Et</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+</body>

@@ -1,0 +1,365 @@
+﻿@using GezginTravel.ViewModels.Dashboard.Admin
+@model AdminDashboardViewModel
+
+@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "~/Views/Admin/Shared/_AdminLayout.cshtml";
+}
+
+<div class="mb-8">
+    <h2 class="font-montserrat text-3xl md:text-5xl font-bold text-on-background mb-2">
+        Admin Dashboard
+    </h2>
+
+    <p class="text-lg text-on-surface-variant">
+        Gezgin Travel platformunu yönet, aktiviteleri takip et ve temel istatistikleri incele.
+    </p>
+</div>
+
+<div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+
+    <div class="bg-surface p-4 sm:p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 border border-surface-variant flex flex-col gap-2 relative overflow-hidden group">
+        <div class="hidden sm:block absolute -right-4 -top-4 w-24 h-24 bg-primary-container/10 rounded-full group-hover:scale-150 transition-transform duration-500"></div>
+        <div class="flex flex-col-reverse items-center text-center gap-3 sm:flex-row sm:justify-between sm:items-start sm:text-left sm:gap-0">
+            <div>
+                <p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Toplam Kullanıcı</p>
+                <h3 class="font-headline-md text-headline-md text-on-background mt-2 sm:mt-1">@Model.TotalUsers</h3>
+            </div>
+
+            <div class="w-10 h-10 rounded-lg bg-secondary-container text-on-secondary-container flex items-center justify-center flex-shrink-0">
+                <span class="material-symbols-outlined">group</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-surface p-4 sm:p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 border border-surface-variant flex flex-col gap-2 relative overflow-hidden group">
+        <div class="hidden sm:block absolute -right-4 -top-4 w-24 h-24 bg-primary-container/10 rounded-full group-hover:scale-150 transition-transform duration-500"></div>
+        <div class="flex flex-col-reverse items-center text-center gap-3 sm:flex-row sm:justify-between sm:items-start sm:text-left sm:gap-0">
+            <div>
+                <p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Toplam Yazar</p>
+                <h3 class="font-headline-md text-headline-md text-on-background mt-2 sm:mt-1">@Model.TotalAuthors</h3>
+            </div>
+
+            <div class="w-10 h-10 rounded-lg bg-secondary-container text-on-secondary-container flex items-center justify-center flex-shrink-0">
+                <span class="material-symbols-outlined">edit_note</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-surface p-4 sm:p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 border border-surface-variant flex flex-col gap-2 relative overflow-hidden group">
+        <div class="hidden sm:block absolute -right-4 -top-4 w-24 h-24 bg-primary-container/10 rounded-full group-hover:scale-150 transition-transform duration-500"></div>
+        <div class="flex flex-col-reverse items-center text-center gap-3 sm:flex-row sm:justify-between sm:items-start sm:text-left sm:gap-0">
+            <div>
+                <p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Toplam Blog</p>
+                <h3 class="font-headline-md text-headline-md text-on-background mt-2 sm:mt-1">@Model.TotalBlogs</h3>
+            </div>
+
+            <div class="w-10 h-10 rounded-lg bg-secondary-container text-on-secondary-container flex items-center justify-center flex-shrink-0">
+                <span class="material-symbols-outlined">article</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-surface p-4 sm:p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 border border-surface-variant flex flex-col gap-2 relative overflow-hidden group">
+        <div class="hidden sm:block absolute -right-4 -top-4 w-24 h-24 bg-primary-container/10 rounded-full group-hover:scale-150 transition-transform duration-500"></div>
+        <div class="flex flex-col-reverse items-center text-center gap-4 sm:flex-row sm:justify-between sm:items-start sm:text-left sm:gap-0">
+            <div>
+                <p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Toplam Kategori</p>
+                <h3 class="font-headline-md text-headline-md text-on-background mt-2 sm:mt-1">@Model.TotalCategories</h3>
+            </div>
+
+            <div class="w-10 h-10 rounded-lg bg-secondary-container text-on-secondary-container flex items-center justify-center flex-shrink-0">
+                <span class="material-symbols-outlined">category</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-surface p-4 sm:p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 border border-surface-variant flex flex-col gap-2 relative overflow-hidden group">
+        <div class="hidden sm:block absolute -right-4 -top-4 w-24 h-24 bg-primary-container/10 rounded-full group-hover:scale-150 transition-transform duration-500"></div>
+        <div class="flex flex-col-reverse items-center text-center gap-4 sm:flex-row sm:justify-between sm:items-start sm:text-left sm:gap-0">
+            <div>
+                <p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Toplam Görüntülenme</p>
+                <h3 class="font-headline-md text-headline-md text-on-background mt-2 sm:mt-1">@Model.TotalViews</h3>
+            </div>
+
+            <div class="w-10 h-10 rounded-lg bg-secondary-container text-on-secondary-container flex items-center justify-center flex-shrink-0">
+                <span class="material-symbols-outlined">visibility</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-surface p-4 sm:p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 border border-surface-variant flex flex-col gap-2 relative overflow-hidden group">
+        <div class="hidden sm:block absolute -right-4 -top-4 w-24 h-24 bg-primary-container/10 rounded-full group-hover:scale-150 transition-transform duration-500"></div>
+        <div class="flex flex-col-reverse items-center text-center gap-4 sm:flex-row sm:justify-between sm:items-start sm:text-left sm:gap-0">
+            <div>
+                <p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Toplam Beğeni</p>
+                <h3 class="font-headline-md text-headline-md text-on-background mt-2 sm:mt-1">@Model.TotalLikes</h3>
+            </div>
+            <div class="w-10 h-10 rounded-lg bg-secondary-container text-on-secondary-container flex items-center justify-center flex-shrink-0">
+                <span class="material-symbols-outlined">recommend</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-surface p-4 sm:p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 border border-surface-variant flex flex-col gap-2 relative overflow-hidden group">
+        <div class="hidden sm:block absolute -right-4 -top-4 w-24 h-24 bg-primary-container/10 rounded-full group-hover:scale-150 transition-transform duration-500"></div>
+        <div class="flex flex-col-reverse items-center text-center gap-4 sm:flex-row sm:justify-between sm:items-start sm:text-left sm:gap-0">
+            <div>
+                <p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Toplam Kaydetme</p>
+                <h3 class="font-headline-md text-headline-md text-on-background mt-2 sm:mt-1">@Model.TotalSaves</h3>
+            </div>
+            <div class="w-10 h-10 rounded-lg bg-secondary-container text-on-secondary-container flex items-center justify-center flex-shrink-0">
+                <span class="material-symbols-outlined">bookmarks</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-surface p-4 sm:p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 border border-surface-variant flex flex-col gap-2 relative overflow-hidden group">
+        <div class="hidden sm:block absolute -right-4 -top-4 w-24 h-24 bg-primary-container/10 rounded-full group-hover:scale-150 transition-transform duration-500"></div>
+        <div class="flex flex-col-reverse items-center text-center gap-4 sm:flex-row sm:justify-between sm:items-start sm:text-left sm:gap-0">
+            <div>
+                <p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Toplam Yorum</p>
+                <h3 class="font-headline-md text-headline-md text-on-background mt-2 sm:mt-1">@Model.TotalComments</h3>
+            </div>
+            <div class="w-10 h-10 rounded-lg bg-secondary-container text-on-secondary-container flex items-center justify-center flex-shrink-0">
+                <span class="material-symbols-outlined">comment</span>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+
+    <div class="lg:col-span-2 bg-surface rounded-xl shadow-sm border border-surface-variant p-6">
+        <h3 class="text-xl font-bold text-on-background mb-4">Blog Görüntülenme Özeti</h3>
+
+        <div class="h-64 w-full bg-surface-container rounded-lg flex items-center justify-center">
+            <span class="text-on-surface-variant">
+                Grafik alanı — ileride Chart.js ile doldurulacak
+            </span>
+        </div>
+    </div>
+
+    <div class="bg-surface rounded-xl shadow-sm border border-surface-variant p-6">
+        <h3 class="text-xl font-bold text-on-background mb-4">İçerik Dağılımı</h3>
+
+        <div class="h-64 w-full bg-surface-container rounded-lg flex items-center justify-center">
+            <span class="text-on-surface-variant">
+                Kategori / şehir dağılım grafiği
+            </span>
+        </div>
+    </div>
+</div>
+
+<h3 class="text-xl font-bold text-on-background mb-4">Platform Öne Çıkanları</h3>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+
+    <div class="bg-gradient-to-br from-primary to-primary-container p-6 rounded-xl shadow-sm text-on-primary relative overflow-hidden">
+        <span class="material-symbols-outlined absolute -right-4 -bottom-4 text-[100px] opacity-20">
+            local_fire_department
+        </span>
+
+        <p class="text-xs uppercase tracking-wider opacity-80 mb-2">
+            En Trend Blog
+        </p>
+
+        <h4 class="text-lg font-bold line-clamp-2">
+            @(Model.TopTrendBlogTitle ?? "Henüz veri yok")
+        </h4>
+
+        <p class="text-sm mt-2 opacity-90">
+            Skor: @Model.TopTrendBlogScore.ToString("f2")
+        </p>
+    </div>
+
+    <div class="bg-surface p-6 rounded-xl shadow-sm border border-surface-variant relative overflow-hidden">
+        <p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider mb-2">
+            En Popüler Yazar
+        </p>
+        <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-primary">
+                <img class="w-full h-full object-cover" src="/uploads/users/@Model.TopAuthorPhotoUrl" data-alt="@Model.TopAuthorName" />
+            </div>
+
+            <div>
+                <h4 class="font-headline-md text-headline-md text-on-background text-[18px]">
+                    @(Model.TopAuthorName ?? "Henüz veri yok")
+                </h4>
+
+                <p class="text-sm text-primary font-bold">
+                    @Model.TopAuthorDisplayViewed Toplam Görüntülenme
+                </p>
+
+                <p class="text-sm text-primary font-bold">
+                    Ortalama skor: @Model.TopAuthorScore.ToString("f2")
+                </p>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-surface p-6 rounded-xl shadow-sm border border-surface-variant relative overflow-hidden">
+        <p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider mb-2">
+            En Çok İçerik Üretilen Şehir
+        </p>
+
+        <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-lg bg-secondary-container text-on-secondary-container flex items-center justify-center">
+                <span class="material-symbols-outlined">location_city</span>
+            </div>
+
+            <div>
+                <h4 class="font-headline-md text-headline-md text-on-background text-[18px]">
+                    <p>
+                        @(Model.MostContentCityName ?? "Henüz veri yok"),
+                    </p>
+                    <p>
+                        @(Model.MostContentCityCountryName ?? "")
+                    </p>
+                </h4>
+
+                <p class="text-sm text-on-surface-variant">
+                    @Model.MostContentCityBlogCount Blog
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-surface p-6 rounded-xl shadow-sm border border-surface-variant relative overflow-hidden">
+        <p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider mb-2">
+            En Çok Kullanılan Kategori
+        </p>
+
+        <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-lg bg-surface-variant text-on-surface-variant flex items-center justify-center">
+                <span class="material-symbols-outlined">hiking</span>
+            </div>
+
+            <div>
+                <h4 class="font-headline-md text-headline-md text-on-background text-[18px]">
+                    @(Model.MostUsedCategoryName ?? "Henüz veri yok")
+                </h4>
+                <p class="text-sm text-on-surface-variant">
+                    @Model.MostUsedCategoryCount Blog
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+    <div class="bg-surface rounded-xl shadow-sm border border-surface-variant overflow-hidden">
+        <div class="p-6 border-b border-surface-variant flex justify-between items-center bg-surface-container-low">
+            <h3 class="text-xl font-bold text-on-background">Son Bloglar</h3>
+
+            <a asp-controller="AdminBlog" asp-action="LastBlogs" class="text-primary font-bold text-sm">
+                Tümünü Gör
+            </a>
+        </div>
+
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-surface-container-lowest border-b border-surface-variant">
+                        <th class="p-4 text-xs text-on-surface-variant uppercase tracking-wider">Başlık</th>
+                        <th class="p-4 text-xs text-on-surface-variant uppercase tracking-wider">Yazar</th>
+                        <th class="p-4 text-xs text-on-surface-variant uppercase tracking-wider">Oluşturulma Tarihi</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @if (Model.RecentBlogs.Any())
+                    {
+                        foreach (var blog in Model.RecentBlogs)
+                        {
+                            <tr class="border-b border-surface-variant hover:bg-surface-container-lowest transition-colors">
+                                <td class="p-4">
+                                    <p class="font-bold text-on-background line-clamp-1">@blog.Title</p>
+                                    <p class="text-xs text-on-surface-variant">@blog.CityName</p>
+                                </td>
+
+                                <td class="p-4 text-sm text-on-surface-variant">
+                                    @blog.AuthorName
+                                </td>
+
+                                <td class="p-4 text-sm font-bold text-primary">
+                                    @blog.CreatedDate
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="3" class="p-4 text-center text-on-surface-variant">
+                                Henüz blog yok.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="bg-surface rounded-xl shadow-sm border border-surface-variant overflow-hidden">
+        <div class="p-6 border-b border-surface-variant flex justify-between items-center bg-surface-container-low">
+            <h3 class="text-xl font-bold text-on-background">Son Kullanıcılar</h3>
+
+            <a asp-controller="AdminUser" asp-action="LastUsers" class="text-primary font-bold text-sm">
+                Tümünü Gör
+            </a>
+        </div>
+
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-surface-container-lowest border-b border-surface-variant">
+                        <th class="p-4 text-xs text-on-surface-variant uppercase tracking-wider">Kullanıcı</th>
+                        <th class="p-4 text-xs text-on-surface-variant uppercase tracking-wider">Rol</th>
+                        <th class="p-4 text-xs text-on-surface-variant uppercase tracking-wider">Oluşturulma Tarihi</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @if (Model.RecentUsers.Any())
+                    {
+                        foreach (var user in Model.RecentUsers)
+                        {
+                            <tr class="border-b border-surface-variant hover:bg-surface-container-lowest transition-colors">
+                                <td class="p-4 flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-full bg-surface-variant overflow-hidden">
+                                        <img src="/uploads/users/@user.PhotoUrl" alt="@user.FullName" class="w-full h-full object-cover" />
+                                    </div>
+
+                                    <div>
+                                        <p class="font-bold text-on-background">@user.FullName</p>
+                                        <p class="text-xs text-on-surface-variant">@user.Email</p>
+                                    </div>
+                                </td>
+
+                                <td class="p-4 text-sm text-on-surface-variant">
+                                    @user.RoleText
+                                </td>
+
+                                <td class="p-4 text-sm text-on-surface-variant">
+                                    @user.CreatedAt
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="2" class="p-4 text-center text-on-surface-variant">
+                                Henüz kullanıcı yok.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
