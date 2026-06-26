@@ -1,5 +1,6 @@
 ﻿using System;
 using GezginTravel.Models.Identity;
+using GezginTravel.Models.Enums;
 
 namespace GezginTravel.Models.Entities
 {
@@ -20,6 +21,7 @@ namespace GezginTravel.Models.Entities
         public decimal TrendScore { get; set; }     // blogun trend olma skorunu temsil eden bir değer
         public DateTime? TrendScoreLastCalculatedAt { get; set; } // trend skorunun en son ne zaman hesaplandığını gösteren bir tarih
 
+        public BlogStatus Status { get; set; } = BlogStatus.Draft;
         // Foreign Keys
         public int AuthorId { get; set; } // blogu yazan kullanıcının ID'si
         public AppUser Author { get; set; } 
