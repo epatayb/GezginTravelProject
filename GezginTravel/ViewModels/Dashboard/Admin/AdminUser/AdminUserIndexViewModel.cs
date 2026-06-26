@@ -1,4 +1,4 @@
-﻿namespace GezginTravel.ViewModels.Dashboard.Admin
+﻿namespace GezginTravel.ViewModels.Dashboard.Admin.AdminUser
 {
     public class AdminUserIndexViewModel
     {

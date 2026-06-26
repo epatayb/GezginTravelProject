@@ -1,6 +1,6 @@
 ﻿using GezginTravel.Constants;
 
-namespace GezginTravel.ViewModels.Dashboard.Admin
+namespace GezginTravel.ViewModels.Dashboard.Admin.AdminUser
 {
     public class AdminUserListItemViewModel
     {

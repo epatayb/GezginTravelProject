@@ -1,7 +1,7 @@
 ﻿using GezginTravel.Constants;
 using GezginTravel.Data;
 using GezginTravel.Models.Identity;
-using GezginTravel.ViewModels.Dashboard.Admin;
+using GezginTravel.ViewModels.Dashboard.Admin.AdminUser;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

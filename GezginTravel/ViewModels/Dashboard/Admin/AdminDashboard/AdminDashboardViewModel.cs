@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using System.Threading;
 
-namespace GezginTravel.ViewModels.Dashboard.Admin
+namespace GezginTravel.ViewModels.Dashboard.Admin.AdminDashboard
 {
     public class AdminDashboardViewModel
     {

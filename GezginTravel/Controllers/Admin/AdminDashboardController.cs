@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
-using GezginTravel.ViewModels.Dashboard.Admin;
+using GezginTravel.ViewModels.Dashboard.Admin.AdminDashboard;
 
 namespace GezginTravel.Controllers.Admin
 {
