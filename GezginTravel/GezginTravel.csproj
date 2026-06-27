@@ -24,6 +24,7 @@
     <Folder Include="Views\Author\AuthorBlog\" />
     <Folder Include="Views\Author\Shared\" />
     <Folder Include="Views\Blog\" />
+    <Folder Include="wwwroot\uploads\blog\images\" />
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,455 @@
-﻿
+﻿@model GezginTravel.ViewModels.Dashboard.Admin.AdminBlog.AdminBlogIndexViewModel
+
 @{
-    ViewData["Title"] = "Admin Bloglar";
+    ViewData["Title"] = "Blog Yönetimi";
     Layout = "~/Views/Admin/Shared/_AdminLayout.cshtml";
 }
 
-admin blog index
+<div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+    <div>
+        <h2 class="font-montserrat text-3xl font-bold text-on-background">
+            Blog Yönetimi
+        </h2>
+
+        <p class="text-on-surface-variant mt-1">
+            Tüm blogları filtrele, ara, sırala ve detaylarını incele.
+        </p>
+    </div>
+</div>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="mb-4 rounded-lg bg-red-100 text-red-800 px-4 py-3">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+
+<form asp-controller="AdminBlog" asp-action="Index" method="get" id="blogFilterForm" class="mb-8">
+    <input type="hidden" name="searchText" value="@Model.SearchText" />
+    <input type="hidden" name="sortBy" value="@Model.SelectedSortBy" />
+
+    <div class="grid grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
+
+        <div class="bg-surface p-5 rounded-xl shadow-sm border border-surface-variant">
+            <label class="block text-xs text-on-surface-variant uppercase font-bold tracking-wider mb-2">
+                Yazara Göre
+            </label>
+
+            <select name="authorId"
+                    class="w-full bg-surface-container-low rounded-full border border-outline-variant px-4 py-2.5 text-sm focus:border-primary focus:ring-primary">
+                <option value="">Tüm Yazarlar</option>
+
+                @foreach (var option in Model.AuthorOptions)
+                {
+                    if (option.Selected)
+                    {
+                        <option value="@option.Value" selected>@option.Text</option>
+                    }
+                    else
+                    {
+                        <option value="@option.Value">@option.Text</option>
+                    }
+                }
+            </select>
+        </div>
+
+        <div class="bg-surface p-5 rounded-xl shadow-sm border border-surface-variant">
+            <label class="block text-xs text-on-surface-variant uppercase font-bold tracking-wider mb-2">
+                Şehire Göre
+            </label>
+
+            <select name="cityId"
+                    class="w-full bg-surface-container-low rounded-full border border-outline-variant px-4 py-2.5 text-sm focus:border-primary focus:ring-primary">
+                <option value="">Tüm Şehirler</option>
+
+                @foreach (var option in Model.CityOptions)
+                {
+                    if (option.Selected)
+                    {
+                        <option value="@option.Value" selected>@option.Text</option>
+                    }
+                    else
+                    {
+                        <option value="@option.Value">@option.Text</option>
+                    }
+                }
+            </select>
+        </div>
+
+        <div class="bg-surface p-5 rounded-xl shadow-sm border border-surface-variant">
+            <label class="block text-xs text-on-surface-variant uppercase font-bold tracking-wider mb-2">
+                Kategoriye Göre
+            </label>
+
+            <select name="categoryId"
+                    class="w-full bg-surface-container-low rounded-full border border-outline-variant px-4 py-2.5 text-sm focus:border-primary focus:ring-primary">
+                <option value="">Tüm Kategoriler</option>
+
+                @foreach (var option in Model.CategoryOptions)
+                {
+                    if (option.Selected)
+                    {
+                        <option value="@option.Value" selected>@option.Text</option>
+                    }
+                    else
+                    {
+                        <option value="@option.Value">@option.Text</option>
+                    }
+                }
+            </select>
+        </div>
+
+        <div class="bg-surface p-5 rounded-xl shadow-sm border border-surface-variant">
+            <label class="block text-xs text-on-surface-variant uppercase font-bold tracking-wider mb-2">
+                Duruma Göre
+            </label>
+
+            <select name="status"
+                    class="w-full bg-surface-container-low rounded-full border border-outline-variant px-4 py-2.5 text-sm focus:border-primary focus:ring-primary">
+                <option value="">Tüm Durumlar</option>
+
+                @foreach (var option in Model.StatusOptions)
+                {
+                    if (option.Selected)
+                    {
+                        <option value="@option.Value" selected>@option.Text</option>
+                    }
+                    else
+                    {
+                        <option value="@option.Value">@option.Text</option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
+</form>
+
+<div class="bg-surface rounded-xl shadow-sm border border-surface-container-high overflow-hidden mb-8">
+
+    <div class="p-6 border-b border-surface-container-high bg-surface-container-low">
+        <form method="get" asp-action="Index" asp-controller="AdminBlog" class="flex flex-col lg:flex-row gap-4 lg:items-center lg:justify-between">
+
+            <input type="hidden" name="authorId" value="@Model.SelectedAuthorId" />
+            <input type="hidden" name="cityId" value="@Model.SelectedCityId" />
+            <input type="hidden" name="categoryId" value="@Model.SelectedCategoryId" />
+            <input type="hidden" name="status" value="@Model.SelectedStatus" />
+
+            <div class="flex items-center gap-3 w-full lg:max-w-xl">
+                <div class="relative flex-1">
+                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">
+                        search
+                    </span>
+
+                    <input name="searchText"
+                           value="@Model.SearchText"
+                           class="pl-10 pr-4 py-2.5 bg-surface rounded-full border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary text-sm w-full shadow-sm transition-all"
+                           placeholder="Başlık, içerik, yazar, şehir, ülke, kategori, tag veya Id ara..." />
+                </div>
+
+                <a asp-action="Index" asp-controller="AdminBlog"
+                   class="hidden md:inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-surface border border-outline-variant text-on-surface-variant hover:bg-surface-variant transition-colors font-bold whitespace-nowrap">
+                    <span class="material-symbols-outlined text-[18px]">restart_alt</span>
+                    Temizle
+                </a>
+            </div>
+            <div class="flex items-center justify-end w-full lg:w-auto">
+                <div class="relative w-full lg:w-[300px]">
+                    <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">
+                        sort
+                    </span>
+
+                    <select name="sortBy"
+                            onchange="this.form.submit()"
+                            class="w-full bg-surface rounded-full border border-outline-variant pl-11 pr-5 py-2.5 text-sm focus:border-primary focus:ring-primary shadow-sm">
+                        <option value="">Varsayılan sıralama</option>
+
+                        @foreach (var option in Model.SortOptions)
+                        {
+                            if (option.Selected)
+                            {
+                                <option value="@option.Value" selected>@option.Text</option>
+                            }
+                            else
+                            {
+                                <option value="@option.Value">@option.Text</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse min-w-[1750px]">
+            <thead>
+                <tr class="bg-surface-container-low border-b border-surface-container-high">
+                    <th class="px-4 py-4 text-xs text-on-surface-variant uppercase tracking-wider text-center">Id</th>
+                    <th class="px-4 py-4 text-xs text-on-surface-variant uppercase tracking-wider text-center">Thumbnail</th>
+                    <th class="px-4 py-4 text-xs text-on-surface-variant uppercase tracking-wider min-w-[300px]">Başlık</th>
+                    <th class="px-4 py-4 text-xs text-on-surface-variant uppercase tracking-wider text-center">Yazar</th>
+                    <th class="px-4 py-4 text-xs text-on-surface-variant uppercase tracking-wider text-center">Kategoriler</th>
+                    <th class="px-4 py-4 text-xs text-on-surface-variant uppercase tracking-wider text-center">Şehir</th>
+                    <th class="px-4 py-4 text-xs text-on-surface-variant uppercase tracking-wider text-center">Ülke</th>
+                    <th class="px-4 py-4 text-xs text-on-surface-variant uppercase tracking-wider text-center">Taglar</th>
+                    <th class="px-4 py-4 text-xs text-on-surface-variant uppercase tracking-wider text-center">Görüntülenme</th>
+                    <th class="px-4 py-4 text-xs text-on-surface-variant uppercase tracking-wider text-center">Beğeni</th>
+                    <th class="px-4 py-4 text-xs text-on-surface-variant uppercase tracking-wider text-center">Yorum</th>
+                    <th class="px-4 py-4 text-xs text-on-surface-variant uppercase tracking-wider text-center">Kaydedilen</th>
+                    <th class="px-4 py-4 text-xs text-on-surface-variant uppercase tracking-wider text-center">Trend Skor</th>
+                    <th class="px-4 py-4 text-xs text-on-surface-variant uppercase tracking-wider text-center">Oluşturulma Tarihi</th>
+                    <th class="px-4 py-4 text-xs text-on-surface-variant uppercase tracking-wider text-center">Güncellenme Tarihi</th>
+                    <th class="px-4 py-4 text-xs text-on-surface-variant uppercase tracking-wider text-center">Durum</th>
+                    <th class="px-4 py-4 text-xs text-on-surface-variant uppercase tracking-wider text-right">İşlemler</th>
+                </tr>
+            </thead>
+
+            <tbody class="divide-y divide-surface-container-high">
+                @if (Model.Blogs.Any())
+                {
+                    foreach (var blog in Model.Blogs)
+                    {
+                        var statusClass = blog.Status switch
+                        {
+                            "Yayınlandı" => "bg-green-100 text-green-800 border-green-200",
+                            "Taslak" => "bg-yellow-100 text-yellow-800 border-yellow-200",
+                            "Arşivlendi" => "bg-surface-variant text-on-surface-variant border-outline-variant",
+                            "Silindi" => "bg-red-100 text-red-800 border-red-200",
+                            _ => "bg-surface-variant text-on-surface-variant border-outline-variant"
+                        };
+
+                        <tr class="hover:bg-surface-container-lowest transition-colors group @(blog.IsDeleted ? "opacity-60" : "")">
+                            <td class="px-4 py-4 font-bold text-on-surface">
+                                @blog.Id
+                            </td>
+
+                            <td class="px-4 py-4">
+                                <div class="h-14 w-20 rounded-lg overflow-hidden bg-surface-container border border-surface-variant">
+                                    <img src="/uploads/blog/thumbnail/@blog.ThumbnailUrl"
+                                         alt="@blog.Title"
+                                         class="w-full h-full object-cover @(blog.IsDeleted ? "grayscale" : "")" />
+                                </div>
+                            </td>
+
+                            <td class="px-4 py-4">
+                                <div class="min-w-[300px] max-w-[400px]">
+                                    <p class="font-bold text-on-surface line-clamp-1">
+                                        @blog.Title
+                                    </p>
+                                    <p class="text-xs text-on-surface-variant line-clamp-1">
+                                        @blog.Slug
+                                    </p>
+                                </div>
+                            </td>
+
+                            <td class="px-4 py-4 text-on-surface-variant">
+                                @blog.AuthorName
+                            </td>
+
+                            <td class="px-4 py-4">
+                                <div class="flex flex-wrap gap-1 max-w-[180px]">
+                                    @foreach (var category in blog.Categories.Take(2))
+                                    {
+                                        <span class="px-2 py-1 rounded-full text-xs bg-primary/10 text-primary border border-primary/20">
+                                            @category
+                                        </span>
+                                    }
+
+                                    @if (blog.Categories.Count > 2)
+                                    {
+                                        <span class="px-2 py-1 rounded-full text-xs bg-surface-variant text-on-surface-variant">
+                                            +@(blog.Categories.Count - 2)
+                                        </span>
+                                    }
+
+                                    @if (!blog.Categories.Any())
+                                    {
+                                        <span class="text-xs text-on-surface-variant">Yok</span>
+                                    }
+                                </div>
+                            </td>
+
+                            <td class="px-4 py-4 text-on-surface-variant">
+                                @blog.CityName
+                            </td>
+
+                            <td class="px-4 py-4 text-on-surface-variant">
+                                @blog.CountryName
+                            </td>
+
+                            <td class="px-4 py-4">
+                                <div class="flex flex-wrap gap-1 max-w-[180px]">
+                                    @foreach (var tag in blog.Tags.Take(2))
+                                    {
+                                        <span class="px-2 py-1 rounded-full text-xs bg-secondary-container/30 text-on-secondary-container border border-secondary-container">
+                                            #@tag
+                                        </span>
+                                    }
+
+                                    @if (blog.Tags.Count > 2)
+                                    {
+                                        <span class="px-2 py-1 rounded-full text-xs bg-surface-variant text-on-surface-variant">
+                                            +@(blog.Tags.Count - 2)
+                                        </span>
+                                    }
+
+                                    @if (!blog.Tags.Any())
+                                    {
+                                        <span class="text-xs text-on-surface-variant">Yok</span>
+                                    }
+                        </div>
+                    </td>
+
+                    <td class="px-4 py-4 text-center font-bold">@blog.ViewCount</td>
+                    <td class="px-4 py-4 text-center font-bold">@blog.LikeCount</td>
+                    <td class="px-4 py-4 text-center font-bold">@blog.CommentCount</td>
+                    <td class="px-4 py-4 text-center font-bold">@blog.SaveCount</td>
+
+                    <td class="px-4 py-4 text-center font-bold text-primary">
+                        @blog.TrendScore.ToString("0.##")
+                    </td>
+
+                    <td class="px-4 py-4 text-sm text-on-surface-variant">
+                        @blog.CreatedDate.ToString("dd.MM.yyyy")
+                    </td>
+
+                    <td class="px-4 py-4 text-sm text-on-surface-variant">
+                        @(blog.UpdatedDate.HasValue
+                                                ? blog.UpdatedDate.Value.ToString("dd.MM.yyyy")
+                                                : "-")
+                    </td>
+
+                            <td class="px-4 py-4">
+                                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold border @statusClass">
+                                    @blog.Status
+                                </span>
+                            </td>
+
+                            <td class="px-4 py-4 text-right">
+                                <a asp-controller="AdminBlog"
+                                   asp-action="Detail"
+                                   asp-route-id="@blog.Id"
+                                   class="inline-flex items-center justify-center p-2 text-on-surface-variant hover:text-primary transition-colors rounded-full hover:bg-surface-container-low"
+                                   title="Detay Gör">
+                                    <span class="material-symbols-outlined text-[20px]">visibility</span>
+                                </a>
+                            </td>
+                        </tr>
+                                }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="17" class="px-6 py-8 text-center text-on-surface-variant">
+                            Blog bulunamadı.
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="border-t border-surface-container-high px-6 py-4 flex flex-col md:flex-row md:items-center justify-between gap-4 bg-surface-container-low">
+        <span class="text-sm text-on-surface-variant">
+            @if (Model.TotalItems > 0)
+            {
+                var startItem = ((Model.CurrentPage - 1) * Model.PageSize) + 1;
+                var endItem = Math.Min(Model.CurrentPage * Model.PageSize, Model.TotalItems);
+
+                <span>
+                    @startItem - @endItem arası gösteriliyor. Toplam @Model.TotalItems blog.
+                </span>
+            }
+            else
+            {
+                <span>Gösterilecek blog yok.</span>
+            }
+        </span>
+
+        @if (Model.TotalPages > 1)
+        {
+            <div class="flex items-center gap-2">
+
+                @if (Model.HasPreviousPage)
+                {
+                    <a asp-controller="AdminBlog"
+                       asp-action="Index"
+                       asp-route-page="@(Model.CurrentPage - 1)"
+                       asp-route-searchText="@Model.SearchText"
+                       asp-route-authorId="@Model.SelectedAuthorId"
+                       asp-route-cityId="@Model.SelectedCityId"
+                       asp-route-categoryId="@Model.SelectedCategoryId"
+                       asp-route-status="@Model.SelectedStatus"
+                       asp-route-sortBy="@Model.SelectedSortBy"
+                       class="p-2 rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-variant transition-colors">
+                        <span class="material-symbols-outlined text-[20px]">chevron_left</span>
+                    </a>
+                }
+                else
+                {
+                    <button class="p-2 rounded-lg border border-outline-variant text-on-surface-variant opacity-50" disabled>
+                        <span class="material-symbols-outlined text-[20px]">chevron_left</span>
+                    </button>
+                }
+
+                @for (var i = 1; i <= Model.TotalPages; i++)
+                {
+                    if (i == Model.CurrentPage)
+                    {
+                        <span class="w-8 h-8 rounded-lg bg-primary text-on-primary font-bold text-sm flex items-center justify-center">
+                            @i
+                        </span>
+                    }
+                    else
+                    {
+                        <a asp-controller="AdminBlog"
+                           asp-action="Index"
+                           asp-route-page="@i"
+                           asp-route-searchText="@Model.SearchText"
+                           asp-route-authorId="@Model.SelectedAuthorId"
+                           asp-route-cityId="@Model.SelectedCityId"
+                           asp-route-categoryId="@Model.SelectedCategoryId"
+                           asp-route-status="@Model.SelectedStatus"
+                           asp-route-sortBy="@Model.SelectedSortBy"
+                           class="w-8 h-8 rounded-lg hover:bg-surface-variant text-on-surface font-bold text-sm flex items-center justify-center transition-colors">
+                            @i
+                        </a>
+                    }
+                }
+
+                @if (Model.HasNextPage)
+                {
+                    <a asp-controller="AdminBlog"
+                       asp-action="Index"
+                       asp-route-page="@(Model.CurrentPage + 1)"
+                       asp-route-searchText="@Model.SearchText"
+                       asp-route-authorId="@Model.SelectedAuthorId"
+                       asp-route-cityId="@Model.SelectedCityId"
+                       asp-route-categoryId="@Model.SelectedCategoryId"
+                       asp-route-status="@Model.SelectedStatus"
+                       asp-route-sortBy="@Model.SelectedSortBy"
+                       class="p-2 rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-variant transition-colors">
+                        <span class="material-symbols-outlined text-[20px]">chevron_right</span>
+                    </a>
+                }
+                else
+                {
+                    <button class="p-2 rounded-lg border border-outline-variant text-on-surface-variant opacity-50" disabled>
+                        <span class="material-symbols-outlined text-[20px]">chevron_right</span>
+                    </button>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.querySelectorAll('#blogFilterForm select').forEach(select => {
+            select.addEventListener('change', function () {
+                document.getElementById('blogFilterForm').submit();
+            });
+        });
+    </script>
+}

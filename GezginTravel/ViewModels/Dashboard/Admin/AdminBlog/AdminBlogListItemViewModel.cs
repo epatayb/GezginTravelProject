@@ -23,8 +23,8 @@
 
         public decimal TrendScore { get; set; }
 
-        public DateTime CreateDate {  get; set; }
-        public DateTime? UpdateDate { get; set; }
+        public DateTime CreatedDate {  get; set; }
+        public DateTime? UpdatedDate { get; set; }
 
         public string Status { get; set; } = string.Empty;
         public bool IsDeleted { get; set; }

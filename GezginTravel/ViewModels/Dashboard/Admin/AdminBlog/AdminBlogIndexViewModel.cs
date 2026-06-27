@@ -1,4 +1,6 @@
-﻿namespace GezginTravel.ViewModels.Dashboard.Admin.AdminBlog
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+
+namespace GezginTravel.ViewModels.Dashboard.Admin.AdminBlog
 {
     public class AdminBlogIndexViewModel
     {
@@ -22,5 +24,11 @@
 
         public bool HasPreviousPage => CurrentPage > 1;
         public bool HasNextPage => CurrentPage < TotalPages;
+
+        public List<SelectListItem> AuthorOptions { get; internal set; } = new();
+        public List<SelectListItem> CityOptions { get; internal set; } = new();
+        public List<SelectListItem> CategoryOptions { get; internal set; } = new();
+        public List<SelectListItem> StatusOptions { get; internal set; } = new();
+        public List<SelectListItem> SortOptions { get; internal set; } = new();
     }
 }
