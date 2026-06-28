@@ -1,0 +1,352 @@
+﻿@model GezginTravel.ViewModels.Dashboard.Admin.AdminBlog.AdminBlogDetailViewModel
+
+@{
+    ViewData["Title"] = Model.Title + "Detay";
+    Layout = "~/Views/Admin/Shared/_AdminLayout.cshtml";
+
+    var statusClass = Model.StatusText switch
+    {
+        "Yayınlandı" => "bg-green-100 text-green-800 border-green-200",
+        "Taslak" => "bg-yellow-100 text-yellow-800 border-yellow-200",
+        "Arşivlendi" => "bg-surface-variant text-on-surface-variant border-outline-variant",
+        "Silindi" => "bg-red-100 text-red-800 border-red-200",
+        _ => "bg-surface-variant text-on-surface-variant border-outline-variant"
+    };
+}
+
+<div class="mb-8 flex flex-col xl:flex-row xl:items-start xl:justify-between gap-4">
+    <div>
+        <div class="flex items-center gap-3 mb-3">
+            <a asp-action="Index" asp-controller="AdminBlog"
+               class="inline-flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors">
+                <span class="material-symbols-outlined text-[20px]">arrow_back</span>
+                Blog listesine dön
+            </a>
+        </div>
+
+        <h2 class="font-montserrat text-3xl font-bold text-on-background max-w-4xl">
+            @Model.Title
+        </h2>
+
+        <p class="text-on-surface-variant mt-2">
+            @Model.Slug
+        </p>
+
+        <div class="flex flex-wrap items-center gap-2 mt-4">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold border @statusClass">
+                @Model.StatusText
+            </span>
+
+            <span class="text-sm text-on-surface-variant">
+                Oluşturulma Tarihi: @Model.CreatedDate.ToString("dd.MM.yyyy HH:mm")
+            </span>
+
+            @if (Model.UpdatedDate.HasValue)
+            {
+                <span class="text-sm text-on-surface-variant">
+                    Güncelleme Tarihi: @Model.UpdatedDate.Value.ToString("dd.MM.yyyy HH:mm")
+                </span>
+            }
+
+            @if (Model.DeletedDate.HasValue)
+            {
+                <span class="text-sm text-error">
+                    Silinme Tarihi: @Model.DeletedDate.Value.ToString("dd.MM.yyyy HH:mm")
+                </span>
+            }
+        </div>
+    </div>
+
+    <div class="flex flex-wrap gap-3">
+        <a asp-action="Index" asp-controller="AdminBlog"
+           class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-surface border border-outline-variant text-on-surface-variant hover:bg-surface-variant transition-colors font-bold">
+            <span class="material-symbols-outlined text-[18px]">list</span>
+            Liste
+        </a>
+
+        @if (Model.IsDeleted)
+        {
+            <form asp-controller="AdminBlog" asp-action="Restore" asp-route-id="@Model.Id" method="post">
+                @Html.AntiForgeryToken()
+
+                <button type="submit"
+                        class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-secondary-container text-on-secondary-container font-bold hover:opacity-90 transition-opacity">
+                    <span class="material-symbols-outlined text-[18px]">settings_backup_restore</span>
+                    Geri Yükle
+                </button>
+            </form>
+        }
+        else
+        {
+            <form asp-controller="AdminBlog"
+                  asp-action="Delete"
+                  asp-route-id="@Model.Id"
+                  method="post"
+                  onsubmit="return confirm('Bu blogu silmek istiyor musunuz?');">
+                @Html.AntiForgeryToken()
+
+                <button type="submit"
+                        class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-error text-on-error font-bold hover:opacity-90 transition-opacity">
+                    <span class="material-symbols-outlined text-[18px]">delete</span>
+                    Blogu Sil
+                </button>
+            </form>
+        }
+    </div>
+</div>
+
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-6 mb-8">
+
+    <div class="xl:col-span-2 bg-surface rounded-xl shadow-sm border border-surface-variant overflow-hidden">
+        <div class="h-80 bg-surface-container overflow-hidden">
+            <img src="/uploads/blog/thumbnail/@Model.ThumbnailUrl"
+                 alt="@Model.Title"
+                 class="w-full h-full object-cover @(Model.IsDeleted ? "grayscale" : "")" />
+        </div>
+
+        <div class="p-6">
+            <div class="prose max-w-none text-on-surface-variant leading-7">
+                @Html.Raw(Model.Content)
+            </div>
+        </div>
+    </div>
+
+    <div class="space-y-6">
+
+        <div class="bg-surface rounded-xl shadow-sm border border-surface-variant p-6">
+            <h3 class="text-lg font-bold text-on-background mb-4">
+                Yazar Bilgisi
+            </h3>
+
+            <div class="flex items-center gap-4">
+                <div class="w-14 h-14 rounded-full overflow-hidden bg-surface-container">
+                    <img src="/uploads/users/@Model.AuthorPhotoUrl"
+                         alt="@Model.AuthorName"
+                         class="w-full h-full object-cover" />
+                </div>
+
+                <div>
+                    <p class="font-bold text-on-background">
+                        @Model.AuthorName
+                    </p>
+                    <p class="text-sm text-on-surface-variant">
+                        @Model.AuthorTitle
+                    </p>
+                    <p class="text-sm text-on-surface-variant">
+                        @Model.AuthorEmail
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-surface rounded-xl shadow-sm border border-surface-variant p-6">
+            <h3 class="text-lg font-bold text-on-background mb-4">
+                Blog Bilgileri
+            </h3>
+
+            <div class="space-y-3 text-sm">
+                <div class="flex justify-between gap-4">
+                    <span class="text-on-surface-variant">Şehir</span>
+                    <span class="font-bold text-on-background">@Model.CityName</span>
+                </div>
+
+                <div class="flex justify-between gap-4">
+                    <span class="text-on-surface-variant">Ülke</span>
+                    <span class="font-bold text-on-background">@Model.CountryName</span>
+                </div>
+
+                <div class="flex justify-between gap-4">
+                    <span class="text-on-surface-variant">Okuma Süresi</span>
+                    <span class="font-bold text-on-background">@Model.EstimatedReadingTime dk</span>
+                </div>
+
+                <div class="flex justify-between gap-4">
+                    <span class="text-on-surface-variant">Trend Skoru</span>
+                    <span class="font-bold text-primary">@Model.TrendScore.ToString("0.##")</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-surface rounded-xl shadow-sm border border-surface-variant p-6">
+            <h3 class="text-lg font-bold text-on-background mb-4">
+                Kategoriler
+            </h3>
+
+            <div class="flex flex-wrap gap-2">
+                @if (Model.Categories.Any())
+                {
+                    foreach (var category in Model.Categories)
+                    {
+                        <span class="px-3 py-1 rounded-full text-xs bg-primary/10 text-primary border border-primary/20 font-bold">
+                            @category
+                        </span>
+                    }
+                }
+                else
+                {
+                    <span class="text-sm text-on-surface-variant">Kategori yok</span>
+                }
+            </div>
+        </div>
+
+        <div class="bg-surface rounded-xl shadow-sm border border-surface-variant p-6">
+            <h3 class="text-lg font-bold text-on-background mb-4">
+                Etiketler
+            </h3>
+
+            <div class="flex flex-wrap gap-2">
+                @if (Model.Tags.Any())
+                {
+                    foreach (var tag in Model.Tags)
+                    {
+                        <span class="px-3 py-1 rounded-full text-xs bg-secondary-container/30 text-on-secondary-container border border-secondary-container font-bold">
+                            #@tag
+                        </span>
+                    }
+                }
+                else
+                {
+                    <span class="text-sm text-on-surface-variant">Etiket yok</span>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
+    <div class="bg-surface p-5 rounded-xl shadow-sm border border-surface-variant">
+        <p class="text-xs text-on-surface-variant uppercase font-bold tracking-wider">Görüntülenme</p>
+        <h3 class="text-2xl font-bold text-on-background mt-1">@Model.ViewCount</h3>
+        <p class="text-xs text-on-surface-variant mt-1">Kayıt: @Model.BlogViewRecordCount</p>
+    </div>
+
+    <div class="bg-surface p-5 rounded-xl shadow-sm border border-surface-variant">
+        <p class="text-xs text-on-surface-variant uppercase font-bold tracking-wider">Tekil IP</p>
+        <h3 class="text-2xl font-bold text-on-background mt-1">@Model.UniqueIpCount</h3>
+        <p class="text-xs text-on-surface-variant mt-1">Misafir: @Model.AnonymousViewCount</p>
+    </div>
+
+    <div class="bg-surface p-5 rounded-xl shadow-sm border border-surface-variant">
+        <p class="text-xs text-on-surface-variant uppercase font-bold tracking-wider">Etkileşim</p>
+        <h3 class="text-2xl font-bold text-primary mt-1">@Model.InteractionScore</h3>
+        <p class="text-xs text-on-surface-variant mt-1">
+            Beğeni + Yorum + Kaydetme
+        </p>
+    </div>
+
+    <div class="bg-surface p-5 rounded-xl shadow-sm border border-surface-variant">
+        <p class="text-xs text-on-surface-variant uppercase font-bold tracking-wider">Trend</p>
+        <h3 class="text-2xl font-bold text-primary mt-1">@Model.TrendScore.ToString("0.##")</h3>
+        <p class="text-xs text-on-surface-variant mt-1">
+            Son hesaplanan skor
+        </p>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-6 mb-8">
+
+    <div class="bg-surface rounded-xl shadow-sm border border-surface-variant p-6">
+        <h3 class="text-lg font-bold text-on-background mb-4">Detaylı Sayılar</h3>
+
+        <div class="space-y-3 text-sm">
+            <div class="flex justify-between">
+                <span class="text-on-surface-variant">Beğeni</span>
+                <span class="font-bold">@Model.LikeCount</span>
+            </div>
+
+            <div class="flex justify-between">
+                <span class="text-on-surface-variant">Yorum</span>
+                <span class="font-bold">@Model.CommentCount</span>
+            </div>
+
+            <div class="flex justify-between">
+                <span class="text-on-surface-variant">Kaydetme</span>
+                <span class="font-bold">@Model.SaveCount</span>
+            </div>
+
+            <div class="flex justify-between">
+                <span class="text-on-surface-variant">Kayıtlı Kullanıcı Görüntülenmesi</span>
+                <span class="font-bold">@Model.RegisteredViewCount</span>
+            </div>
+
+            <div class="flex justify-between">
+                <span class="text-on-surface-variant">Misafir Görüntülenmesi</span>
+                <span class="font-bold">@Model.AnonymousViewCount</span>
+            </div>
+
+            <div class="flex justify-between">
+                <span class="text-on-surface-variant">Son Görüntülenme</span>
+                <span class="font-bold">
+                    @(Model.LastViewedAt.HasValue? Model.LastViewedAt.Value.ToString("dd.MM.yyyy HH:mm") : "-")
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="xl:col-span-2 bg-surface rounded-xl shadow-sm border border-surface-variant p-6">
+        <h3 class="text-lg font-bold text-on-background mb-4">Son Yorumlar</h3>
+
+        @if (Model.RecentComments.Any())
+        {
+            <div class="space-y-4">
+                @foreach (var comment in Model.RecentComments)
+                {
+                    <div class="border-b border-surface-variant pb-3 last:border-b-0">
+                        <div class="flex justify-between gap-4">
+                            <p class="font-bold text-on-background">@comment.UserFullName</p>
+                            <span class="text-xs text-on-surface-variant">
+                                @comment.CreatedDate.ToString("dd.MM.yyyy HH:mm")
+                            </span>
+                        </div>
+
+                        <p class="text-sm text-on-surface-variant mt-1">
+                            @comment.Content
+                        </p>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <p class="text-on-surface-variant">
+                Bu bloga henüz yorum yapılmamış.
+            </p>
+        }
+    </div>
+</div>
+
+<div class="bg-surface rounded-xl shadow-sm border border-surface-variant p-6">
+    <h3 class="text-lg font-bold text-on-background mb-4">Son Görüntülenmeler</h3>
+
+    @if (Model.RecentViews.Any())
+    {
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="border-b border-surface-variant">
+                        <th class="py-3 text-xs text-on-surface-variant uppercase tracking-wider">Kullanıcı</th>
+                        <th class="py-3 text-xs text-on-surface-variant uppercase tracking-wider">IP</th>
+                        <th class="py-3 text-xs text-on-surface-variant uppercase tracking-wider">Tarih</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var view in Model.RecentViews)
+                    {
+                        <tr class="border-b border-surface-variant last:border-b-0">
+                            <td class="py-3 text-on-surface">@view.ViewerName</td>
+                            <td class="py-3 text-on-surface-variant">@view.IpAddress</td>
+                            <td class="py-3 text-on-surface-variant">@view.CreatedDate.ToString("dd.MM.yyyy HH:mm")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <p class="text-on-surface-variant">
+            Bu blog için görüntülenme kaydı yok.
+        </p>
+    }
+</div>

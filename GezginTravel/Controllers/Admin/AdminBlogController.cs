@@ -180,24 +180,177 @@ namespace GezginTravel.Controllers.Admin
         [HttpGet("detay/{id:int}")]
         public async Task<IActionResult> Detail(int id)
         {
-            var exists = await _context.Blogs
+            var blog = await _context.Blogs
                 .IgnoreQueryFilters()
-                .AnyAsync(x => x.Id == id);
+                .Include(x => x.Author)
+                .Include(x => x.City)
+                .Include(x => x.Country)
+                .Include(x => x.Images)
+                .Include(x => x.BlogCategories)
+                    .ThenInclude(x => x.Category)
+                .Include(x => x.BlogTags)
+                    .ThenInclude(x => x.Tag)
+                .FirstOrDefaultAsync(x => x.Id == id);
 
-            if (!exists)
+            if (blog == null)
+            {
+                TempData["ErrorMessage"] = "Blog bulunamadı";
+                return RedirectToAction(nameof(Index));
+            }
+
+            var blogViews = await _context.BlogViews
+                .Include(x => x.User)
+                .Where(x => x.BlogId == id)
+                .OrderByDescending(x => x.CreatedDate)
+                .ToListAsync();
+
+            var recentComments = await _context.BlogComments
+                .Include(x => x.User)
+                .Where(x => x.BlogId == id && !x.IsDeleted)
+                .OrderByDescending(x => x.CreatedDate)
+                .Take(5)
+                .Select(x => new AdminBlogCommentItemViewModel
+                {
+                    UserFullName = x.User.FirstName + " " + x.User.LastName,
+                    Content = x.Content,
+                    CreatedDate = x.CreatedDate,
+                })
+                .ToListAsync();
+
+            var actualLikeCount = await _context.BlogLikes.CountAsync(x => x.BlogId == id);
+            var actualSaveCount = await _context.BlogSaves.CountAsync(x => x.BlogId == id);
+            var actualCommentCount = await _context.BlogComments.CountAsync(x => x.BlogId == id && !x.IsDeleted);
+
+            var model = new AdminBlogDetailViewModel
+            {
+                Id = blog.Id,
+                Title = blog.Title,
+                Slug = blog.Slug,
+                Content = blog.Content,
+                ThumbnailUrl = string.IsNullOrWhiteSpace(blog.ThumbnailUrl)
+                    ? ""
+                    : blog.ThumbnailUrl,
+
+                EstimatedReadingTime = blog.EstimatedReadingTime,
+
+                AuthorName = blog.Author.FirstName + " " + blog.Author.LastName,
+                AuthorEmail = blog.Author.Email ?? "",
+                AuthorTitle = blog.Author.Title,
+                AuthorPhotoUrl = string.IsNullOrWhiteSpace(blog.Author.PhotoUrl)
+                    ? "/uploads/users/default-user.png"
+                    : blog.Author.PhotoUrl,
+
+                CityName = blog.City?.Name ?? "Şehir bilgisi yok",
+                CountryName = blog.Country?.Name ?? "Ülke bilgisi yok",
+
+                Categories = blog.BlogCategories.Select(x => x.Category.Name).ToList(),
+                Tags = blog.BlogTags.Select(x => x.Tag.Name).ToList(),
+                Images = blog.Images
+                    .OrderBy(x => x.OrderNo)
+                    .Select(x => x.ImageUrl)
+                    .ToList(),
+
+                ViewCount = blog.ViewCount,
+                BlogViewRecordCount = blogViews.Count,
+                UniqueIpCount = blogViews
+                    .Where(x => !string.IsNullOrWhiteSpace(x.IpAddress))
+                    .Select(x => x.IpAddress)
+                    .Distinct()
+                    .Count(),
+
+                RegisteredViewCount = blogViews.Count(x => x.UserId != null),
+                AnonymousViewCount = blogViews.Count(x => x.UserId == null),
+
+                LikeCount = actualLikeCount,
+                CommentCount = actualCommentCount,
+                SaveCount = actualSaveCount,
+
+                InteractionScore = actualLikeCount + actualCommentCount + actualSaveCount,
+                TrendScore = blog.TrendScore,
+
+                StatusText = GetStatusText(blog),
+                IsDeleted = blog.IsDeleted,
+
+                CreatedDate = blog.CreatedDate,
+                UpdatedDate = blog.UpdatedDate,
+                DeletedDate = blog.DeletedDate,
+
+                LastViewedAt = blogViews.FirstOrDefault()?.CreatedDate,
+                LastCommentedAt = recentComments.FirstOrDefault()?.CreatedDate,
+
+                RecentComments = recentComments,
+
+                RecentViews = blogViews
+                    .Take(5)
+                    .Select(x => new AdminBlogViewItemViewModel
+                    {
+                        ViewerName = x.UserId == null
+                            ? "Misafir"
+                            : x.User!.FirstName + " " + x.User.LastName,
+                        IpAddress = x.IpAddress ?? "",
+                        CreatedDate = x.CreatedDate
+                    })
+                    .ToList()
+
+            };
+            return View(model);
+        }
+
+        [HttpPost("sil/{id:int}")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var blog = await _context.Blogs
+                .IgnoreQueryFilters()
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (blog ==null)
             {
                 TempData["ErrorMessage"] = "Blog bulunamadı.";
                 return RedirectToAction(nameof(Index));
             }
 
-            // detay sayfası tasarlanacak
-            return Content($"Blog detay sayfası hazırlanacak. Blog Id:{id}");
+            if (blog.IsDeleted)
+            {
+                TempData["ErrorMessage"] = "Bu blog zaten silinmiş.";
+                return RedirectToAction(nameof(Detail), new { id });
+            }
+            blog.IsDeleted = true;
+            blog.DeletedDate = DateTime.Now;
+
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Blog başarıyla silindi.";
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost("geri-yukle/{id:int}")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Restore(int id)
+        {
+            var blog = await _context.Blogs
+                .IgnoreQueryFilters()
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (blog == null)
+            {
+                TempData["ErrorMessage"] = "Blog bulunamadı.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            blog.IsDeleted = false;
+            blog.DeletedDate = null;
+
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Blog tekrar aktif hale getirildi.";
+            return RedirectToAction(nameof(Detail), new { id });
         }
 
         [HttpGet("son-eklenen-bloglar")]
         public IActionResult LastBlogs()
         {
-            return RedirectToAction(nameof(Index), new {sortBy = "created_desc"});
+            return RedirectToAction(nameof(Index), new { sortBy = "created_desc" });
         }
 
         private static IQueryable<Blog> ApplySorting(IQueryable<Blog> query, string? sortBy)
@@ -245,8 +398,8 @@ namespace GezginTravel.Controllers.Admin
             }
 
             var authorIds = await _context.UserRoles
-                .Where(x=>x.RoleId == authorRoleId)
-                .Select(x=>x.UserId)
+                .Where(x => x.RoleId == authorRoleId)
+                .Select(x => x.UserId)
                 .ToListAsync();
 
             return await _context.Users
@@ -282,7 +435,7 @@ namespace GezginTravel.Controllers.Admin
                 .Select(x => new SelectListItem
                 {
                     Value = x.Id.ToString(),
-                    Text =x.Name,
+                    Text = x.Name,
                     Selected = selectedCategoryId == x.Id
                 })
                 .ToListAsync();
