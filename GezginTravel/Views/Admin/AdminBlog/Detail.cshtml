@@ -214,33 +214,107 @@
 </div>
 
 <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
-    <div class="bg-surface p-5 rounded-xl shadow-sm border border-surface-variant">
-        <p class="text-xs text-on-surface-variant uppercase font-bold tracking-wider">Görüntülenme</p>
-        <h3 class="text-2xl font-bold text-on-background mt-1">@Model.ViewCount</h3>
-        <p class="text-xs text-on-surface-variant mt-1">Kayıt: @Model.BlogViewRecordCount</p>
+
+    <!-- Görüntülenme -->
+    <div class="bg-surface p-5 rounded-xl shadow-sm border border-surface-variant hover:shadow-md transition-shadow">
+        <div class="flex items-start justify-between gap-4">
+            <div>
+                <p class="text-xs text-on-surface-variant uppercase font-bold tracking-wider">
+                    Görüntülenme
+                </p>
+
+                <h3 class="text-2xl font-bold text-on-background mt-1">
+                    @Model.ViewCount
+                </h3>
+
+                <p class="text-xs text-on-surface-variant mt-1">
+                    Kayıt: @Model.BlogViewRecordCount
+                </p>
+            </div>
+
+            <div class="w-11 h-11 rounded-xl bg-secondary-container text-on-secondary-container flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-[24px]">
+                    visibility
+                </span>
+            </div>
+        </div>
     </div>
 
-    <div class="bg-surface p-5 rounded-xl shadow-sm border border-surface-variant">
-        <p class="text-xs text-on-surface-variant uppercase font-bold tracking-wider">Tekil IP</p>
-        <h3 class="text-2xl font-bold text-on-background mt-1">@Model.UniqueIpCount</h3>
-        <p class="text-xs text-on-surface-variant mt-1">Misafir: @Model.AnonymousViewCount</p>
+    <!-- Tekil IP -->
+    <div class="bg-surface p-5 rounded-xl shadow-sm border border-surface-variant hover:shadow-md transition-shadow">
+        <div class="flex items-start justify-between gap-4">
+            <div>
+                <p class="text-xs text-on-surface-variant uppercase font-bold tracking-wider">
+                    Tekil IP
+                </p>
+
+                <h3 class="text-2xl font-bold text-on-background mt-1">
+                    @Model.UniqueIpCount
+                </h3>
+
+                <p class="text-xs text-on-surface-variant mt-1">
+                    Misafir: @Model.AnonymousViewCount
+                </p>
+            </div>
+
+            <div class="w-11 h-11 rounded-xl bg-surface-variant text-on-surface-variant flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-[24px]">
+                    public
+                </span>
+            </div>
+        </div>
     </div>
 
-    <div class="bg-surface p-5 rounded-xl shadow-sm border border-surface-variant">
-        <p class="text-xs text-on-surface-variant uppercase font-bold tracking-wider">Etkileşim</p>
-        <h3 class="text-2xl font-bold text-primary mt-1">@Model.InteractionScore</h3>
-        <p class="text-xs text-on-surface-variant mt-1">
-            Beğeni + Yorum + Kaydetme
-        </p>
+    <!-- Etkileşim -->
+    <div class="bg-surface p-5 rounded-xl shadow-sm border border-surface-variant hover:shadow-md transition-shadow">
+        <div class="flex items-start justify-between gap-4">
+            <div>
+                <p class="text-xs text-on-surface-variant uppercase font-bold tracking-wider">
+                    Etkileşim
+                </p>
+
+                <h3 class="text-2xl font-bold text-primary mt-1">
+                    @Model.InteractionScore
+                </h3>
+
+                <p class="text-xs text-on-surface-variant mt-1">
+                    Beğeni + Yorum + Kaydetme
+                </p>
+            </div>
+
+            <div class="w-11 h-11 rounded-xl bg-primary-fixed text-on-primary-fixed flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-[24px]">
+                    bolt
+                </span>
+            </div>
+        </div>
     </div>
 
-    <div class="bg-surface p-5 rounded-xl shadow-sm border border-surface-variant">
-        <p class="text-xs text-on-surface-variant uppercase font-bold tracking-wider">Trend</p>
-        <h3 class="text-2xl font-bold text-primary mt-1">@Model.TrendScore.ToString("0.##")</h3>
-        <p class="text-xs text-on-surface-variant mt-1">
-            Son hesaplanan skor
-        </p>
+    <!-- Trend -->
+    <div class="bg-surface p-5 rounded-xl shadow-sm border border-surface-variant hover:shadow-md transition-shadow">
+        <div class="flex items-start justify-between gap-4">
+            <div>
+                <p class="text-xs text-on-surface-variant uppercase font-bold tracking-wider">
+                    Trend
+                </p>
+
+                <h3 class="text-2xl font-bold text-primary mt-1">
+                    @Model.TrendScore.ToString("0.##")
+                </h3>
+
+                <p class="text-xs text-on-surface-variant mt-1">
+                    Son hesaplanan skor
+                </p>
+            </div>
+
+            <div class="w-11 h-11 rounded-xl bg-primary-container text-on-primary-container flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-[24px]">
+                    local_fire_department
+                </span>
+            </div>
+        </div>
     </div>
+
 </div>
 
 <div class="grid grid-cols-1 xl:grid-cols-3 gap-6 mb-8">
