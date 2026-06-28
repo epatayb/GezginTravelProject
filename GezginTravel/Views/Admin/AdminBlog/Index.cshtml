@@ -23,6 +23,13 @@
         @TempData["ErrorMessage"]
     </div>
 }
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="mb-4 rounded-lg bg-red-100 text-red-800 px-4 py-3">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
 
 
 <form asp-controller="AdminBlog" asp-action="Index" method="get" id="blogFilterForm" class="mb-8">
