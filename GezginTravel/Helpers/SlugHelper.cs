@@ -14,7 +14,7 @@ namespace GezginTravel.Helpers
                 return string.Empty;
             }
 
-            text = text.Trim().ToLowerInvariant();
+            text = text.Trim().ToLower(new CultureInfo("tr-TR"));
 
             text = text
                 .Replace("ğ", "g")
@@ -40,8 +40,7 @@ namespace GezginTravel.Helpers
             text = builder.ToString().Normalize(NormalizationForm.FormC);
 
             text = Regex.Replace(text, @"[^a-z0-9\s-]", "");
-            text = Regex.Replace(text, @"\s+", "-");
-            text = Regex.Replace(text, @"-+", "-");
+            text = Regex.Replace(text, @"[\s-]+", "-");
 
             return text.Trim('-');
         }
