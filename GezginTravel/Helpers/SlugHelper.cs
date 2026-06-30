@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace GezginTravel.Helpers
 {
-    public class SlugHelpers
+    public class SlugHelper
     {
         public static string GenerateSlug(string text)
         {

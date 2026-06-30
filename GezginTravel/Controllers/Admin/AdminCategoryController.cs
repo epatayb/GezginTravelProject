@@ -1,5 +1,6 @@
 ﻿using GezginTravel.Constants;
 using GezginTravel.Data;
+using GezginTravel.Helpers;
 using GezginTravel.Models.Entities;
 using GezginTravel.ViewModels.Dashboard.Admin.AdminCategory;
 using Microsoft.AspNetCore.Authorization;
@@ -109,13 +110,41 @@ namespace GezginTravel.Controllers.Admin
         [HttpGet("ekle")]
         public IActionResult Create()
         {
-            return View();
+            return View(new AdminCategoryCreateViewModel());
         }
 
         [HttpPost("ekle")]
-        public IActionResult Create(int Id)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(AdminCategoryCreateViewModel model)
         {
-            return View();
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var slug = SlugHelper.GenerateSlug(model.Name);
+
+            var slugExists = await _context.Categories
+                .AnyAsync(x => x.Slug == slug);
+
+            if (slugExists)
+            {
+                ModelState.AddModelError(nameof(model.Name), "Bu kategori adı daha önce kullanılmış. Silinmiş kategorilerde de aynı slug bulunabilir.");
+                return View(model);
+            }
+
+            var category = new Category
+            {
+                Name = model.Name.Trim(),
+                Slug = slug
+            };
+
+            await _context.Categories.AddAsync(category);
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Kategori başarıyla oluşturuldu.";
+            return RedirectToAction(nameof(Index));
+
         }
 
         [HttpGet("edit/{id:int}")]
