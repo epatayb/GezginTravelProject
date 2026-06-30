@@ -106,13 +106,13 @@ namespace GezginTravel.Controllers.Admin
             return View(model);
         }
 
-        [HttpGet("create")]
+        [HttpGet("ekle")]
         public IActionResult Create()
         {
             return View();
         }
 
-        [HttpPost("create")]
+        [HttpPost("ekle")]
         public IActionResult Create(int Id)
         {
             return View();
