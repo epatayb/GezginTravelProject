@@ -147,20 +147,73 @@ namespace GezginTravel.Controllers.Admin
 
         }
 
-        [HttpGet("edit/{id:int}")]
-        public IActionResult Edit(int id)
+        [HttpGet("duzenle/{id:int}")]
+        public async Task<IActionResult> Edit(int id)
         {
-            return View();
+            var category = await _context.Categories
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (category == null)
+            {
+                TempData["ErrorMessage"] = "Kategori bulunamadı.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            var model = new AdminCategoryEditViewModel
+            {
+                Id = category.Id,
+                Name = category.Name,
+                Slug = category.Slug
+            };
+
+            return View(model);
         }
 
-        [HttpPost("edit/{id:int}")]
+        [HttpPost("duzenle/{id:int}")]
         [ValidateAntiForgeryToken]
-        public IActionResult EditPost(int id)
+        public async Task<IActionResult> EditPost(int id, AdminCategoryEditViewModel model)
         {
+            if (id != model.Id)
+            {
+                TempData["ErrorMessage"] = "Geçersiz kategori isteği";
+                return RedirectToAction(nameof(Index));
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var category = await _context.Categories
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (category == null)
+            {
+                TempData["ErrorMessage"] = "Kategori bulunamadı.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            var newSlug = SlugHelper.GenerateSlug(model.Name);
+
+            var slugExists = await _context.Categories
+                .AnyAsync(x => x.Id != id && x.Slug == newSlug);
+
+            if (slugExists)
+            {
+                ModelState.AddModelError(nameof(model.Name), "Bu kategori adı başka bir kategoride kullanılıyor.");
+                return View(model);
+            }
+
+            category.Name = model.Name.Trim();
+            category.Slug = newSlug;
+
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "kategori başarıyla eklendi.";
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpPost("delete/{id:int}")]
+        [HttpPost("sil/{id:int}")]
         [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
         {
