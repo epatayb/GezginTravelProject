@@ -83,9 +83,9 @@
 
     <div class="p-6 border-b border-surface-container-high bg-surface-container-low">
         <form method="get" asp-controller="AdminUser" asp-action="Index"
-              class="grid grid-cols-2 gap-4 md:flex md:flex-row md:justify-between md:items-center">
+              class="flex flex-col md:flex-row md:items-center justify-between gap-4">
 
-            <div class="relative col-span-2 order-1 md:order-none md:flex-1 md:max-w-xl">
+            <div class="relative w-full md:max-w-xl md:flex-1">
                 <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">
                     search
                 </span>
@@ -93,16 +93,15 @@
                        value="@Model.SearchText"
                        class="pl-10 pr-4 py-2.5 bg-surface rounded-full border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary text-sm w-full shadow-sm transition-all"
                        placeholder="Kullanıcı ara..." />
+
+                <button type="submit" class="absolute right-2 top-1/2 -translate-y-1/2 bg-primary text-on-primary text-xs px-7 py-2 rounded-full font-bold hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-sm">
+                    Ara
+                </button>
             </div>
 
-            <a asp-controller="AdminUser" asp-action="Index"
-               class="col-span-1 order-2 md:order-none inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-surface border border-outline-variant text-on-surface-variant hover:bg-surface-variant transition-colors font-bold whitespace-nowrap text-sm">
-                <span class="material-symbols-outlined text-[18px]">restart_alt</span>
-                Temizle
-            </a>
-
             <select name="role"
-                    class="col-span-1 order-3 md:order-none bg-surface rounded-full border border-outline-variant px-5 py-2.5 text-sm focus:border-primary focus:ring-primary shadow-sm text-center appearance-none md:min-w-[190px]">
+                    onchange="this.form.submit()"
+                    class="bg-surface rounded-full border border-outline-variant px-5 py-2.5 text-sm focus:border-primary focus:ring-primary shadow-sm text-center appearance-none w-full md:w-auto md:min-w-[190px] cursor-pointer">
                 <option value="">Roller</option>
 
                 @foreach (var role in Model.Roles)
@@ -117,11 +116,6 @@
                     }
                 }
             </select>
-
-            <button type="submit"
-                    class="col-span-2 order-4 md:order-none inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-primary text-on-primary font-bold hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-sm text-sm md:w-auto">
-                Filtrele
-            </button>
         </form>
     </div>
 

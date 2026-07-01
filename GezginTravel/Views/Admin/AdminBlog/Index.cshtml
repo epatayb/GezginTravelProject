@@ -153,13 +153,11 @@
                            value="@Model.SearchText"
                            class="pl-10 pr-4 py-2.5 bg-surface rounded-full border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary text-sm w-full shadow-sm transition-all"
                            placeholder="Başlık, içerik, yazar, şehir, ülke, kategori, tag veya Id ara..." />
-                </div>
 
-                <a asp-action="Index" asp-controller="AdminBlog"
-                   class="hidden md:inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-surface border border-outline-variant text-on-surface-variant hover:bg-surface-variant transition-colors font-bold whitespace-nowrap">
-                    <span class="material-symbols-outlined text-[18px]">restart_alt</span>
-                    Temizle
-                </a>
+                    <button type="submit" class="absolute right-2 top-1/2 -translate-y-1/2 bg-primary text-on-primary text-xs px-7 py-2 rounded-full font-bold hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-sm">
+                        Ara
+                    </button>
+                </div>
             </div>
             <div class="flex items-center justify-end w-full lg:w-auto">
                 <div class="relative w-full lg:w-[300px]">
