@@ -219,9 +219,50 @@ namespace GezginTravel.Controllers.Admin
 
         [HttpPost("sil/{id:int}")]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
+            var category = await _context.Categories.FindAsync(id);
+
+            if (category == null)
+            {
+                TempData["ErrorMessage"] = "Kategori bulunamadı.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            if (category.IsDeleted)
+            {
+                TempData["ErrorMessage"] = "Bu kategori zaten silinmiş durumda.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            category.IsDeleted = true;
+            category.DeletedDate = DateTime.Now;
+
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Kategori başarıyla silindi.";
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost("geri-yukle/{id:int}")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Restore(int id)
+        {
+            var category = await _context.Categories.FindAsync(id);
+
+            if (category == null)
+            {
+                TempData["ErrorMessage"] = "Kategori bulunamadı.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            category.IsDeleted = false;
+            category.DeletedDate = null;
+
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Kategori tekrar aktif hale getirildi.";
+            return RedirectToAction(nameof(Index), new { status = "Active" });
         }
 
         private static IQueryable<Category> ApplySorting(IQueryable<Category> query, string? sortBy)
