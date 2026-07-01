@@ -140,6 +140,7 @@
             <input type="hidden" name="authorId" value="@Model.SelectedAuthorId" />
             <input type="hidden" name="cityId" value="@Model.SelectedCityId" />
             <input type="hidden" name="categoryId" value="@Model.SelectedCategoryId" />
+            <input type="hidden" name="tagId" value="@Model.SelectedTagId" />
             <input type="hidden" name="status" value="@Model.SelectedStatus" />
 
             <div class="flex items-center gap-3 w-full lg:max-w-xl">
@@ -387,6 +388,7 @@
                        asp-route-authorId="@Model.SelectedAuthorId"
                        asp-route-cityId="@Model.SelectedCityId"
                        asp-route-categoryId="@Model.SelectedCategoryId"
+                       asp-route-tagId="@Model.SelectedTagId"
                        asp-route-status="@Model.SelectedStatus"
                        asp-route-sortBy="@Model.SelectedSortBy"
                        class="p-2 rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-variant transition-colors">
@@ -417,6 +419,7 @@
                            asp-route-authorId="@Model.SelectedAuthorId"
                            asp-route-cityId="@Model.SelectedCityId"
                            asp-route-categoryId="@Model.SelectedCategoryId"
+                           asp-route-tagId="@Model.SelectedTagId"
                            asp-route-status="@Model.SelectedStatus"
                            asp-route-sortBy="@Model.SelectedSortBy"
                            class="w-8 h-8 rounded-lg hover:bg-surface-variant text-on-surface font-bold text-sm flex items-center justify-center transition-colors">
@@ -434,6 +437,7 @@
                        asp-route-authorId="@Model.SelectedAuthorId"
                        asp-route-cityId="@Model.SelectedCityId"
                        asp-route-categoryId="@Model.SelectedCategoryId"
+                       asp-route-tagId="@Model.SelectedTagId"
                        asp-route-status="@Model.SelectedStatus"
                        asp-route-sortBy="@Model.SelectedSortBy"
                        class="p-2 rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-variant transition-colors">

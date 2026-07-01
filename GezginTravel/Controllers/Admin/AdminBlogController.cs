@@ -28,6 +28,7 @@ namespace GezginTravel.Controllers.Admin
             int? authorId,
             int? cityId,
             int? categoryId,
+            int? tagId,
             string? status,
             string? sortBy,
             int page = 1)
@@ -72,6 +73,12 @@ namespace GezginTravel.Controllers.Admin
             {
                 query = query.Where(x =>
                     x.BlogCategories.Any(bc => bc.CategoryId == categoryId.Value));
+            }
+
+            if (tagId.HasValue)
+            {
+                query = query.Where(x =>
+                    x.BlogTags.Any(bt => bt.TagId == tagId.Value));
             }
 
             if (!string.IsNullOrWhiteSpace(searchText))
@@ -159,6 +166,7 @@ namespace GezginTravel.Controllers.Admin
                 SelectedAuthorId = authorId,
                 SelectedCityId = cityId,
                 SelectedCategoryId = categoryId,
+                SelectedTagId = tagId,
                 SelectedStatus = status,
                 SelectedSortBy = sortBy,
 

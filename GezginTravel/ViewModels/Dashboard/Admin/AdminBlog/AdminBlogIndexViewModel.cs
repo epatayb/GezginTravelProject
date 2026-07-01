@@ -9,6 +9,7 @@ namespace GezginTravel.ViewModels.Dashboard.Admin.AdminBlog
         public int? SelectedAuthorId { get; set; }
         public int? SelectedCityId { get; set; }
         public int? SelectedCategoryId { get; set; }
+        public int? SelectedTagId { get; set; }
 
         public string? SelectedStatus { get; set; }
         public string? SelectedSortBy { get; set; }
