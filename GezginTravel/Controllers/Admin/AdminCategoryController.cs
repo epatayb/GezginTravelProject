@@ -151,7 +151,7 @@ namespace GezginTravel.Controllers.Admin
         public async Task<IActionResult> Edit(int id)
         {
             var category = await _context.Categories
-                .FirstOrDefaultAsync(x => x.Id == id);
+                .FindAsync(id);
 
             if (category == null)
             {
@@ -171,7 +171,7 @@ namespace GezginTravel.Controllers.Admin
 
         [HttpPost("duzenle/{id:int}")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditPost(int id, AdminCategoryEditViewModel model)
+        public async Task<IActionResult> Edit(int id, AdminCategoryEditViewModel model)
         {
             if (id != model.Id)
             {
@@ -185,7 +185,7 @@ namespace GezginTravel.Controllers.Admin
             }
 
             var category = await _context.Categories
-                .FirstOrDefaultAsync(x => x.Id == id);
+                .FindAsync(id);
 
             if (category == null)
             {
@@ -193,23 +193,27 @@ namespace GezginTravel.Controllers.Admin
                 return RedirectToAction(nameof(Index));
             }
 
-            var newSlug = SlugHelper.GenerateSlug(model.Name);
-
-            var slugExists = await _context.Categories
-                .AnyAsync(x => x.Id != id && x.Slug == newSlug);
-
-            if (slugExists)
+            var trimmedName = model.Name.Trim();
+            if (category.Name != trimmedName)
             {
-                ModelState.AddModelError(nameof(model.Name), "Bu kategori adı başka bir kategoride kullanılıyor.");
-                return View(model);
-            }
+                var newSlug = SlugHelper.GenerateSlug(trimmedName);
 
-            category.Name = model.Name.Trim();
-            category.Slug = newSlug;
+                var slugExists = await _context.Categories
+                    .AnyAsync(x => x.Id != id && x.Slug == newSlug);
+
+                if (slugExists)
+                {
+                    ModelState.AddModelError(nameof(model.Name), "Bu kategori adı başka bir kategoride kullanılıyor.");
+                    return View(model);
+                }
+
+                category.Name = trimmedName;
+                category.Slug = newSlug;
+            }
 
             await _context.SaveChangesAsync();
 
-            TempData["SuccessMessage"] = "kategori başarıyla eklendi.";
+            TempData["SuccessMessage"] = "kategori başarıyla güncellendi.";
             return RedirectToAction(nameof(Index));
         }
 
