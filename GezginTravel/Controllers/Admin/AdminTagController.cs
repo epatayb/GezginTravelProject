@@ -1,5 +1,6 @@
 ﻿using GezginTravel.Constants;
 using GezginTravel.Data;
+using GezginTravel.Helpers;
 using GezginTravel.Models.Entities;
 using GezginTravel.ViewModels.Dashboard.Admin.AdminTag;
 using Microsoft.AspNetCore.Authorization;
@@ -86,7 +87,7 @@ namespace GezginTravel.Controllers.Admin
                 .ToListAsync();
 
             var allTagsStats = await _context.Tags
-                .Select(x=> new {x.IsDeleted, HasBlogs = x.BlogTags.Any() })
+                .Select(x => new { x.IsDeleted, HasBlogs = x.BlogTags.Any() })
                 .ToListAsync();
 
             var model = new AdminTagIndexViewModel
@@ -107,7 +108,45 @@ namespace GezginTravel.Controllers.Admin
                 TotalItems = totalItems
             };
 
-            return View(model);        
+            return View(model);
+        }
+
+        [HttpGet("ekle")]
+        public IActionResult Create()
+        {
+            return View(new AdminTagCreateViewModel());
+        }
+
+        [HttpPost("ekle")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(AdminTagCreateViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var slug = SlugHelper.GenerateSlug(model.Name);
+            var slugExists = await _context.Tags.AnyAsync(x => x.Slug == slug);
+
+            if (slugExists)
+            {
+                ModelState.AddModelError(nameof(model.Name), "Bu etiket adı daha önce kullanılmış. Silinmiş etiketlerde de aynı etiket olabilir.");
+                return View(model);
+            }
+
+            var tag = new Tag
+            {
+                Name = model.Name.Trim(),
+                Slug = slug,
+                CreatedDate = DateTime.Now,
+            };
+
+            await _context.Tags.AddAsync(tag);
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Etiket başarıyla oluşturuldu.";
+            return RedirectToAction(nameof(Index));
         }
 
         private static IQueryable<Tag> ApplySorting(IQueryable<Tag> query, string? sortBy)
