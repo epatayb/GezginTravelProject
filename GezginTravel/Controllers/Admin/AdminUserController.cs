@@ -143,7 +143,7 @@ namespace GezginTravel.Controllers.Admin
         [HttpGet("son-eklenen-kullanicilar")]
         public IActionResult LastUsers()
         {
-            return View();
+            return RedirectToAction(nameof(Index), new { sortBy = "created_desc" });
         }
 
         [HttpGet("detay/{id:int}")]
