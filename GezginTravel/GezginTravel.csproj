@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Admin\AdminTag\" />
     <Folder Include="Views\Admin\AdminLocation\" />
     <Folder Include="Views\Admin\AdminComment\" />
     <Folder Include="Views\Author\AuthorBlog\" />

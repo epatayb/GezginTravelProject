@@ -1,0 +1,365 @@
+﻿@model GezginTravel.ViewModels.Dashboard.Admin.AdminTag.AdminTagIndexViewModel
+
+@{
+    ViewData["Title"] = "Etiket Yönetimi";
+    Layout = "~/Views/Admin/Shared/_AdminLayout.cshtml";
+}
+
+<div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+    <div>
+        <h2 class="font-montserrat text-3xl font-bold text-on-background">
+            Etiket Yönetimi
+        </h2>
+
+        <p class="text-on-surface-variant mt-1">
+            Blog etiketlerini yönet, düzenle ve istatistiklere gözat.
+        </p>
+    </div>
+
+    <a asp-controller="AdminTag" asp-action="Create"
+       class="bg-primary text-on-primary px-6 py-2 rounded-full font-bold hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-sm flex items-center gap-2">
+        <span class="material-symbols-outlined text-[18px]">add</span>
+        Etiket Ekle
+    </a>
+</div>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="mb-4 rounded-lg bg-green-100 text-green-800 px-4 py-3">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="mb-4 rounded-lg bg-red-100 text-red-800 px-4 py-3">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
+
+    <div class="bg-surface p-5 rounded-xl shadow-sm border border-surface-variant">
+        <div class="flex items-start justify-between gap-4">
+            <div>
+                <p class="text-xs text-on-surface-variant uppercase font-bold tracking-wider">Toplam Etiket</p>
+                <h3 class="text-2xl font-bold text-on-background mt-1">@Model.TotalTags</h3>
+            </div>
+
+            <div class="w-11 h-11 rounded-xl bg-secondary-container text-on-secondary-container flex items-center justify-center">
+                <span class="material-symbols-outlined">sell</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-surface p-5 rounded-xl shadow-sm border border-surface-variant">
+        <div class="flex items-start justify-between gap-4">
+            <div>
+                <p class="text-xs text-on-surface-variant uppercase font-bold tracking-wider">Aktif Etiket</p>
+                <h3 class="text-2xl font-bold text-on-background mt-1">@Model.ActiveTags</h3>
+            </div>
+
+            <div class="w-11 h-11 rounded-xl bg-primary-fixed text-on-primary-fixed flex items-center justify-center">
+                <span class="material-symbols-outlined">check_circle</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-surface p-5 rounded-xl shadow-sm border border-surface-variant">
+        <div class="flex items-start justify-between gap-4">
+            <div>
+                <p class="text-xs text-on-surface-variant uppercase font-bold tracking-wider">Silinen Etiket</p>
+                <h3 class="text-2xl font-bold text-on-background mt-1">@Model.DeletedTags</h3>
+            </div>
+
+            <div class="w-11 h-11 rounded-xl bg-error-container text-error flex items-center justify-center">
+                <span class="material-symbols-outlined">delete</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-surface p-5 rounded-xl shadow-sm border border-surface-variant">
+        <div class="flex items-start justify-between gap-4">
+            <div>
+                <p class="text-xs text-on-surface-variant uppercase font-bold tracking-wider">Kullanılan Etiket</p>
+                <h3 class="text-2xl font-bold text-on-background mt-1">@Model.UsedTags</h3>
+            </div>
+
+            <div class="w-11 h-11 rounded-xl bg-primary-container text-on-primary-container flex items-center justify-center">
+                <span class="material-symbols-outlined">article</span>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="bg-surface rounded-xl shadow-sm border border-surface-container-high overflow-hidden mb-8">
+
+    <div class="p-6 border-b border-surface-container-high bg-surface-container-low">
+        <form asp-action="Index" asp-controller="AdminTag"
+            method="get" 
+            class="flex flex-col xl:flex-row gap-4 xl:items-center xl:justify-between">
+
+            <div class="flex items-center gap-3 w-full xl:max-w-xl">
+                <div class="relative flex-1">
+                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">
+                        search
+                    </span>
+
+                    <input name="searchText"
+                           value="@Model.SearchText"
+                           class="pl-10 pr-4 py-2.5 bg-surface rounded-full border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary text-sm w-full shadow-sm transition-all"
+                           placeholder="Etiket adı veya slug ara..." />
+
+                    <button type="submit" class="absolute right-2 top-1/2 -translate-y-1/2 bg-primary text-on-primary text-xs px-7 py-2 rounded-full font-bold hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-sm">
+                        Ara
+                    </button>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3 w-full xl:w-auto">
+                <select name="status"
+                        onchange="this.form.submit()"
+                        class="bg-surface rounded-full border border-outline-variant px-5 py-2.5 text-sm focus:border-primary focus:ring-primary shadow-sm">
+                    @if (Model.Status == "Active")
+                    {
+                        <option value="Active" selected>Aktif</option>
+                    }
+                    else
+                    {
+                        <option value="Active">Aktif</option>
+                    }
+
+                    @if (Model.Status == "Deleted")
+                    {
+                        <option value="Deleted" selected>Silinen</option>
+                    }
+                    else
+                    {
+                        <option value="Deleted">Silinen</option>
+                    }
+
+                    @if (Model.Status == "all")
+                    {
+                        <option value="all" selected>Tümü</option>
+                    }
+                    else
+                    {
+                        <option value="all">Tümü</option>
+                    }
+                </select>
+
+                <select name="sortBy"
+                        onchange="this.form.submit()"
+                        class="bg-surface rounded-full border border-outline-variant px-5 py-2.5 text-sm focus:border-primary focus:ring-primary shadow-sm">
+                    <option value="created_desc" selected="@(Model.SortBy == "created_desc")">En yeni</option>
+                    <option value="created_asc" selected="@(Model.SortBy == "created_asc")">En eski</option>
+                    <option value="name_asc" selected="@(Model.SortBy == "name_asc")">Ad A-Z</option>
+                    <option value="name_desc" selected="@(Model.SortBy == "name_desc")">Ad Z-A</option>
+                    <option value="blog_desc" selected="@(Model.SortBy == "blog_desc")">En çok kullanılan tag</option>
+                    <option value="blog_asc" selected="@(Model.SortBy == "blog_asc")">En az kullanılan tag</option>
+                    <option value="updated_desc" selected="@(Model.SortBy == "updated_desc")">Son güncellenen</option>
+                </select>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse min-w-[1000px]">
+            <thead>
+                <tr class="bg-surface-container-low border-b border-surface-container-high">
+                    <th class="px-6 py-4 text-xs text-on-surface-variant uppercase tracking-wider">Id</th>
+                    <th class="px-6 py-4 text-xs text-on-surface-variant uppercase tracking-wider">Etiket</th>
+                    <th class="px-6 py-4 text-xs text-on-surface-variant uppercase tracking-wider">Slug</th>
+                    <th class="px-6 py-4 text-xs text-on-surface-variant uppercase tracking-wider text-center">Blog Sayısı</th>
+                    <th class="px-6 py-4 text-xs text-on-surface-variant uppercase tracking-wider">Oluşturulma</th>
+                    <th class="px-6 py-4 text-xs text-on-surface-variant uppercase tracking-wider">Güncellenme</th>
+                    <th class="px-6 py-4 text-xs text-on-surface-variant uppercase tracking-wider">Durum</th>
+                    <th class="px-6 py-4 text-xs text-on-surface-variant uppercase tracking-wider text-right">İşlemler</th>
+                </tr>
+            </thead>
+
+            <tbody class="divide-y divide-surface-container-high">
+                @if (Model.Tags.Any())
+                {
+                    foreach (var tag in Model.Tags)
+                    {
+                        <tr class="hover:bg-surface-container-lowest transition-colors group @(tag.IsDeleted ? "opacity-60" : "")">
+                            <td class="px-6 py-4 font-bold text-on-surface">
+                                @tag.Id
+                            </td>
+
+                            <td class="px-6 py-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-xl bg-secondary-container/30 text-on-secondary-container flex items-center justify-center">
+                                        <span class="material-symbols-outlined text-[20px]">sell</span>
+                                    </div>
+
+                                    <div>
+                                        <p class="font-bold text-on-surface">#@tag.Name</p>
+                                        <p class="text-xs text-on-surface-variant">Tag</p>
+                                    </div>
+                                </div>
+                            </td>
+
+                            <td class="px-6 py-4 text-on-surface-variant">
+                                @tag.Slug
+                            </td>
+
+                            <td class="px-6 py-4 text-center">
+                                <a asp-controller="AdminBlog"
+                                    asp-action="Index"
+                                    asp-route-tagId="@tag.Id"
+                                   class="inline-flex items-center justify-center min-w-10 px-3 py-1 rounded-full bg-secondary-container/30 text-on-secondary-container border border-secondary-container font-bold text-sm">
+                                    @tag.BlogCount
+                                </a>
+                            </td>
+
+                            <td class="px-6 py-4 text-sm text-on-surface-variant">
+                                @tag.CreatedDate.ToString("dd.MM.yyyy")
+                            </td>
+
+                            <td class="px-6 py-4 text-sm text-on-surface-variant">
+                                @(tag.UpdatedDate.HasValue
+                                                        ? tag.UpdatedDate.Value.ToString("dd.MM.yyyy")
+                                                        : "-")
+                    </td>
+
+                            <td class="px-6 py-4">
+                        @if (tag.IsDeleted)
+                                {
+                                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold border bg-red-100 text-red-800 border-red-200">
+                                        Silindi
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold border bg-green-100 text-green-800 border-green-200">
+                                        Aktif
+                                    </span>
+                                }
+                            </td>
+
+                            <td class="px-6 py-4 text-right">
+                                <div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <a asp-controller="AdminTag"
+                                       asp-action="Edit"
+                                       asp-route-id="@tag.Id"
+                                       class="p-2 text-on-surface-variant hover:text-secondary transition-colors rounded-full hover:bg-surface-container-low"
+                                       title="Düzenle">
+                                        <span class="material-symbols-outlined text-[20px]">edit</span>
+                                    </a>
+
+                                    @if (tag.IsDeleted)
+                                    {
+                                        <form asp-controller="AdminTag" asp-action="Restore" asp-route-id="@tag.Id" method="post">
+                                            @Html.AntiForgeryToken()
+
+                                            <button type="submit"
+                                                    class="p-2 text-on-surface-variant hover:text-secondary transition-colors rounded-full hover:bg-secondary-container"
+                                                    title="Geri Yükle">
+                                                <span class="material-symbols-outlined text-[20px]">settings_backup_restore</span>
+                                            </button>
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        <form asp-controller="AdminTag"
+                                              asp-action="Delete"
+                                              asp-route-id="@tag.Id"
+                                              method="post"
+                                              onsubmit="return confirm('Bu etiketi silmek istiyor musunuz?');">
+                                            @Html.AntiForgeryToken()
+
+                                            <button type="submit"
+                                                    class="p-2 text-on-surface-variant hover:text-error transition-colors rounded-full hover:bg-error-container"
+                                                    title="Sil">
+                                                <span class="material-symbols-outlined text-[20px]">delete</span>
+                                            </button>
+                                        </form>
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="8" class="px-6 py-8 text-center text-on-surface-variant">
+                            Etiket bulunamadı.
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="border-t border-surface-container-high px-6 py-4 flex flex-col md:flex-row md:items-center justify-between gap-4 bg-surface-container-low">
+        <span class="text-sm text-on-surface-variant">
+            @if (Model.TotalItems > 0)
+            {
+                var startItem = ((Model.CurrentPage - 1) * Model.PageSize) + 1;
+                var endItem = Math.Min(Model.CurrentPage * Model.PageSize, Model.TotalItems);
+
+                <span>@startItem - @endItem arası gösteriliyor. Toplam @Model.TotalItems etiket.</span>
+            }
+            else
+            {
+                <span>Gösterilecek etiket yok.</span>
+            }
+        </span>
+
+        @if (Model.TotalPages > 1)
+        {
+            <div class="flex items-center gap-2">
+                @if (Model.HasPreviousPage)
+                {
+                    <a asp-controller="AdminTag"
+                       asp-action="Index"
+                       asp-route-page="@(Model.CurrentPage - 1)"
+                       asp-route-searchText="@Model.SearchText"
+                       asp-route-status="@Model.Status"
+                       asp-route-sortBy="@Model.SortBy"
+                       class="p-2 rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-variant transition-colors">
+                        <span class="material-symbols-outlined text-[20px]">chevron_left</span>
+                    </a>
+                }
+
+                @for (var i = 1; i <= Model.TotalPages; i++)
+                {
+                    if (i == Model.CurrentPage)
+                    {
+                        <span class="w-8 h-8 rounded-lg bg-primary text-on-primary font-bold text-sm flex items-center justify-center">@i</span>
+                    }
+                    else
+                    {
+                        <a asp-controller="AdminTag"
+                           asp-action="Index"
+                           asp-route-page="@i"
+                           asp-route-searchText="@Model.SearchText"
+                           asp-route-status="@Model.Status"
+                           asp-route-sortBy="@Model.SortBy"
+                           class="w-8 h-8 rounded-lg hover:bg-surface-variant text-on-surface font-bold text-sm flex items-center justify-center transition-colors">
+                            @i
+                        </a>
+                    }
+                }
+
+                @if (Model.HasNextPage)
+                {
+                    <a asp-controller="AdminTag"
+                       asp-action="Index"
+                       asp-route-page="@(Model.CurrentPage + 1)"
+                       asp-route-searchText="@Model.SearchText"
+                       asp-route-status="@Model.Status"
+                       asp-route-sortBy="@Model.SortBy"
+                       class="p-2 rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-variant transition-colors">
+                        <span class="material-symbols-outlined text-[20px]">chevron_right</span>
+                    </a>
+                }
+            </div>
+        }
+    </div>
+</div>
