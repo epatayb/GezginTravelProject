@@ -149,6 +149,73 @@ namespace GezginTravel.Controllers.Admin
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpGet("duzenle/{id:int}")]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var tag = await _context.Tags.FindAsync(id);
+
+            if (tag == null)
+            {
+                TempData["ErrorMessage"] = "Etiket bulunamadı.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            var model = new AdminTagEditViewModel
+            {
+                Id = tag.Id,
+                Name = tag.Name,
+                Slug = tag.Slug
+            };
+
+            return View(model);
+        }
+
+        [HttpPost("duzenle/{id:int}")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, AdminTagEditViewModel model)
+        {
+            if (id != model.Id)
+            {
+                TempData["ErrorMessage"] = "Geçersiz etiket isteği.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var tag = await _context.Tags.FindAsync(id);
+
+            if (tag == null)
+            {
+                TempData["ErrorMessage"] = "Etiket bulunamadı.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            var trimmedName = model.Name.Trim();
+            if (tag.Name != trimmedName)
+            { 
+                var newSlug = SlugHelper.GenerateSlug(trimmedName);
+                var slugExists = await _context.Tags.AnyAsync(x => x.Id != id && x.Slug == newSlug);
+
+                if (slugExists)
+                {
+                    ModelState.AddModelError(nameof(model.Name), "Bu etiket adı başka bir etikette kullanılıyor.");
+                    return View(model);
+                }
+
+                tag.Name = trimmedName;
+                tag.Slug = newSlug;
+                tag.UpdatedDate = DateTime.Now;
+            }
+
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Etiket başarıyla güncellendi.";
+            return RedirectToAction(nameof(Index));
+        }
+
         private static IQueryable<Tag> ApplySorting(IQueryable<Tag> query, string? sortBy)
         {
             return sortBy switch
