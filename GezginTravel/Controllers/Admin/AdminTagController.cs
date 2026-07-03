@@ -216,6 +216,54 @@ namespace GezginTravel.Controllers.Admin
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpPost("sil/{id:int}")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var tag = await _context.Tags.FindAsync(id);
+
+            if (tag == null)
+            {
+                TempData["ErrorMessage"] = "Etiket bulunamadı.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            if (tag.IsDeleted)
+            {
+                TempData["ErrorMessage"] = "Bu etiket zaten silinmiş durumda.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            tag.IsDeleted = true; 
+            tag.DeletedDate = DateTime.Now;
+
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Etiket başarıyla silindi.";
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost("geri-yukle/{id:int}")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Restore(int id)
+        {
+            var tag = await _context.Tags.FindAsync(id);
+
+            if (tag == null)
+            {
+                TempData["ErrorMessage"] = "Etiket bulunamadı.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            tag.IsDeleted = false;
+            tag.DeletedDate = null;
+
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Etiket tekrar aktif hale getirildi.";
+            return RedirectToAction(nameof(Index), new { status = "Active" });
+        }
+
         private static IQueryable<Tag> ApplySorting(IQueryable<Tag> query, string? sortBy)
         {
             return sortBy switch
