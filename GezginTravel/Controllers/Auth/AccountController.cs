@@ -1,10 +1,14 @@
 ﻿using GezginTravel.Constants;
 using GezginTravel.DTOs.Auth;
 using GezginTravel.Models.Identity;
+using GezginTravel.Services.Email;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.WebUtilities;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace GezginTravel.Controllers.Auth
 {
@@ -13,13 +17,17 @@ namespace GezginTravel.Controllers.Auth
     {
         private readonly SignInManager<AppUser> _signInManager;
         private readonly UserManager<AppUser> _userManager;
+        private readonly IEmailService _emailService;
+        private readonly IEmailTemplateRenderer _emailTemplateRenderer;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public AccountController(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager, IWebHostEnvironment webHostEnvironment)
+        public AccountController(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager, IWebHostEnvironment webHostEnvironment, IEmailTemplateRenderer emailTemplateRenderer, IEmailService emailService)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _webHostEnvironment = webHostEnvironment;
+            _emailTemplateRenderer = emailTemplateRenderer;
+            _emailService = emailService;
         }
 
         [AllowAnonymous]
@@ -153,17 +161,139 @@ namespace GezginTravel.Controllers.Auth
             return View(model);
         }
 
-        //[HttpGet("sifremi-unuttum")]
-        //public IActionResult ForgotPassword()
-        //{
-        //    return View();
-        //}
+        [HttpGet("sifremi-unuttum")]
+        public IActionResult ForgotPassword()
+        {
+            return View(new ForgotPasswordDto());
+        }
 
-        //[HttpGet("sifremi-unuttum")]
-        //public IActionResult ForgotPassword()
-        //{
-        //    return View();
-        //}
+        [HttpPost("sifremi-unuttum")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordDto model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var email = model.Email.Trim();
+
+            var user = await _userManager.FindByEmailAsync(email);
+
+            if (user == null)
+            {
+                TempData["SuccessMessage"] = "Eğer bu e-posta adresi sistemde kayıtlıysa şifre sıfırlama bağlantısı oluşturulacaktır.";
+                return RedirectToAction(nameof(ForgotPassword));
+            }
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+            var encodedToken = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));
+
+            var resetLink = Url.Action(
+                action: nameof(ResetPassword),
+                controller: "Account",
+                values: new
+                {
+                    email = user.Email,
+                    token = encodedToken
+                },
+                protocol: Request.Scheme
+            );
+
+            if (string.IsNullOrWhiteSpace(resetLink))
+            {
+                TempData["ErrorMessage"] = "Şifre sıfırlama bağlantısı oluşturulamadı.";
+                return RedirectToAction(nameof(ForgotPassword));
+            }
+
+            var htmlBody = await _emailTemplateRenderer.RenderAsync(
+                "PasswordReset",
+                new Dictionary<string, string>
+                {
+                    { "AppName", "GezginTravel" },
+                    { "ResetLink", resetLink },
+                    { "Year", DateTime.Now.Year.ToString()
+                }
+            });
+
+            var plainTextBody = $"Gezgin Travel hesabınız için şifre sıfırlama bağlantısı: {resetLink}";
+
+            await _emailService.SendMailAsync(
+                to: user.Email!,
+                subject: "Gezgin Travel Şifre Sıfırlama",
+                htmlBody: htmlBody,
+                plainTextBody: plainTextBody
+                );
+
+            TempData["SuccessMessage"] = "Eğer bu e-posta adresi sistemde kayıtlıysa şifre sıfırlama bağlantısı gönderilecektir.";
+            return RedirectToAction(nameof(ForgotPassword));
+        }
+
+        [HttpGet("sifremi-sifirla")]
+        public IActionResult ResetPassword(string email, string token)
+        {
+            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(token))
+            {
+                TempData["ErrorMessage"] = "Geçersiz şifre sıfırlama bağlantısı";
+                return RedirectToAction(nameof(ForgotPassword));
+            }
+
+            var model = new ResetPasswordDto
+            {
+                Email = email,
+                Token = token
+            };
+
+            return View(model);
+        }
+
+        [HttpPost("sifremi-sifirla")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ResetPassword(ResetPasswordDto model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var user = await _userManager.FindByEmailAsync(model.Email);
+
+            if (user == null)
+            {
+                TempData["ErrorMessage"] = "Kullanıcı bulunamadı.";
+                return RedirectToAction(nameof(ForgotPassword));
+            }
+
+            string decodedToken;
+
+            try
+            {
+                decodedToken = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(model.Token));
+            }
+            catch
+            {
+                TempData["ErrorMessage"] = "Şifre sıfırlama bağlantısı geçersiz.";
+                return RedirectToAction(nameof(ForgotPassword));
+            }
+
+            var result = await _userManager.ResetPasswordAsync(
+                user,
+                decodedToken,
+                model.Password);
+
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+                return View();
+            }
+
+            TempData["SuccessMessage"] = "Şifreniz başarıyla güncellendi. Yeni şifrenizle giriş yapabilirsiniz.";
+            return RedirectToAction(nameof(Login));
+        }
 
         //[HttpGet]
         //public IActionResult ExternalLogin()
@@ -193,7 +323,7 @@ namespace GezginTravel.Controllers.Auth
             return Redirect("/dashboard/index");
         }
 
-        [HttpPost]
+        [HttpPost("logout")]
         [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
@@ -203,7 +333,6 @@ namespace GezginTravel.Controllers.Auth
         }
 
         [HttpGet("yetkisiz-erisim")]
-        [AllowAnonymous]
         public IActionResult AccessDenied()
         {
             return View();

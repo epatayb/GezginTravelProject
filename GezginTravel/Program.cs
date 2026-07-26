@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using GezginTravel.Models.Identity;
 using GezginTravel.Data.Seed;
 using Microsoft.AspNetCore.Identity;
+using GezginTravel.Services.Email;
+using GezginTravel.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -54,7 +56,14 @@ builder.Services.AddControllersWithViews()
         options.ViewLocationFormats.Add("/Views/Shared/{0}.cshtml");
     });
 
+builder.Services
+    .AddOptions<EmailSettings>()
+    .Bind(builder.Configuration.GetSection(EmailSettings.SectionName))
+    .ValidateDataAnnotations()
+    .ValidateOnStart();
 
+builder.Services.AddScoped<IEmailService, SmtpEmailService>();
+builder.Services.AddScoped<IEmailTemplateRenderer, EmailTemplateRenderer>();
 
 var app = builder.Build();
 
