@@ -2,6 +2,7 @@ using GezginTravel.Data;
 using Microsoft.EntityFrameworkCore;
 using GezginTravel.Models.Identity;
 using GezginTravel.Data.Seed;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +20,8 @@ builder.Services.AddIdentity<AppUser, AppRole>(options =>
 
     options.User.RequireUniqueEmail = true;
 })
-    .AddEntityFrameworkStores<GezginDbContext>();
+    .AddEntityFrameworkStores<GezginDbContext>()
+    .AddDefaultTokenProviders();
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
