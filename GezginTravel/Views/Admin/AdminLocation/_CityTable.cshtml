@@ -1,0 +1,171 @@
+﻿@model GezginTravel.ViewModels.Dashboard.Admin.AdminLocation.AdminLocationIndexViewModel
+
+<div class="bg-surface rounded-xl shadow-sm border border-surface-container-high overflow-hidden">
+
+    <div class="p-6 border-b border-surface-container-high bg-surface-container-low flex items-center justify-between gap-4">
+        <div>
+            <h3 class="text-xl font-bold text-on-background">
+                Şehirler
+            </h3>
+            <p class="text-sm text-on-surface-variant mt-1">
+                Şehirleri bağlı oldukları ülke ve blog sayılarıyla yönet.
+            </p>
+        </div>
+
+        <a asp-controller="AdminLocation"
+           asp-action="CreateCity"
+           class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary text-on-primary font-bold hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-sm whitespace-nowrap">
+            <span class="material-symbols-outlined text-[18px]">add_location_alt</span>
+            Şehir Ekle
+        </a>
+    </div>
+
+    <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse min-w-[900px]">
+            <thead>
+                <tr class="bg-surface-container-low border-b border-surface-container-high">
+                    <th class="px-5 py-4 text-xs text-on-surface-variant uppercase tracking-wider">Id</th>
+                    <th class="px-5 py-4 text-xs text-on-surface-variant uppercase tracking-wider">Şehir</th>
+                    <th class="px-5 py-4 text-xs text-on-surface-variant uppercase tracking-wider">Ülke</th>
+                    <th class="px-5 py-4 text-xs text-on-surface-variant uppercase tracking-wider">Slug</th>
+                    <th class="px-5 py-4 text-xs text-on-surface-variant uppercase tracking-wider text-center">Blog</th>
+                    <th class="px-5 py-4 text-xs text-on-surface-variant uppercase tracking-wider">Oluşturulma</th>
+                    <th class="px-5 py-4 text-xs text-on-surface-variant uppercase tracking-wider">Durum</th>
+                    <th class="px-5 py-4 text-xs text-on-surface-variant uppercase tracking-wider text-right">İşlemler</th>
+                </tr>
+            </thead>
+
+            <tbody class="divide-y divide-surface-container-high">
+                @if (Model.Cities.Any())
+                {
+                    foreach (var city in Model.Cities)
+                    {
+                        <tr class="hover:bg-surface-container-lowest transition-colors @(city.IsDeleted ? "opacity-60" : "")">
+                            <td class="px-5 py-4 font-bold text-on-surface">
+                                @city.Id
+                            </td>
+
+                            <td class="px-5 py-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-xl bg-secondary-container/40 text-on-secondary-container flex items-center justify-center shrink-0">
+                                        <span class="material-symbols-outlined text-[20px]">location_city</span>
+                                    </div>
+
+                                    <div>
+                                        <p class="font-bold text-on-surface">
+                                            @city.Name
+                                        </p>
+                                        <p class="text-xs text-on-surface-variant">
+                                            Şehir
+                                        </p>
+                                    </div>
+                                </div>
+                            </td>
+
+                            <td class="px-5 py-4">
+                                <a asp-controller="AdminLocation"
+                                   asp-action="Index"
+                                   asp-route-countryId="@city.CountryId"
+                                   asp-route-status="@Model.Status"
+                                   asp-route-sortBy="@Model.SortBy"
+                                   asp-route-searchText="@Model.SearchText"
+                                   class="inline-flex items-center gap-1 text-sm font-bold text-primary hover:underline">
+                                    <span class="material-symbols-outlined text-[16px]">public</span>
+                                    @city.CountryName
+                                </a>
+                            </td>
+
+                            <td class="px-5 py-4 text-sm text-on-surface-variant">
+                                @city.Slug
+                            </td>
+
+                            <td class="px-5 py-4 text-center">
+                                <a href="/admin/blogs?cityId=@city.Id"
+                                   class="inline-flex items-center justify-center min-w-10 px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 font-bold text-sm">
+                                    @city.BlogCount
+                                </a>
+                            </td>
+
+                            <td class="px-5 py-4 text-sm text-on-surface-variant">
+                                @city.CreatedDate.ToString("dd.MM.yyyy")
+                            </td>
+
+                            <td class="px-5 py-4">
+                                @if (city.IsDeleted)
+                                {
+                                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold border bg-red-100 text-red-800 border-red-200">
+                                        Silindi
+                                    </span>
+                                }
+                                else if (city.IsCountryDeleted)
+                                {
+                                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold border bg-yellow-100 text-yellow-800 border-yellow-200">
+                                        Ülkesi pasif
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold border bg-green-100 text-green-800 border-green-200">
+                                        Aktif
+                                    </span>
+                                }
+                            </td>
+
+                            <td class="px-5 py-4 text-right">
+                                <div class="flex items-center justify-end gap-2">
+                                    <a asp-controller="AdminLocation"
+                                       asp-action="EditCity"
+                                       asp-route-id="@city.Id"
+                                       class="p-2 text-on-surface-variant hover:text-secondary transition-colors rounded-full hover:bg-surface-container-low"
+                                       title="Düzenle">
+                                        <span class="material-symbols-outlined text-[20px]">edit</span>
+                                    </a>
+
+                                    @if (city.IsDeleted)
+                                    {
+                                        <form asp-controller="AdminLocation"
+                                              asp-action="RestoreCity"
+                                              asp-route-id="@city.Id"
+                                              method="post">
+                                            @Html.AntiForgeryToken()
+
+                                            <button type="submit"
+                                                    class="p-2 text-on-surface-variant hover:text-secondary transition-colors rounded-full hover:bg-secondary-container"
+                                                    title="Geri Yükle">
+                                                <span class="material-symbols-outlined text-[20px]">settings_backup_restore</span>
+                                            </button>
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        <form asp-controller="AdminLocation"
+                                              asp-action="DeleteCity"
+                                              asp-route-id="@city.Id"
+                                              method="post"
+                                              onsubmit="return confirm('Bu şehri silmek istiyor musunuz? Aktif blog varsa silinemez.');">
+                                            @Html.AntiForgeryToken()
+
+                                            <button type="submit"
+                                                    class="p-2 text-on-surface-variant hover:text-error transition-colors rounded-full hover:bg-error-container"
+                                                    title="Sil">
+                                                <span class="material-symbols-outlined text-[20px]">delete</span>
+                                            </button>
+                                        </form>
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="8" class="px-5 py-8 text-center text-on-surface-variant">
+                            Şehir bulunamadı.
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

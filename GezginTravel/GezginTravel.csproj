@@ -20,7 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Admin\AdminLocation\" />
     <Folder Include="Views\Admin\AdminComment\" />
     <Folder Include="Views\Author\AuthorBlog\" />
     <Folder Include="Views\Author\Shared\" />
