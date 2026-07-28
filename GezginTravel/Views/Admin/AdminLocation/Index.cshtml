@@ -1,0 +1,234 @@
+﻿@model GezginTravel.ViewModels.Dashboard.Admin.AdminLocation.AdminLocationIndexViewModel
+
+@{
+    ViewData["Title"] = "Lokasyon Yönetimi";
+    Layout = "~/Views/Admin/Shared/_AdminLayout.cshtml";
+}
+
+<div class="flex flex-col xl:flex-row xl:items-center justify-between mb-8 gap-4">
+    <div>
+        <h2 class="font-montserrat text-3xl font-bold text-on-background">
+            Lokasyon Yönetimi
+        </h2>
+
+        <p class="text-on-surface-variant mt-1">
+            Ülke ve şehir bilgilerini yönet, blog ilişkilerini takip et.
+        </p>
+    </div>
+</div>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="mb-4 rounded-lg bg-green-100 text-green-800 px-4 py-3">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="mb-4 rounded-lg bg-red-100 text-red-800 px-4 py-3">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
+
+    <div class="bg-surface p-5 rounded-xl shadow-sm border border-surface-variant hover:shadow-md transition-shadow">
+        <div class="flex items-start justify-between gap-4">
+            <div>
+                <p class="text-xs text-on-surface-variant uppercase font-bold tracking-wider">
+                    Toplam Ülke
+                </p>
+
+                <h3 class="text-2xl font-bold text-on-background mt-1">
+                    @Model.TotalCountries
+                </h3>
+
+                <p class="text-xs text-on-surface-variant mt-1">
+                    Silinen: @Model.DeletedCountries
+                </p>
+            </div>
+
+            <div class="w-11 h-11 rounded-xl bg-secondary-container text-on-secondary-container flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-[24px]">public</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-surface p-5 rounded-xl shadow-sm border border-surface-variant hover:shadow-md transition-shadow">
+        <div class="flex items-start justify-between gap-4">
+            <div class="min-w-0">
+                <p class="text-xs text-on-surface-variant uppercase font-bold tracking-wider">
+                    En Çok Şehir Olan Ülke
+                </p>
+
+                <h3 class="text-2xl font-bold text-on-background mt-1 truncate">
+                    @Model.MostCitiesCountryName
+                </h3>
+
+                <p class="text-xs text-on-surface-variant mt-1">
+                    @Model.MostCitiesCountryCount aktif şehir
+                </p>
+            </div>
+
+            <div class="w-11 h-11 rounded-xl bg-primary-fixed text-on-primary-fixed flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-[24px]">travel_explore</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="bg-surface p-5 rounded-xl shadow-sm border border-surface-variant hover:shadow-md transition-shadow">
+        <div class="flex items-start justify-between gap-4">
+            <div>
+                <p class="text-xs text-on-surface-variant uppercase font-bold tracking-wider">
+                    Toplam Şehir
+                </p>
+
+                <h3 class="text-2xl font-bold text-on-background mt-1">
+                    @Model.TotalCities
+                </h3>
+
+                <p class="text-xs text-on-surface-variant mt-1">
+                    Silinen: @Model.DeletedCities
+                </p>
+            </div>
+
+            <div class="w-11 h-11 rounded-xl bg-surface-variant text-on-surface-variant flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-[24px]">location_city</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-surface p-5 rounded-xl shadow-sm border border-surface-variant hover:shadow-md transition-shadow">
+        <div class="flex items-start justify-between gap-4">
+            <div>
+                <p class="text-xs text-on-surface-variant uppercase font-bold tracking-wider">
+                    Blog Olan Şehir
+                </p>
+
+                <h3 class="text-2xl font-bold text-primary mt-1">
+                    @Model.UsedCities
+                </h3>
+
+                <p class="text-xs text-on-surface-variant mt-1">
+                    İçerik kullanılan şehir
+                </p>
+            </div>
+
+            <div class="w-11 h-11 rounded-xl bg-primary-container text-on-primary-container flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-[24px]">map</span>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="flex flex-wrap gap-2 -mt-3 mb-8">
+
+    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface border border-outline-variant text-on-surface-variant text-xs">
+        <span class="material-symbols-outlined text-[17px] text-primary">
+            location_city
+        </span>
+
+        En Çok Blog Olan Şehir:
+        <strong class="text-on-surface">
+            @Model.TopBlogCityName (@Model.TopBlogCityCount)
+        </strong>
+    </div>
+
+    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface border border-outline-variant text-on-surface-variant text-xs">
+        <span class="material-symbols-outlined text-[17px] text-primary">
+            public
+        </span>
+
+        En Çok Blog Olan Ülke:
+        <strong class="text-on-surface">
+            @Model.TopBlogCountryName (@Model.TopBlogCountryCount)
+        </strong>
+    </div>
+
+</div>
+
+<div class="bg-surface rounded-xl shadow-sm border border-surface-container-high overflow-hidden mb-8">
+    <div class="p-6 border-b border-surface-container-high bg-surface-container-low">
+        <form asp-controller="AdminLocation" asp-action="Index"
+              method="get"
+              class="flex flex-col 2xl:flex-row gap-4 2xl:items-center 2xl:justify-between">
+
+            <div class="flex items-center gap-3 w-full 2xl:max-w-xl">
+                <div class="relative flex-1">
+                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">
+                        search
+                    </span>
+
+                    <input name="searchText"
+                           value="@Model.SearchText"
+                           class="pl-10 pr-4 py-2.5 bg-surface rounded-full border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary text-sm w-full shadow-sm transition-all"
+                           placeholder="Ülke, şehir veya slug ara..." />
+
+                    <button type="submit" class="absolute right-2 top-1/2 -translate-y-1/2 bg-primary text-on-primary text-xs px-7 py-2 rounded-full font-bold hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-sm">
+                        Ara
+                    </button>
+                </div>
+
+                <a asp-controller="AdminLocation"
+                   asp-action="Index"
+                   class="hidden md:inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-surface border border-outline-variant text-on-surface-variant hover:bg-surface-variant transition-colors font-bold whitespace-nowrap">
+                    <span class="material-symbols-outlined text-[18px]">restart_alt</span>
+                    Temizle
+                </a>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3 w-full 2xl:w-auto">
+
+                <select name="countryId"
+                        onchange="this.form.submit()"
+                        class="bg-surface rounded-full border border-outline-variant px-5 py-2.5 text-sm focus:border-primary focus:ring-primary shadow-sm min-w-[190px]">
+                    <option value="" selected="@(Model.SelectedCountryId == null)">
+                        Tüm ülkeler
+                    </option>
+
+                    @foreach (var country in Model.CountryOptions)
+                    {
+                        <option value="@country.Value" selected="@country.Selected">
+                            @country.Text
+                        </option>
+                    }
+                </select>
+
+                <select name="status"
+                        onchange="this.form.submit()"
+                        class="bg-surface rounded-full border border-outline-variant px-5 py-2.5 text-sm focus:border-primary focus:ring-primary shadow-sm min-w-[150px]">
+                    <option value="active" selected="@(Model.Status == "active")">Aktif</option>
+                    <option value="deleted" selected="@(Model.Status == "deleted")">Silinen</option>
+                    <option value="all" selected="@(Model.Status == "all")">Tümü</option>
+                </select>
+
+                <div class="flex items-center justify-end w-full lg:w-auto">
+                    <div class="relative w-full lg:w-[200px]">
+                        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">
+                            sort
+                        </span>
+                        <select name="sortBy"
+                                onchange="this.form.submit()"
+                                class="w-full bg-surface rounded-full border border-outline-variant pl-11 pr-5 py-2.5 text-sm focus:border-primary focus:ring-primary shadow-sm">
+                            <option value="created_desc" selected="@(Model.SortBy == "created_desc")">En yeni eklenen</option>
+                            <option value="created_asc" selected="@(Model.SortBy == "created_asc")">En eski eklenen</option>
+                            <option value="name_asc" selected="@(Model.SortBy == "name_asc")">Ad [A-Z]</option>
+                            <option value="name_desc" selected="@(Model.SortBy == "name_desc")">Ad [Z-A]</option>
+                            <option value="blog_desc" selected="@(Model.SortBy == "blog_desc")">En çok blog</option>
+                            <option value="blog_asc" selected="@(Model.SortBy == "blog_asc")">En az blog</option>
+                            <option value="updated_desc" selected="@(Model.SortBy == "updated_desc")">Son güncellenen</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="space-y-8">
+    @await Html.PartialAsync("~/Views/Admin/AdminLocation/_CountryTable.cshtml", Model)
+
+    @await Html.PartialAsync("~/Views/Admin/AdminLocation/_CityTable.cshtml", Model)
+</div>
