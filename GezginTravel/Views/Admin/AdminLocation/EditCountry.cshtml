@@ -1,0 +1,101 @@
+﻿@model GezginTravel.ViewModels.Dashboard.Admin.AdminLocation.AdminCountryEditViewModel
+
+@{
+    ViewData["Title"] = "Ülke Düzenle";
+    Layout = "~/Views/Admin/Shared/_AdminLayout.cshtml";
+}
+
+<div class="mb-8">
+    <a asp-controller="AdminLocation"
+       asp-action="Index"
+       class="inline-flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors mb-4">
+        <span class="material-symbols-outlined text-[20px]">arrow_back</span>
+        Lokasyon yönetimine dön
+    </a>
+
+    <div class="flex items-center gap-4">
+        <div class="w-14 h-14 rounded-2xl bg-primary-fixed text-on-primary-fixed flex items-center justify-center">
+            <span class="material-symbols-outlined text-[30px]">edit_location_alt</span>
+        </div>
+
+        <div>
+            <h2 class="font-montserrat text-3xl font-bold text-on-background">
+                Ülke Düzenle
+            </h2>
+
+            <p class="text-on-surface-variant mt-1">
+                Ülke adını güncelle. Slug otomatik yeniden oluşturulur.
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="bg-surface rounded-xl shadow-sm border border-surface-variant p-6 max-w-2xl">
+    <form asp-controller="AdminLocation"
+          asp-action="EditCountry"
+          asp-route-id="@Model.Id"
+          method="post"
+          class="space-y-5 js-confirm-form"
+          data-confirm-title="Ülke bilgileri güncellensin mi?"
+          data-confirm-text="Ülke adı değişirse slug bilgisi de otomatik güncellenir."
+          data-confirm-icon="question"
+          data-confirm-button="Evet, güncelle"
+          data-cancel-button="Vazgeç">
+
+        @Html.AntiForgeryToken()
+
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="Slug" />
+
+        <div asp-validation-summary="ModelOnly" class="text-error text-sm"></div>
+
+        <div>
+            <label asp-for="Name" class="block text-sm font-bold text-on-surface mb-2">
+                Ülke Adı
+            </label>
+
+            <input asp-for="Name"
+                   class="w-full rounded-lg border border-outline-variant bg-surface px-4 py-3 focus:border-primary focus:ring-primary" />
+
+            <span asp-validation-for="Name" class="text-error text-sm"></span>
+        </div>
+
+        <div>
+            <label class="block text-sm font-bold text-on-surface mb-2">
+                Mevcut Slug
+            </label>
+
+            <div class="relative">
+                <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">
+                    link
+                </span>
+
+                <input value="@Model.Slug"
+                       disabled
+                       class="w-full rounded-lg border border-outline-variant bg-surface-container px-11 py-3 text-on-surface-variant" />
+            </div>
+
+            <p class="text-xs text-on-surface-variant mt-2">
+                Bu alan manuel düzenlenmez. Ülke adına göre otomatik oluşturulur.
+            </p>
+        </div>
+
+        <div class="flex items-center justify-end gap-3 pt-2">
+            <a asp-controller="AdminLocation"
+               asp-action="Index"
+               class="px-5 py-2.5 rounded-full border border-outline-variant text-on-surface-variant font-bold hover:bg-surface-variant transition-colors">
+                Vazgeç
+            </a>
+
+            <button type="submit"
+                    class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-primary text-on-primary font-bold hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-sm">
+                <span class="material-symbols-outlined text-[18px]">update</span>
+                Güncelle
+            </button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
