@@ -1,0 +1,106 @@
+﻿@model GezginTravel.ViewModels.Dashboard.Admin.AdminLocation.AdminCityCreateViewModel
+
+@{
+    ViewData["Title"] = "Şehir Ekle";
+    Layout = "~/Views/Admin/Shared/_AdminLayout.cshtml";
+}
+
+<div class="mb-8">
+    <a asp-controller="AdminLocation"
+       asp-action="Index"
+       class="inline-flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors mb-4">
+        <span class="material-symbols-outlined text-[20px]">arrow_back</span>
+        Lokasyon yönetimine dön
+    </a>
+
+    <div class="flex items-center gap-4">
+        <div class="w-14 h-14 rounded-2xl bg-primary-container text-on-primary-container flex items-center justify-center">
+            <span class="material-symbols-outlined text-[30px]">location_city</span>
+        </div>
+
+        <div>
+            <h2 class="font-montserrat text-3xl font-bold text-on-background">
+                Şehir Ekle
+            </h2>
+
+            <p class="text-on-surface-variant mt-1">
+                Seçilen ülkeye bağlı yeni bir şehir oluştur.
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="bg-surface rounded-xl shadow-sm border border-surface-variant p-6 max-w-2xl">
+    <form asp-controller="AdminLocation"
+          asp-action="CreateCity"
+          method="post"
+          class="space-y-5">
+
+        @Html.AntiForgeryToken()
+
+        <div asp-validation-summary="ModelOnly" class="text-error text-sm"></div>
+
+        <div>
+            <label asp-for="CountryId" class="block text-sm font-bold text-on-surface mb-2">
+                Ülke
+            </label>
+
+            <select asp-for="CountryId"
+                    asp-items="Model.CountryOptions"
+                    class="w-full rounded-lg border border-outline-variant bg-surface px-4 py-3 focus:border-primary focus:ring-primary">
+                <option value="">Ülke seçiniz</option>
+            </select>
+
+            <span asp-validation-for="CountryId" class="text-error text-sm"></span>
+
+            <p class="text-xs text-on-surface-variant mt-2">
+                Şehir, seçtiğin ülkeye bağlı olarak kaydedilir.
+            </p>
+        </div>
+
+        <div>
+            <label asp-for="Name" class="block text-sm font-bold text-on-surface mb-2">
+                Şehir Adı
+            </label>
+
+            <input asp-for="Name"
+                   class="w-full rounded-lg border border-outline-variant bg-surface px-4 py-3 focus:border-primary focus:ring-primary"
+                   placeholder="Örn: İstanbul" />
+
+            <span asp-validation-for="Name" class="text-error text-sm"></span>
+
+            <p class="text-xs text-on-surface-variant mt-2">
+                Aynı ülke içinde aynı slug’a sahip şehir oluşturulamaz.
+            </p>
+        </div>
+
+        <div class="rounded-xl bg-surface-container-low border border-surface-container-high p-4">
+            <div class="flex items-start gap-3">
+                <span class="material-symbols-outlined text-primary text-[22px]">tips_and_updates</span>
+
+                <p class="text-sm text-on-surface-variant leading-6">
+                    Şehirler blog filtreleme, rota sayfaları ve lokasyon bazlı istatistikler için kullanılır.
+                    Bu yüzden ülke seçimini doğru yapman önemli.
+                </p>
+            </div>
+        </div>
+
+        <div class="flex items-center justify-end gap-3 pt-2">
+            <a asp-controller="AdminLocation"
+               asp-action="Index"
+               class="px-5 py-2.5 rounded-full border border-outline-variant text-on-surface-variant font-bold hover:bg-surface-variant transition-colors">
+                Vazgeç
+            </a>
+
+            <button type="submit"
+                    class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-primary text-on-primary font-bold hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-sm">
+                <span class="material-symbols-outlined text-[18px]">check</span>
+                Kaydet
+            </button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
