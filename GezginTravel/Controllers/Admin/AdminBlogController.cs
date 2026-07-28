@@ -26,6 +26,7 @@ namespace GezginTravel.Controllers.Admin
         public async Task<IActionResult> Index(
             string? searchText,
             int? authorId,
+            int? countryId,
             int? cityId,
             int? categoryId,
             int? tagId,
@@ -62,6 +63,11 @@ namespace GezginTravel.Controllers.Admin
             if (authorId.HasValue)
             {
                 query = query.Where(x => x.AuthorId == authorId.Value);
+            }
+
+            if (countryId.HasValue)
+            {
+                query = query.Where(x => x.CountryId == countryId.Value);
             }
 
             if (cityId.HasValue)
@@ -164,6 +170,7 @@ namespace GezginTravel.Controllers.Admin
             {
                 SearchText = searchText,
                 SelectedAuthorId = authorId,
+                SelectedCountryId = countryId,
                 SelectedCityId = cityId,
                 SelectedCategoryId = categoryId,
                 SelectedTagId = tagId,
@@ -171,6 +178,7 @@ namespace GezginTravel.Controllers.Admin
                 SelectedSortBy = sortBy,
 
                 AuthorOptions = await GetAuthorOptionsAsync(authorId),
+                CountryOptions = await GetCountryOptionsAsync(countryId),
                 CityOptions = await GetCityOptionsAsync(cityId),
                 CategoryOptions = await GetCategoryOptionsAsync(categoryId),
                 StatusOptions = GetStatusOptions(status),
@@ -419,6 +427,20 @@ namespace GezginTravel.Controllers.Admin
                     Value = x.Id.ToString(),
                     Text = x.FirstName + " " + x.LastName,
                     Selected = selectedAuthorId == x.Id
+                })
+                .ToListAsync();
+        }
+
+        private async Task<List<SelectListItem>> GetCountryOptionsAsync(int? selectedCountryId)
+        {
+            return await _context.Countries
+                .Where(x => !x.IsDeleted)
+                .OrderBy(x => x.Name)
+                .Select(x => new SelectListItem
+                {
+                    Value = x.Id.ToString(),
+                    Text = x.Name,
+                    Selected = selectedCountryId.HasValue && x.Id == selectedCountryId.Value
                 })
                 .ToListAsync();
         }

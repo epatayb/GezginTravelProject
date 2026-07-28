@@ -138,6 +138,7 @@
         <form method="get" asp-action="Index" asp-controller="AdminBlog" class="flex flex-col lg:flex-row gap-4 lg:items-center lg:justify-between">
 
             <input type="hidden" name="authorId" value="@Model.SelectedAuthorId" />
+            <input type="hidden" name="countryId" value="@Model.SelectedCountryId" />
             <input type="hidden" name="cityId" value="@Model.SelectedCityId" />
             <input type="hidden" name="categoryId" value="@Model.SelectedCategoryId" />
             <input type="hidden" name="tagId" value="@Model.SelectedTagId" />
@@ -384,6 +385,7 @@
                        asp-route-page="@(Model.CurrentPage - 1)"
                        asp-route-searchText="@Model.SearchText"
                        asp-route-authorId="@Model.SelectedAuthorId"
+                       asp-route-countryId="@Model.SelectedCountryId"
                        asp-route-cityId="@Model.SelectedCityId"
                        asp-route-categoryId="@Model.SelectedCategoryId"
                        asp-route-tagId="@Model.SelectedTagId"
@@ -415,6 +417,7 @@
                            asp-route-page="@i"
                            asp-route-searchText="@Model.SearchText"
                            asp-route-authorId="@Model.SelectedAuthorId"
+                           asp-route-countryId="@Model.SelectedCountryId"
                            asp-route-cityId="@Model.SelectedCityId"
                            asp-route-categoryId="@Model.SelectedCategoryId"
                            asp-route-tagId="@Model.SelectedTagId"
@@ -433,6 +436,7 @@
                        asp-route-page="@(Model.CurrentPage + 1)"
                        asp-route-searchText="@Model.SearchText"
                        asp-route-authorId="@Model.SelectedAuthorId"
+                       asp-route-countryId="@Model.SelectedCountryId"
                        asp-route-cityId="@Model.SelectedCityId"
                        asp-route-categoryId="@Model.SelectedCategoryId"
                        asp-route-tagId="@Model.SelectedTagId"

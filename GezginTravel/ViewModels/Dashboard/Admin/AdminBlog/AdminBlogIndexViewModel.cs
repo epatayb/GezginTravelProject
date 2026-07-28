@@ -7,6 +7,7 @@ namespace GezginTravel.ViewModels.Dashboard.Admin.AdminBlog
         public string? SearchText { get; set; }
 
         public int? SelectedAuthorId { get; set; }
+        public int? SelectedCountryId { get; set; }
         public int? SelectedCityId { get; set; }
         public int? SelectedCategoryId { get; set; }
         public int? SelectedTagId { get; set; }
@@ -27,6 +28,7 @@ namespace GezginTravel.ViewModels.Dashboard.Admin.AdminBlog
         public bool HasNextPage => CurrentPage < TotalPages;
 
         public List<SelectListItem> AuthorOptions { get; internal set; } = new();
+        public List<SelectListItem> CountryOptions { get; internal set; } = new();
         public List<SelectListItem> CityOptions { get; internal set; } = new();
         public List<SelectListItem> CategoryOptions { get; internal set; } = new();
         public List<SelectListItem> StatusOptions { get; internal set; } = new();
