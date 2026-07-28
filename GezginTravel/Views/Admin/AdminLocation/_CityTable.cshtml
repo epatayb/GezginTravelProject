@@ -29,7 +29,7 @@
                     <th class="px-5 py-4 text-xs text-on-surface-variant uppercase tracking-wider">Ülke</th>
                     <th class="px-5 py-4 text-xs text-on-surface-variant uppercase tracking-wider">Slug</th>
                     <th class="px-5 py-4 text-xs text-on-surface-variant uppercase tracking-wider text-center">Blog</th>
-                    <th class="px-5 py-4 text-xs text-on-surface-variant uppercase tracking-wider">Oluşturulma</th>
+                    <th class="px-5 py-4 text-xs text-on-surface-variant uppercase tracking-wider">Oluşturulma Tarihi</th>
                     <th class="px-5 py-4 text-xs text-on-surface-variant uppercase tracking-wider">Durum</th>
                     <th class="px-5 py-4 text-xs text-on-surface-variant uppercase tracking-wider text-right">İşlemler</th>
                 </tr>
@@ -80,7 +80,9 @@
                             </td>
 
                             <td class="px-5 py-4 text-center">
-                                <a href="/admin/blogs?cityId=@city.Id"
+                                <a asp-action="Index"
+                                    asp-controller="AdminBlog"
+                                    asp-route-cityId="@city.Id"
                                    class="inline-flex items-center justify-center min-w-10 px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 font-bold text-sm">
                                     @city.BlogCount
                                 </a>
@@ -126,7 +128,13 @@
                                         <form asp-controller="AdminLocation"
                                               asp-action="RestoreCity"
                                               asp-route-id="@city.Id"
-                                              method="post">
+                                              method="post" 
+                                              class="js-confirm-form"
+                                              data-confirm-title="Şehri geri yüklemek istiyor musunuz?"
+                                              data-confirm-text="Şehir tekrar aktif hale getirilecektir."
+                                              data-confirm-icon="question"
+                                              data-confirm-button="Evet, geri yükle"
+                                              data-cancel-button="Vazgeç">
                                             @Html.AntiForgeryToken()
 
                                             <button type="submit"
@@ -142,7 +150,12 @@
                                               asp-action="DeleteCity"
                                               asp-route-id="@city.Id"
                                               method="post"
-                                              onsubmit="return confirm('Bu şehri silmek istiyor musunuz? Aktif blog varsa silinemez.');">
+                                              class="js-confirm-form"
+                                              data-confirm-title="Şehri silmek istiyor musunuz?"
+                                              data-confirm-text="Bu şehre bağlı aktif blog varsa işlem yapılmayacaktır."
+                                              data-confirm-icon="warning"
+                                              data-confirm-button="Evet, sil"
+                                              data-cancel-button="Vazgeç">
                                             @Html.AntiForgeryToken()
 
                                             <button type="submit"

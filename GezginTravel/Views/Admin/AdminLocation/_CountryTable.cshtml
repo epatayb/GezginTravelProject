@@ -29,7 +29,7 @@
                     <th class="px-5 py-4 text-xs text-on-surface-variant uppercase tracking-wider">Slug</th>
                     <th class="px-5 py-4 text-xs text-on-surface-variant uppercase tracking-wider text-center">Şehir</th>
                     <th class="px-5 py-4 text-xs text-on-surface-variant uppercase tracking-wider text-center">Blog</th>
-                    <th class="px-5 py-4 text-xs text-on-surface-variant uppercase tracking-wider">Oluşturulma</th>
+                    <th class="px-5 py-4 text-xs text-on-surface-variant uppercase tracking-wider">Oluşturulma Tarihi</th>
                     <th class="px-5 py-4 text-xs text-on-surface-variant uppercase tracking-wider">Durum</th>
                     <th class="px-5 py-4 text-xs text-on-surface-variant uppercase tracking-wider text-right">İşlemler</th>
                 </tr>
@@ -79,10 +79,13 @@
                             </td>
 
                             <td class="px-5 py-4 text-center">
-                                <span class="inline-flex items-center justify-center min-w-10 px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 font-bold text-sm">
+                                <a asp-controller="AdminBlog"
+                                   asp-action="Index"
+                                   asp-route-countryId="@country.Id"
+                                   class="inline-flex items-center justify-center min-w-10 px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 font-bold text-sm hover:bg-primary hover:text-on-primary transition-colors">
                                     @country.BlogCount
-                                </span>
-                            </td>
+                                </a>
+                            </td>                           
 
                             <td class="px-5 py-4 text-sm text-on-surface-variant">
                                 @country.CreatedDate.ToString("dd.MM.yyyy")
@@ -118,7 +121,13 @@
                                         <form asp-controller="AdminLocation"
                                               asp-action="RestoreCountry"
                                               asp-route-id="@country.Id"
-                                              method="post">
+                                              method="post"
+                                              class="js-confirm-form"
+                                              data-confirm-title="Ülkeyi geri yüklemek istiyor musunuz?"
+                                              data-confirm-text="Ülke tekrar aktif hale getirilecektir."
+                                              data-confirm-icon="question"
+                                              data-confirm-button="Evet, geri yükle"
+                                              data-cancel-button="Vazgeç">                                            
                                             @Html.AntiForgeryToken()
 
                                             <button type="submit"
@@ -134,7 +143,12 @@
                                               asp-action="DeleteCountry"
                                               asp-route-id="@country.Id"
                                               method="post"
-                                              onsubmit="return confirm('Bu ülkeyi silmek istiyor musunuz? Aktif şehir veya blog varsa silinemez.');">
+                                              class="js-confirm-form"
+                                              data-confirm-title="Ülkeyi silmek istiyor musunuz?"
+                                              data-confirm-text="Bu ülkeye bağlı aktif şehir veya blog varsa işlem yapılmayacaktır."
+                                              data-confirm-icon="warning"
+                                              data-confirm-button="Evet, sil"
+                                              data-cancel-button="Vazgeç">
                                             @Html.AntiForgeryToken()
 
                                             <button type="submit"

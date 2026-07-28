@@ -17,20 +17,6 @@
     </div>
 </div>
 
-@if (TempData["SuccessMessage"] != null)
-{
-    <div class="mb-4 rounded-lg bg-green-100 text-green-800 px-4 py-3">
-        @TempData["SuccessMessage"]
-    </div>
-}
-
-@if (TempData["ErrorMessage"] != null)
-{
-    <div class="mb-4 rounded-lg bg-red-100 text-red-800 px-4 py-3">
-        @TempData["ErrorMessage"]
-    </div>
-}
-
 <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
 
     <div class="bg-surface p-5 rounded-xl shadow-sm border border-surface-variant hover:shadow-md transition-shadow">

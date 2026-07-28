@@ -164,7 +164,32 @@
         </main>
     </div>
 
+
+    
     <script src="~/js/admin-sidebar.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/js/admin-alerts.js" asp-append-version="true"></script>
+
+    @{
+        var successMessage = TempData["SuccessMessage"] as string;
+        var errorMessage = TempData["ErrorMessage"] as string;
+    }
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const successMessage = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(TempData["SuccessMessage"]));
+            const errorMessage = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(TempData["ErrorMessage"]));
+
+            if (successMessage) {
+                AdminAlerts.toast("success", successMessage);
+            }
+
+            if (errorMessage) {
+                AdminAlerts.toast("error", errorMessage);
+            }
+        });
+    </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 
 </body>
