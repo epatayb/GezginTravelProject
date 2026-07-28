@@ -94,6 +94,18 @@ namespace GezginTravel.Data
                 .Property(x => x.TrendScore)
                 .HasColumnType("decimal(18,2)");
 
+            modelBuilder.Entity<Blog>()
+                .HasOne(x => x.Country)
+                .WithMany(x => x.Blogs)
+                .HasForeignKey(x => x.CountryId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Blog>()
+                .HasOne(x => x.City)
+                .WithMany(x => x.Blogs)
+                .HasForeignKey(x => x.CityId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             modelBuilder.Entity<BlogComment>()
                 .HasOne(x => x.Blog)
                 .WithMany(x => x.Comments)
